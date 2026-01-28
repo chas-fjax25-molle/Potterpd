@@ -8,7 +8,7 @@
         "build": "vite build",
         "preview": "vite preview",
         "validate": "node validate.js",
-        "test": "vitest"
+        "test": "vitest run"
     },
     "devDependencies": {
         "@eslint/css": "^0.14.1",
