@@ -30,8 +30,47 @@
         <meta property="og:image" content="/icons/icon-512x512.png" />
     </head>
 
-    <body>
-        <div id="app"></div>
-        <script type="module" src="/src/main.js"></script>
-    </body>
+<head>
+    <meta charset="UTF-8" />
+    <link rel="icon" type="image/svg+xml" href="/vite.svg" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Potterpd</title>
+</head>
+
+<body>
+    <header>
+        <h1>Potter Pedia</h1>
+        <p class="subtitle">Your magical wiki of Wizardry</p>
+    </header>
+    
+    <nav class="site-nav">
+        <h2>Categories</h2>
+        <ul>
+            <li><a href="#">Books</a></li>
+            <li><a href="#">Characters</a></li>
+            <li><a href="#">Spells</a></li>
+            <li><a href="#">Movies</a></li>
+            <li><a href="#">Potions</a></li>
+        </ul>
+    </nav>
+
+    <section class="search-bar">
+        <input type="text" placeholder="Search..." />
+        <button type="submit">Search</button>
+    </section>
+
+    <footer>
+        <p>&copy; Potter Pedia 2026</p>
+        <p>
+            <strong>Disclaimer:</strong> This is an unofficial fan-made website 
+            and is not affiliated with, endorsed by, or connected to Warner 
+            Bros., J.K. Rowling, or the official Wizarding World brand. 
+            All Harry Potter characters, names, and related indicia are trademarks of and © Warner Bros. 
+            Entertainment Inc. Harry Potter Publishing Rights © J.K. Rowling.
+        </p>
+    </footer>
+
+    <script type="module" src="/src/main.js"></script>
+</body>
+
 </html>
