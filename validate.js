@@ -30,6 +30,10 @@ const checks = [
         description: "Running ESLint",
     },
     {
+        command: "npm run test",
+        description: "Running unit tests",
+    },
+    {
         command: "npm run build",
         description: "Building with Vite",
     },
