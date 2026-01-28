@@ -12,16 +12,15 @@ import process from "process";
 
 /**
  * List of validation checks to run.
- * These should mirror the checks in the GitHub Actions workflow.
- * The checks will run in the order they are defined here.
+ * These mirror the checks in .github/workflows/test.yml
+ *
+ * Note: npm ci is omitted here since local development assumes dependencies
+ * are already installed. If commands fail due to missing dependencies,
+ * run 'npm install' manually.
  *
  * @type {ValidationCheck[]}
  */
 const checks = [
-    {
-        command: "npm ci",
-        description: "Installing dependencies",
-    },
     {
         command: "npx prettier --list-different '**/*.{js,json,css,md,html}'",
         description: "Checking Prettier formatting",
