@@ -93,7 +93,7 @@ function runCommand(check) {
 /**
  * Runs the full validation process.
  */
-async function runValidation() {
+function runValidation() {
     log("\nStarting validation checks...", colors.blue);
     log("This runs the same checks as the GitHub Actions workflow\n", colors.yellow);
 
