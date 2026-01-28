@@ -23,7 +23,7 @@ const checks = [
         description: "Installing dependencies",
     },
     {
-        command: "npx prettier --check '**/*.{js,json,css,md,html}'",
+        command: "npx prettier --list-different '**/*.{js,json,css,md,html}'",
         description: "Checking Prettier formatting",
     },
     {
@@ -94,21 +94,21 @@ async function runValidation() {
     log("\nStarting validation checks...", colors.blue);
     log("This runs the same checks as the GitHub Actions workflow\n", colors.yellow);
 
-    const results = [];
-
     for (const check of checks) {
         const passed = runCommand(check);
-        results.push({ ...check, passed });
 
         if (!passed) {
             log(`\n❌ Validation failed at: ${check.description}`, colors.red);
-            log("Fix the errors above and try again.\n", colors.yellow);
+            if (check.description === "Checking Prettier formatting") {
+                log("To fix: npx prettier --write '**/*.{js,json,css,md,html}'", colors.yellow);
+            }
+            log("\nFix the errors above and try again.\n", colors.yellow);
             process.exit(1);
         }
     }
 
     log("\n" + "=".repeat(60), colors.green);
-    log("All validation checks passed!", colors.green);
+    log("✓ All validation checks passed!", colors.green);
     log("=".repeat(60), colors.green);
     log("Your code is ready for pull request.\n", colors.cyan);
 }
