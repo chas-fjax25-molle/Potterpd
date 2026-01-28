@@ -1,0 +1,31 @@
+name: Tests
+
+on:
+    pull_request:
+        branches:
+            - main
+
+jobs:
+    validate:
+        runs-on: ubuntu-latest
+        steps:
+            - name: Checkout
+              uses: actions/checkout@v4
+            # Install Node.js
+            - name: Setup Node
+              uses: actions/setup-node@v4
+              with:
+                  node-version: "20"
+                  cache: "npm"
+            # Install all package dependencies
+            - name: Install dependencies
+              run: npm ci
+            # Check for invalid formatting
+            - name: Check Prettier formatting
+              run: npx prettier --check "**/*.{js,json,css,md,html}"
+            # Check for linting errors
+            - name: Run ESLint
+              run: npx eslint src/
+            # Verify that the project builds successfully
+            - name: Build with Vite
+              run: npm run build
