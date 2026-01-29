@@ -26,6 +26,9 @@ jobs:
             # Check for linting errors
             - name: Run ESLint
               run: npx eslint src/
+            # Run unit tests
+            - name: Run unit tests
+              run: npm run test
             # Verify that the project builds successfully
             - name: Build with Vite
               run: npm run build
