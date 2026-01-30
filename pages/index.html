@@ -1,0 +1,84 @@
+<!doctype html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <!-- Required meta tags -->
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+        <!-- Apple Touch Icon (for iOS devices) -->
+        <link rel="apple-touch-icon" href="/icons/apple-touch-icon.png" />
+
+        <!-- Favicon -->
+        <link rel="icon" href="/icons/favicon.ico" type="image/x-icon" />
+
+        <!-- Primary Icon (for Android Chrome) -->
+        <link rel="icon" href="/icons/icon-192x192.png" sizes="192x192" type="image/png" />
+
+        <!-- Tile Icon (for Microsoft Edge/Windows) -->
+        <link rel="tile-icon" href="/icons/tile-icon.png" />
+
+        <!-- Title (SEO and browser tab display) -->
+        <title>Potterpd</title>
+        <meta name="PottoPedia" description="A PWA front end for harry potter API" />
+
+        <!-- Theme Color (for browser UI) -->
+        <meta name="theme-color" content="#ffffff" />
+
+        <!-- Open Graph / Social Media Meta Tags (Optional but recommended) -->
+        <meta property="og:title" content="Pottepd" />
+        <meta property="og:description" content="A PWA front end for harry potter API" />
+        <meta property="og:image" content="/icons/icon-512x512.png" />
+        <title>Potterpd</title>
+        <link rel="icon" type="image/svg+xml" href="/vite.svg" />
+        <link rel="stylesheet" href="src/style.css" />
+        <script type="module" src="/src/main.js" defer></script>
+    </head>
+
+    <body>
+        <header>
+            <h1>Potter Pedia</h1>
+            <p class="subtitle">Your magical wiki of Wizardry</p>
+        </header>
+
+        <nav class="site-nav">
+            <h2>Categories</h2>
+            <ul>
+                <li><a href="#">Books</a></li>
+                <li><a href="#">Characters</a></li>
+                <li><a href="#">Spells</a></li>
+                <li><a href="#">Movies</a></li>
+                <li><a href="#">Potions</a></li>
+            </ul>
+        </nav>
+
+        <section class="search-filter">
+            <div class="search-container">
+                <input type="text" placeholder="Search..." />
+                <button class="btn-search" type="submit">Search</button>
+            </div>
+            <div class="filter-container">
+                <select id="filter">
+                    <option selected hidden>Filter</option>
+                    <option value="books">Books</option>
+                    <option value="characters">Characters</option>
+                    <option value="spells">Spells</option>
+                    <option value="movies">Movies</option>
+                    <option value="potions">Potions</option>
+                </select>
+            </div>
+        </section>
+
+        <footer>
+            <p>&copy; Potter Pedia 2026</p>
+            <p>
+                <strong>Disclaimer:</strong> This is an unofficial fan-made website and is not
+                affiliated with, endorsed by, or connected to Warner Bros., J.K. Rowling, or the
+                official Wizarding World brand. All Harry Potter characters, names, and related
+                indicia are trademarks of and © Warner Bros. Entertainment Inc. Harry Potter
+                Publishing Rights © J.K. Rowling.
+            </p>
+        </footer>
+    </body>
+</html>
