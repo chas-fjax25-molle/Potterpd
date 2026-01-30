@@ -23,7 +23,7 @@ import process from "process";
 const checks = [
     {
         command:
-            "npx prettier --list-different --no-error-on-unmatched-pattern 'src/**/*.{js,json,css,md,html}' 'public/**/*.{js,json,css,md,html}' 'tests/**/*.{js,json,css,md,html}' '*.{js,json,css,md,html}'",
+            "npx prettier --list-different --no-error-on-unmatched-pattern 'src/**/*.{js,json,css,md,html}' 'public/**/*.{js,json,css,md,html}' 'tests/**/*.{js,json,css,md,html}' 'pages/**/*.{js,json,css,md,html}' '*.{js,json,css,md,html}'",
         description: "Checking Prettier formatting",
     },
     {
