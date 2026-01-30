@@ -3,9 +3,10 @@
 
 <head>
     <meta charset="UTF-8" />
-    <link rel="icon" type="image/svg+xml" href="/vite.svg" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Potterpd</title>
+    <link rel="icon" type="image/svg+xml" href="/vite.svg" />
+    <link rel="stylesheet" href="src/style.css">
 </head>
 
 <body>
@@ -25,9 +26,21 @@
         </ul>
     </nav>
 
-    <section class="search-bar">
-        <input type="text" placeholder="Search..." />
-        <button type="submit">Search</button>
+    <section class="search-filter">
+        <div class="search-container">
+            <input type="text" placeholder="Search..." />
+            <button type="submit">Search</button>
+        </div>
+        <div class="filter-container">
+            <label for="filter">Filter:</label>
+            <select id="filter">
+                <option value="books">Books</option>
+                <option value="characters">Characters</option>
+                <option value="spells">Spells</option>
+                <option value="movies">Movies</option>
+                <option value="potions">Potions</option>
+            </select>
+        </div>
     </section>
 
     <footer>
