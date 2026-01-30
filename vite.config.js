@@ -2,7 +2,8 @@ import { defineConfig } from "vite";
 import eslint from "vite-plugin-eslint";
 import { VitePWA } from "vite-plugin-pwa";
 
-export default defineConfig(() => ({
+export default defineConfig(({ command }) => ({
+    base: command === "build" ? "/Potterpd/" : "/",
     plugins: [
         eslint(),
         VitePWA({
