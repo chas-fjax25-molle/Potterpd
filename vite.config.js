@@ -3,6 +3,32 @@ import eslint from "vite-plugin-eslint";
 import { VitePWA } from "vite-plugin-pwa";
 import process from "process";
 import { resolve } from "path";
+import path from "path";
+import fs from "fs";
+
+// Custom plugin to handle HTML partials
+// Usage in HTML: <!--include:relative/path/to/partial.html -->
+function htmlPartials() {
+    return {
+        name: "html-partials",
+        /**
+         * Transform index HTML to include partials
+         * @param {string} html - The original HTML content
+         * @param {{ filename?: string }} ctx - The context object containing the filename
+         * @returns {string} - The transformed HTML content
+         */
+        transformIndexHtml(html, ctx) {
+            return html.replace(/<!--\s*include:(.+?)\s*-->/g, (_, file) => {
+                // If ctx.filename is undefined, use the current working directory as base
+                const base = ctx.filename ? path.dirname(ctx.filename) : process.cwd();
+
+                // Load the partial html file
+                const filePath = path.resolve(base, file.trim());
+                return fs.readFileSync(filePath, "utf-8");
+            });
+        },
+    };
+}
 
 export default defineConfig(({ mode }) => {
     const rootDir = process.cwd();
@@ -12,8 +38,8 @@ export default defineConfig(({ mode }) => {
 
     return {
         base,
-
         plugins: [
+            htmlPartials(),
             eslint(),
             VitePWA({
                 registerType: "autoUpdate",
