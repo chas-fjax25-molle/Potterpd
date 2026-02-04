@@ -274,7 +274,7 @@ export class Character {
     previewHTML() {
         const container = document.createElement("section");
         container.classList.add(CSS.PREVIEW_CARD_CLASS);
-        container.id = this.id;
+        container.dataset.characterId = this.id;
         const header = document.createElement("h3");
         header.classList.add(CSS.PREVIEW_NAME_CLASS);
         header.textContent = this.name;
@@ -292,7 +292,7 @@ export class Character {
     detailsHTML() {
         const container = document.createElement("section");
         container.classList.add(CSS.DETAILS_CARD_CLASS);
-        container.id = this.id;
+        container.dataset.characterId = this.id;
         const header = document.createElement("h2");
         header.classList.add(CSS.DETAILS_NAME_CLASS);
         header.textContent = this.name;
