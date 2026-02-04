@@ -7,7 +7,7 @@ import path from "path";
 import fs from "fs";
 
 // Custom plugin to handle HTML partials
-// Usage in HTML: <!--include:relative/path/to/partial.html -->
+// Usage in HTML: <!--include(relative/path/to/partial.html) -->
 function htmlPartials() {
     return {
         name: "html-partials",
@@ -18,7 +18,7 @@ function htmlPartials() {
          * @returns {string} - The transformed HTML content
          */
         transformIndexHtml(html, ctx) {
-            return html.replace(/<!--\s*include:(.+?)\s*-->/g, (_, file) => {
+            return html.replace(/<!--\s*include\(([^)]+)\)\s*-->/g, (_, file) => {
                 // If ctx.filename is undefined, use the current working directory as base
                 const base = ctx.filename ? path.dirname(ctx.filename) : process.cwd();
 
