@@ -2,7 +2,7 @@
  * @typedef {Object} CharacterAttributes
  * @property {string} slug
  * @property {string[]} alias_names
- * @property {any|null} animagus
+ * @property {string|null} animagus
  * @property {string} blood_status
  * @property {string|null} boggart
  * @property {string|null} born
