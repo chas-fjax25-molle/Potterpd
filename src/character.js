@@ -37,6 +37,119 @@
 
 export class Character {
     /**
+     * @type {string} id - Unique identifier for the character
+     */
+    id = "";
+    /**
+     * @type {string} type - Type of the entity (character)
+     */
+    type = "";
+    /**
+     * @type {string} slug - Slug identifier for the character
+     */
+    slug = "";
+    /**
+     * @type {string[]} alias_names - Alias names of the character
+     */
+    alias_names = [];
+    /**
+     * @type {string|null} animagus - Animagus form of the character
+     */
+    animagus = null;
+    /**
+     * @type {string} blood_status - Blood status of the character
+     */
+    blood_status = "";
+    /**
+     * @type {string|null} boggart - Boggart form of the character
+     */
+    boggart = null;
+    /**
+     * @type {string|null} born - Birth information of the character
+     */
+    born = null;
+    /**
+     * @type {string|null} died - Death information of the character
+     */
+    died = null;
+    /**
+     * @type {string|null} eye_color - Eye color of the character
+     */
+    eye_color = null;
+    /**
+     * @type {string[]} family_members - Family members of the character
+     */
+    family_members = [];
+    /**
+     * @type {string} gender - Gender of the character
+     */
+    gender = "";
+    /**
+     * @type {string} hair_color - Hair color of the character
+     */
+    hair_color = "";
+    /**
+     * @type {string} height - Height of the character
+     */
+    height = "";
+    /**
+     * @type {string} house - House of the character
+     */
+    house = "";
+    /**
+     * @type {string|null} image - Image URL of the character
+     */
+    image = null;
+    /**
+     * @type {string[]} jobs - Jobs of the character
+     */
+    jobs = [];
+    /**
+     * @type {string} marital_status - Marital status of the character
+     */
+    marital_status = "";
+    /**
+     * @type {string} name - Name of the character
+     */
+    name = "";
+    /**
+     * @type {string} nationality - Nationality of the character
+     */
+    nationality = "";
+    /**
+     * @type {string} patronus - Patronus of the character
+     */
+    patronus = "";
+    /**
+     * @type {string[]} romances - Romances of the character
+     */
+    romances = [];
+    /**
+     * @type {string} skin_color - Skin color of the character
+     */
+    skin_color = "";
+    /**
+     * @type {string} species - Species of the character
+     */
+    species = "";
+    /**
+     * @type {string[]} titles - Titles of the character
+     */
+    titles = [];
+    /**
+     * @type {string[]} wands - Wands of the character
+     */
+    wands = [];
+    /**
+     * @type {string} weight - Weight of the character
+     */
+    weight = "";
+    /**
+     * @type {string} wiki - Wiki URL of the character
+     */
+    wiki = "";
+
+    /**
      * Creates a Character instance from a JSON structure.
      * @param {CharacterJSON} jsonStruct - The JSON structure representing a character.
      * @returns {Character} - The created Character instance.
@@ -343,117 +456,4 @@ export class Character {
         }
         return boggartFact;
     }
-
-    /**
-     * @type {string} id - Unique identifier for the character
-     */
-    id = "";
-    /**
-     * @type {string} type - Type of the entity (character)
-     */
-    type = "";
-    /**
-     * @type {string} slug - Slug identifier for the character
-     */
-    slug = "";
-    /**
-     * @type {string[]} alias_names - Alias names of the character
-     */
-    alias_names = [];
-    /**
-     * @type {string|null} animagus - Animagus form of the character
-     */
-    animagus = null;
-    /**
-     * @type {string} blood_status - Blood status of the character
-     */
-    blood_status = "";
-    /**
-     * @type {string|null} boggart - Boggart form of the character
-     */
-    boggart = null;
-    /**
-     * @type {string|null} born - Birth information of the character
-     */
-    born = null;
-    /**
-     * @type {string|null} died - Death information of the character
-     */
-    died = null;
-    /**
-     * @type {string|null} eye_color - Eye color of the character
-     */
-    eye_color = null;
-    /**
-     * @type {string[]} family_members - Family members of the character
-     */
-    family_members = [];
-    /**
-     * @type {string} gender - Gender of the character
-     */
-    gender = "";
-    /**
-     * @type {string} hair_color - Hair color of the character
-     */
-    hair_color = "";
-    /**
-     * @type {string} height - Height of the character
-     */
-    height = "";
-    /**
-     * @type {string} house - House of the character
-     */
-    house = "";
-    /**
-     * @type {string|null} image - Image URL of the character
-     */
-    image = null;
-    /**
-     * @type {string[]} jobs - Jobs of the character
-     */
-    jobs = [];
-    /**
-     * @type {string} marital_status - Marital status of the character
-     */
-    marital_status = "";
-    /**
-     * @type {string} name - Name of the character
-     */
-    name = "";
-    /**
-     * @type {string} nationality - Nationality of the character
-     */
-    nationality = "";
-    /**
-     * @type {string} patronus - Patronus of the character
-     */
-    patronus = "";
-    /**
-     * @type {string[]} romances - Romances of the character
-     */
-    romances = [];
-    /**
-     * @type {string} skin_color - Skin color of the character
-     */
-    skin_color = "";
-    /**
-     * @type {string} species - Species of the character
-     */
-    species = "";
-    /**
-     * @type {string[]} titles - Titles of the character
-     */
-    titles = [];
-    /**
-     * @type {string[]} wands - Wands of the character
-     */
-    wands = [];
-    /**
-     * @type {string} weight - Weight of the character
-     */
-    weight = "";
-    /**
-     * @type {string} wiki - Wiki URL of the character
-     */
-    wiki = "";
 }
