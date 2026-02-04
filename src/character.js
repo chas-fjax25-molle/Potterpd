@@ -239,39 +239,48 @@ export class Character {
 
     /**
      * Creates a Character instance from a JSON structure.
+     *
      * @param {CharacterJSON} jsonStruct - The JSON structure representing a character.
      * @returns {Character} - The created Character instance.
+     *
+     * @throws {Error} - If the JSON structure is invalid.
      */
     static fromJson(jsonStruct) {
         const character = new Character();
         character.id = jsonStruct.id;
         character.type = jsonStruct.type;
-        character.slug = jsonStruct.attributes.slug;
-        character.alias_names = jsonStruct.attributes.alias_names;
-        character.animagus = jsonStruct.attributes.animagus;
-        character.blood_status = jsonStruct.attributes.blood_status;
-        character.boggart = jsonStruct.attributes.boggart;
-        character.born = jsonStruct.attributes.born;
-        character.died = jsonStruct.attributes.died;
-        character.eye_color = jsonStruct.attributes.eye_color;
-        character.family_members = jsonStruct.attributes.family_members;
-        character.gender = jsonStruct.attributes.gender;
-        character.hair_color = jsonStruct.attributes.hair_color;
-        character.height = jsonStruct.attributes.height;
-        character.house = jsonStruct.attributes.house;
-        character.image = jsonStruct.attributes.image;
-        character.jobs = jsonStruct.attributes.jobs;
-        character.marital_status = jsonStruct.attributes.marital_status;
-        character.name = jsonStruct.attributes.name;
-        character.nationality = jsonStruct.attributes.nationality;
-        character.patronus = jsonStruct.attributes.patronus;
-        character.romances = jsonStruct.attributes.romances;
-        character.skin_color = jsonStruct.attributes.skin_color;
-        character.species = jsonStruct.attributes.species;
-        character.titles = jsonStruct.attributes.titles;
-        character.wands = jsonStruct.attributes.wands;
-        character.weight = jsonStruct.attributes.weight;
-        character.wiki = jsonStruct.attributes.wiki;
+        if (!jsonStruct.attributes) {
+            throw new Error("Invalid JSON structure: Missing attributes");
+        }
+        /** @type {CharacterAttributes} */
+        const attributes = jsonStruct.attributes;
+
+        character.slug = attributes.slug;
+        character.alias_names = attributes.alias_names;
+        character.animagus = attributes.animagus;
+        character.blood_status = attributes.blood_status;
+        character.boggart = attributes.boggart;
+        character.born = attributes.born;
+        character.died = attributes.died;
+        character.eye_color = attributes.eye_color;
+        character.family_members = attributes.family_members;
+        character.gender = attributes.gender;
+        character.hair_color = attributes.hair_color;
+        character.height = attributes.height;
+        character.house = attributes.house;
+        character.image = attributes.image;
+        character.jobs = attributes.jobs;
+        character.marital_status = attributes.marital_status;
+        character.name = attributes.name;
+        character.nationality = attributes.nationality;
+        character.patronus = attributes.patronus;
+        character.romances = attributes.romances;
+        character.skin_color = attributes.skin_color;
+        character.species = attributes.species;
+        character.titles = attributes.titles;
+        character.wands = attributes.wands;
+        character.weight = attributes.weight;
+        character.wiki = attributes.wiki;
         return character;
     }
 
