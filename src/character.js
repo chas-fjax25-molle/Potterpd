@@ -1,4 +1,77 @@
 /**
+ * @file Character entity representation and HTML generation.
+ */
+
+/**
+ * CSS styles for the Character entity.
+ * @constant {Object} CSS - CSS styles for the Character entity.
+ */
+const CSS = {
+    /** Class for character preview card container */
+    PREVIEW_CARD_CLASS: "character-preview-card",
+    /** Class for character preview name */
+    PREVIEW_NAME_CLASS: "character-preview-name",
+    /**
+     * Class for character preview image container
+     * This is the box that holds the image or placeholder in the preview card
+     */
+    PREVIEW_IMAGE_CONTAINER_CLASS: "character-preview-image-container",
+    /** Class for character preview image */
+    PREVIEW_IMAGE_CLASS: "character-preview-image",
+    /**
+     * Class for character preview placeholder
+     * This is shown when there is no image available in the preview card
+     */
+    PREVIEW_PLACEHOLDER_CLASS: "character-preview-placeholder",
+    /** Class for character details card container */
+    DETAILS_CARD_CLASS: "character-details-card",
+    /** Class for character details name */
+    DETAILS_NAME_CLASS: "character-details-name",
+    /**
+     * Class for the character details image container
+     * This is the box that holds the image or placeholder in the details card
+     */
+    DETAILS_IMAGE_CONTAINER_CLASS: "character-details-image-container",
+    /** Class for character details image */
+    DETAILS_IMAGE_CLASS: "character-details-image",
+    /**
+     * Class for character details placeholder
+     * This is shown when there is no image available in the details card
+     */
+    DETAILS_PLACEHOLDER_CLASS: "character-details-placeholder",
+    /** Class for character favorite icon */
+    FAVORITE_ICON_CLASS: "character-favorite-icon",
+    /** Class for character details alias names list */
+    DETAILS_ALIAS_NAMES_CLASS: "character-details-alias-names",
+    /** Class for character facts container */
+    DETAILS_FACTS_CONTAINER_CLASS: "character-details-facts",
+    /**
+     * Class for individual character fact
+     */
+    DETAILS_FACT_CLASS: "character-details-fact",
+    /**
+     * Class for individual character fact item
+     *
+     * Used for facts that are single items (not lists)
+     * Well be added as three classes:
+     * 1. character-details-fact
+     * 2. character-details-fact-<fact-name>
+     * 3. character-details-fact-item
+     */
+    DETAILS_FACT_ITEM_CLASS: "character-details-fact-item",
+    /**
+     * Class for character facts that take the form of a list
+     *
+     * Used for facts that are lists (e.g., family members, jobs, wands)
+     * Will be added as three classes:
+     * 1. character-details-fact
+     * 2. character-details-fact-<fact-name>
+     * 3. character-details-fact-list
+     */
+    DETAILS_FACT_LIST_CLASS: "character-details-fact-list",
+};
+
+/**
  * @typedef {Object} CharacterAttributes
  * @property {string} slug
  * @property {string[]} alias_names
@@ -194,10 +267,10 @@ export class Character {
      */
     previewHTML() {
         const container = document.createElement("section");
-        container.classList.add("character-preview-card");
+        container.classList.add(CSS.PREVIEW_CARD_CLASS);
         container.id = this.id;
         const header = document.createElement("h3");
-        header.classList.add("character-preview-name");
+        header.classList.add(CSS.PREVIEW_NAME_CLASS);
         header.textContent = this.name;
         container.appendChild(header);
         container.appendChild(this.#favoriteIcon());
@@ -212,15 +285,17 @@ export class Character {
      */
     detailsHTML() {
         const container = document.createElement("section");
-        container.classList.add("character-details-card");
+        container.classList.add(CSS.DETAILS_CARD_CLASS);
         container.id = this.id;
         const header = document.createElement("h2");
-        header.classList.add("character-details-name");
+        header.classList.add(CSS.DETAILS_NAME_CLASS);
         header.textContent = this.name;
         container.appendChild(header);
         container.appendChild(this.#favoriteIcon());
         container.appendChild(this.#characterImageLarge());
-        container.appendChild(this.#characterAliasNames());
+        if (this.alias_names.length > 0) {
+            container.appendChild(this.#characterAliasNames());
+        }
         container.appendChild(this.#factsContainer());
         return container;
     }
@@ -232,8 +307,12 @@ export class Character {
      */
     #favoriteIcon() {
         const favoriteIcon = document.createElement("span");
-        favoriteIcon.classList.add("character-favorite-icon");
+        favoriteIcon.classList.add(CSS.FAVORITE_ICON_CLASS);
         favoriteIcon.id = this.id;
+        favoriteIcon.role = "button";
+        favoriteIcon.ariaLabel = "Toggle Favorite";
+        favoriteIcon.setAttribute("aria-label", "Toggle Favorite");
+        favoriteIcon.tabIndex = 0;
         favoriteIcon.textContent = "★";
         return favoriteIcon;
     }
@@ -245,17 +324,17 @@ export class Character {
      */
     #characterImageSmall() {
         const container = document.createElement("div");
-        container.classList.add("character-preview-image-container");
+        container.classList.add(CSS.PREVIEW_IMAGE_CONTAINER_CLASS);
         if (this.image) {
             const imageElem = document.createElement("img");
-            imageElem.classList.add("character-preview-image");
+            imageElem.classList.add(CSS.PREVIEW_IMAGE_CLASS);
             imageElem.src = this.image;
             imageElem.alt = `${this.name} image`;
             imageElem.width = 200;
             container.appendChild(imageElem);
         } else {
             const placeholder = document.createElement("div");
-            placeholder.classList.add("character-preview-placeholder");
+            placeholder.classList.add(CSS.PREVIEW_PLACEHOLDER_CLASS);
             placeholder.textContent = "No Image";
             container.appendChild(placeholder);
         }
@@ -269,21 +348,81 @@ export class Character {
      */
     #characterImageLarge() {
         const container = document.createElement("div");
-        container.classList.add("character-details-image-container");
+        container.classList.add(CSS.DETAILS_IMAGE_CONTAINER_CLASS);
         if (this.image) {
             const imageElem = document.createElement("img");
-            imageElem.classList.add("character-details-image");
+            imageElem.classList.add(CSS.DETAILS_IMAGE_CLASS);
             imageElem.src = this.image;
             imageElem.alt = `${this.name} image`;
             imageElem.width = 300;
             container.appendChild(imageElem);
         } else {
             const placeholder = document.createElement("div");
-            placeholder.classList.add("character-details-placeholder");
+            placeholder.classList.add(CSS.DETAILS_PLACEHOLDER_CLASS);
             placeholder.textContent = "No Image";
             container.appendChild(placeholder);
         }
         return container;
+    }
+
+    /**
+     * Helper function to generate a list section.
+     *
+     * @param {string} title - The title of the section.
+     * @param {string[]} items - The items to include in the list.
+     * @param {string} emptyMessage - The message to display if the list is empty.
+     * @param {string} className - The fact class name, will be appended to the section class.
+     *
+     * @returns {HTMLElement} - The HTML representation of the list section.
+     */
+    #generateFactListSection(title, items, emptyMessage, className) {
+        const section = document.createElement("div");
+        section.classList.add(CSS.DETAILS_FACT_CLASS);
+        if (className) {
+            section.classList.add(`${CSS.DETAILS_FACT_CLASS}-${className}`);
+        }
+        section.classList.add(CSS.DETAILS_FACT_LIST_CLASS);
+        const header = document.createElement("h4");
+        header.textContent = title;
+        section.appendChild(header);
+        if (items.length === 0) {
+            const noItems = document.createElement("p");
+            noItems.textContent = emptyMessage;
+            section.appendChild(noItems);
+        } else {
+            const list = document.createElement("ul");
+            items.forEach((item) => {
+                const li = document.createElement("li");
+                li.textContent = item;
+                list.appendChild(li);
+            });
+            section.appendChild(list);
+        }
+        return section;
+    }
+
+    /**
+     * Generate a single fact item HTML element.
+     * Will generate a fact item with the format "Title: Value". If the value is null, it will display "Title: Unknown".
+     *
+     * @param {string} title - The title of the fact (e.g., "House", "Patronus")
+     * @param {string|null} value - The value of the fact (e.g., "Gryffindor", "Stag"). If null, "Unknown" will be displayed.
+     * @param {string} className - The fact class name, will be appended to the fact item class.
+     * @returns {HTMLElement}
+     */
+    #generateFactItem(title, value, className) {
+        const factItem = document.createElement("p");
+        factItem.classList.add(CSS.DETAILS_FACT_CLASS);
+        if (className) {
+            factItem.classList.add(`${CSS.DETAILS_FACT_CLASS}-${className}`);
+        }
+        factItem.classList.add(CSS.DETAILS_FACT_ITEM_CLASS);
+        if (value) {
+            factItem.textContent = `${title}: ${value}`;
+        } else {
+            factItem.textContent = `${title}: Unknown`;
+        }
+        return factItem;
     }
 
     /**
@@ -293,7 +432,7 @@ export class Character {
      */
     #characterAliasNames() {
         const aliasNames = document.createElement("ul");
-        aliasNames.classList.add("character-details-alias-names");
+        aliasNames.classList.add(CSS.DETAILS_ALIAS_NAMES_CLASS);
         this.alias_names.forEach((alias) => {
             const li = document.createElement("li");
             li.textContent = alias;
@@ -309,7 +448,7 @@ export class Character {
      */
     #factsContainer() {
         const factsContainer = document.createElement("div");
-        factsContainer.classList.add("character-details-facts");
+        factsContainer.classList.add(CSS.DETAILS_FACTS_CONTAINER_CLASS);
         const factHeader = document.createElement("h3");
         factHeader.textContent = "Facts";
         factsContainer.appendChild(factHeader);
@@ -328,15 +467,7 @@ export class Character {
      * @returns {HTMLElement} - The HTML representation of the character's house.
      */
     #houseHTML() {
-        const houseFact = document.createElement("p");
-        houseFact.classList.add("character-details-fact");
-        houseFact.classList.add("character-details-fact-house");
-        if (this.house) {
-            houseFact.textContent = `House: ${this.house}`;
-        } else {
-            houseFact.textContent = "House: Unknown";
-        }
-        return houseFact;
+        return this.#generateFactItem("House", this.house, "house");
     }
 
     /**
@@ -345,26 +476,12 @@ export class Character {
      * @returns {HTMLElement} - The HTML representation of the character's family members.
      */
     #familyMembersHTML() {
-        const familyFact = document.createElement("div");
-        familyFact.classList.add("character-details-fact");
-        familyFact.classList.add("character-details-fact-family-members");
-        const familyHeader = document.createElement("h4");
-        familyHeader.textContent = "Family Members:";
-        familyFact.appendChild(familyHeader);
-        if (this.family_members.length === 0) {
-            const noFamily = document.createElement("p");
-            noFamily.textContent = "No known family members.";
-            familyFact.appendChild(noFamily);
-        } else {
-            const familyList = document.createElement("ul");
-            this.family_members.forEach((member) => {
-                const li = document.createElement("li");
-                li.textContent = member;
-                familyList.appendChild(li);
-            });
-            familyFact.appendChild(familyList);
-        }
-        return familyFact;
+        return this.#generateFactListSection(
+            "Family Members",
+            this.family_members,
+            "No known family members.",
+            "family-members"
+        );
     }
 
     /**
@@ -373,26 +490,7 @@ export class Character {
      * @returns {HTMLElement} - The HTML representation of the character's jobs.
      */
     #jobsHTML() {
-        const jobsFact = document.createElement("div");
-        jobsFact.classList.add("character-details-fact");
-        jobsFact.classList.add("character-details-fact-jobs");
-        const jobsHeader = document.createElement("h4");
-        jobsHeader.textContent = "Jobs:";
-        jobsFact.appendChild(jobsHeader);
-        if (this.jobs.length === 0) {
-            const noJobs = document.createElement("p");
-            noJobs.textContent = "No known jobs.";
-            jobsFact.appendChild(noJobs);
-        } else {
-            const jobsList = document.createElement("ul");
-            this.jobs.forEach((job) => {
-                const li = document.createElement("li");
-                li.textContent = job;
-                jobsList.appendChild(li);
-            });
-            jobsFact.appendChild(jobsList);
-        }
-        return jobsFact;
+        return this.#generateFactListSection("Jobs", this.jobs, "No known jobs.", "jobs");
     }
 
     /**
@@ -401,26 +499,7 @@ export class Character {
      * @returns {HTMLElement} - The HTML representation of the character's wands.
      */
     #wandsHTML() {
-        const wandFact = document.createElement("div");
-        wandFact.classList.add("character-details-fact");
-        wandFact.classList.add("character-details-fact-wands");
-        const wandHeader = document.createElement("h4");
-        wandHeader.textContent = "Wands:";
-        wandFact.appendChild(wandHeader);
-        if (this.wands.length === 0) {
-            const noWands = document.createElement("p");
-            noWands.textContent = "No known wands.";
-            wandFact.appendChild(noWands);
-        } else {
-            const wandList = document.createElement("ul");
-            this.wands.forEach((wand) => {
-                const li = document.createElement("li");
-                li.textContent = wand;
-                wandList.appendChild(li);
-            });
-            wandFact.appendChild(wandList);
-        }
-        return wandFact;
+        return this.#generateFactListSection("Wands", this.wands, "No known wands.", "wands");
     }
 
     /**
@@ -429,15 +508,7 @@ export class Character {
      * @returns {HTMLElement} - The HTML representation of the character's patronus.
      */
     #patronusHTML() {
-        const patronusFact = document.createElement("p");
-        patronusFact.classList.add("character-details-fact");
-        patronusFact.classList.add("character-details-fact-patronus");
-        if (this.patronus) {
-            patronusFact.textContent = "Patronus: " + this.patronus;
-        } else {
-            patronusFact.textContent = "Unknown";
-        }
-        return patronusFact;
+        return this.#generateFactItem("Patronus", this.patronus, "patronus");
     }
 
     /**
@@ -446,14 +517,6 @@ export class Character {
      * @returns {HTMLElement} - The HTML representation of the character's boggart.
      */
     #boggartHTML() {
-        const boggartFact = document.createElement("p");
-        boggartFact.classList.add("character-details-fact");
-        boggartFact.classList.add("character-details-fact-boggart");
-        if (this.boggart) {
-            boggartFact.textContent = "Boggart: " + this.boggart;
-        } else {
-            boggartFact.textContent = "Unknown";
-        }
-        return boggartFact;
+        return this.#generateFactItem("Boggart", this.boggart, "boggart");
     }
 }
