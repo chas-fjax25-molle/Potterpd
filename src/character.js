@@ -7,47 +7,27 @@
  * @constant {Object} CSS - CSS styles for the Character entity.
  */
 const CSS = {
-    /** Class for character preview card container */
-    PREVIEW_CARD_CLASS: "character-preview-card",
-    /** Class for character preview name */
-    PREVIEW_NAME_CLASS: "character-preview-name",
-    /**
-     * Class for character preview image container
-     * This is the box that holds the image or placeholder in the preview card
-     */
-    PREVIEW_IMAGE_CONTAINER_CLASS: "character-preview-image-container",
-    /** Class for character preview image */
-    PREVIEW_IMAGE_CLASS: "character-preview-image",
-    /**
-     * Class for character preview placeholder
-     * This is shown when there is no image available in the preview card
-     */
-    PREVIEW_PLACEHOLDER_CLASS: "character-preview-placeholder",
-    /** Class for character details card container */
-    DETAILS_CARD_CLASS: "character-details-card",
-    /** Class for character details name */
-    DETAILS_NAME_CLASS: "character-details-name",
-    /**
-     * Class for the character details image container
-     * This is the box that holds the image or placeholder in the details card
-     */
-    DETAILS_IMAGE_CONTAINER_CLASS: "character-details-image-container",
-    /** Class for character details image */
-    DETAILS_IMAGE_CLASS: "character-details-image",
-    /**
-     * Class for character details placeholder
-     * This is shown when there is no image available in the details card
-     */
-    DETAILS_PLACEHOLDER_CLASS: "character-details-placeholder",
-    /** Class for character favorite icon */
+    // Favorite icon class
     FAVORITE_ICON_CLASS: "character-favorite-icon",
-    /** Class for character details alias names list */
+
+    // Preview card classes
+    PREVIEW_CARD_CLASS: "character-preview-card",
+    PREVIEW_NAME_CLASS: "character-preview-name",
+    PREVIEW_IMAGE_CONTAINER_CLASS: "character-preview-image-container",
+    PREVIEW_IMAGE_CLASS: "character-preview-image",
+    PREVIEW_PLACEHOLDER_CLASS: "character-preview-placeholder",
+
+    // Details card classes
+    DETAILS_CARD_CLASS: "character-details-card",
+    DETAILS_NAME_CLASS: "character-details-name",
+    DETAILS_IMAGE_CONTAINER_CLASS: "character-details-image-container",
+    DETAILS_IMAGE_CLASS: "character-details-image",
+    DETAILS_PLACEHOLDER_CLASS: "character-details-placeholder",
     DETAILS_ALIAS_NAMES_CLASS: "character-details-alias-names",
-    /** Class for character facts container */
+    // Fact classes
     DETAILS_FACTS_CONTAINER_CLASS: "character-details-facts",
-    /**
-     * Class for individual character fact
-     */
+
+    // Class for individual character fact
     DETAILS_FACT_CLASS: "character-details-fact",
     /**
      * Class for individual character fact item
@@ -55,7 +35,7 @@ const CSS = {
      * Used for facts that are single items (not lists)
      * Well be added as three classes:
      * 1. character-details-fact
-     * 2. character-details-fact-<fact-name>
+     * 2. character-details-fact-{fact-name}
      * 3. character-details-fact-item
      */
     DETAILS_FACT_ITEM_CLASS: "character-details-fact-item",
@@ -65,7 +45,7 @@ const CSS = {
      * Used for facts that are lists (e.g., family members, jobs, wands)
      * Will be added as three classes:
      * 1. character-details-fact
-     * 2. character-details-fact-<fact-name>
+     * 2. character-details-fact-{fact-name}
      * 3. character-details-fact-list
      */
     DETAILS_FACT_LIST_CLASS: "character-details-fact-list",
