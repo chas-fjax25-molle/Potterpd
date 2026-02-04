@@ -75,6 +75,38 @@ export class Character {
     }
 
     /**
+     * Create a preview card HTML element for the character.
+     * @returns {HTMLElement} - The HTML representation of the character.
+     */
+    previewHTML() {
+        const container = document.createElement("section");
+        container.classList.add("character-preview-card");
+        container.id = this.id;
+        if (this.image) {
+            const imageElem = document.createElement("img");
+            imageElem.classList.add("character-preview-image");
+            imageElem.src = this.image;
+            imageElem.alt = `${this.name} image`;
+            imageElem.width = 200;
+            container.appendChild(imageElem);
+        } else {
+            const placeholder = document.createElement("div");
+            placeholder.classList.add("character-preview-placeholder");
+            placeholder.textContent = "No Image";
+            container.appendChild(placeholder);
+        }
+        const favoriteIcon = document.createElement("span");
+        favoriteIcon.classList.add("character-preview-favorite-icon");
+        favoriteIcon.textContent = "★";
+        container.appendChild(favoriteIcon);
+        const nameElem = document.createElement("h3");
+        nameElem.classList.add("character-preview-name");
+        nameElem.textContent = this.name;
+        container.appendChild(nameElem);
+        return container;
+    }
+
+    /**
      * @type {string} id - Unique identifier for the character
      */
     id = "";
