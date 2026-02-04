@@ -127,9 +127,9 @@ export class Character {
      */
     animagus = null;
     /**
-     * @type {string} blood_status - Blood status of the character
+     * @type {string|null} blood_status - Blood status of the character
      */
-    blood_status = "";
+    blood_status = null;
     /**
      * @type {string|null} boggart - Boggart form of the character
      */
@@ -151,21 +151,21 @@ export class Character {
      */
     family_members = [];
     /**
-     * @type {string} gender - Gender of the character
+     * @type {string|null} gender - Gender of the character
      */
-    gender = "";
+    gender = null;
     /**
-     * @type {string} hair_color - Hair color of the character
+     * @type {string|null} hair_color - Hair color of the character
      */
-    hair_color = "";
+    hair_color = null;
     /**
-     * @type {string} height - Height of the character
+     * @type {string|null} height - Height of the character
      */
-    height = "";
+    height = null;
     /**
-     * @type {string} house - House of the character
+     * @type {string|null} house - House of the character
      */
-    house = "";
+    house = null;
     /**
      * @type {string|null} image - Image URL of the character
      */
@@ -175,33 +175,33 @@ export class Character {
      */
     jobs = [];
     /**
-     * @type {string} marital_status - Marital status of the character
+     * @type {string|null} marital_status - Marital status of the character
      */
-    marital_status = "";
+    marital_status = null;
     /**
      * @type {string} name - Name of the character
      */
     name = "";
     /**
-     * @type {string} nationality - Nationality of the character
+     * @type {string|null} nationality - Nationality of the character
      */
-    nationality = "";
+    nationality = null;
     /**
-     * @type {string} patronus - Patronus of the character
+     * @type {string|null} patronus - Patronus of the character
      */
-    patronus = "";
+    patronus = null;
     /**
      * @type {string[]} romances - Romances of the character
      */
     romances = [];
     /**
-     * @type {string} skin_color - Skin color of the character
+     * @type {string|null} skin_color - Skin color of the character
      */
-    skin_color = "";
+    skin_color = null;
     /**
-     * @type {string} species - Species of the character
+     * @type {string|null} species - Species of the character
      */
-    species = "";
+    species = null;
     /**
      * @type {string[]} titles - Titles of the character
      */
@@ -211,14 +211,13 @@ export class Character {
      */
     wands = [];
     /**
-     * @type {string} weight - Weight of the character
+     * @type {string|null} weight - Weight of the character
      */
-    weight = "";
+    weight = null;
     /**
-     * @type {string} wiki - Wiki URL of the character
+     * @type {string|null} wiki - Wiki URL of the character
      */
-    wiki = "";
-
+    wiki = null;
     /**
      * Creates a Character instance from a JSON structure.
      *
@@ -229,40 +228,47 @@ export class Character {
      */
     static fromJson(jsonStruct) {
         const character = new Character();
+        if (!jsonStruct.id || !jsonStruct.type) {
+            throw new Error("Invalid JSON structure: Missing id or type");
+        }
         character.id = jsonStruct.id;
         character.type = jsonStruct.type;
+
         if (!jsonStruct.attributes) {
             throw new Error("Invalid JSON structure: Missing attributes");
         }
         /** @type {CharacterAttributes} */
         const attributes = jsonStruct.attributes;
 
-        character.slug = attributes.slug;
-        character.alias_names = attributes.alias_names;
-        character.animagus = attributes.animagus;
-        character.blood_status = attributes.blood_status;
-        character.boggart = attributes.boggart;
-        character.born = attributes.born;
-        character.died = attributes.died;
-        character.eye_color = attributes.eye_color;
-        character.family_members = attributes.family_members;
-        character.gender = attributes.gender;
-        character.hair_color = attributes.hair_color;
-        character.height = attributes.height;
-        character.house = attributes.house;
-        character.image = attributes.image;
-        character.jobs = attributes.jobs;
-        character.marital_status = attributes.marital_status;
+        character.slug = attributes.slug ?? "";
+        character.alias_names = attributes.alias_names ?? [];
+        character.animagus = attributes.animagus ?? null;
+        character.blood_status = attributes.blood_status ?? null;
+        character.boggart = attributes.boggart ?? null;
+        character.born = attributes.born ?? null;
+        character.died = attributes.died ?? null;
+        character.eye_color = attributes.eye_color ?? null;
+        character.family_members = attributes.family_members ?? [];
+        character.gender = attributes.gender ?? null;
+        character.hair_color = attributes.hair_color ?? null;
+        character.height = attributes.height ?? null;
+        character.house = attributes.house ?? null;
+        character.image = attributes.image ?? null;
+        character.jobs = attributes.jobs ?? [];
+        character.marital_status = attributes.marital_status ?? null;
+        if (!attributes.name) {
+            throw new Error("Invalid JSON structure: Missing character name");
+        }
         character.name = attributes.name;
-        character.nationality = attributes.nationality;
-        character.patronus = attributes.patronus;
-        character.romances = attributes.romances;
-        character.skin_color = attributes.skin_color;
-        character.species = attributes.species;
-        character.titles = attributes.titles;
-        character.wands = attributes.wands;
-        character.weight = attributes.weight;
-        character.wiki = attributes.wiki;
+        character.nationality = attributes.nationality ?? null;
+        character.patronus = attributes.patronus ?? null;
+        character.romances = attributes.romances ?? [];
+        character.skin_color = attributes.skin_color ?? null;
+        character.species = attributes.species ?? null;
+        character.titles = attributes.titles ?? [];
+        character.wands = attributes.wands ?? [];
+        character.weight = attributes.weight ?? null;
+        character.wiki = attributes.wiki ?? null;
         return character;
     }
 
