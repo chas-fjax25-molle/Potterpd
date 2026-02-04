@@ -86,6 +86,47 @@ export class Character {
         header.classList.add("character-preview-name");
         header.textContent = this.name;
         container.appendChild(header);
+        container.appendChild(this.#favoriteIcon());
+        container.appendChild(this.#characterImageSmall());
+        return container;
+    }
+
+    detailsHTML() {
+        const container = document.createElement("section");
+        container.classList.add("character-details-card");
+        container.id = this.id;
+        const header = document.createElement("h2");
+        header.classList.add("character-details-name");
+        header.textContent = this.name;
+        container.appendChild(header);
+        container.appendChild(this.#favoriteIcon());
+        container.appendChild(this.#characterImageLarge());
+        container.appendChild(this.#characterAliasNames());
+        container.appendChild(this.#factsContainer());
+        return container;
+    }
+
+    /**
+     * Generate the favorite icon HTML element.
+     *
+     * @returns {HTMLElement} - The favorite icon HTML element.
+     */
+    #favoriteIcon() {
+        const favoriteIcon = document.createElement("span");
+        favoriteIcon.classList.add("character-favorite-icon");
+        favoriteIcon.id = this.id;
+        favoriteIcon.textContent = "★";
+        return favoriteIcon;
+    }
+
+    /**
+     * Generates the HTML container for a small character image.
+     *
+     * @returns {HTMLElement} - The HTML container for the small character image.
+     */
+    #characterImageSmall() {
+        const container = document.createElement("div");
+        container.classList.add("character-preview-image-container");
         if (this.image) {
             const imageElem = document.createElement("img");
             imageElem.classList.add("character-preview-image");
@@ -99,21 +140,17 @@ export class Character {
             placeholder.textContent = "No Image";
             container.appendChild(placeholder);
         }
-        const favoriteIcon = document.createElement("span");
-        favoriteIcon.classList.add("character-preview-favorite-icon");
-        favoriteIcon.textContent = "★";
-        container.appendChild(favoriteIcon);
         return container;
     }
 
-    detailsHTML() {
-        const container = document.createElement("section");
-        container.classList.add("character-details-card");
-        container.id = this.id;
-        const header = document.createElement("h2");
-        header.classList.add("character-details-name");
-        header.textContent = this.name;
-        container.appendChild(header);
+    /**
+     * Generates the HTML container for a large character image.
+     *
+     * @returns {HTMLElement} - The HTML container for the large character image.
+     */
+    #characterImageLarge() {
+        const container = document.createElement("div");
+        container.classList.add("character-details-image-container");
         if (this.image) {
             const imageElem = document.createElement("img");
             imageElem.classList.add("character-details-image");
@@ -127,6 +164,15 @@ export class Character {
             placeholder.textContent = "No Image";
             container.appendChild(placeholder);
         }
+        return container;
+    }
+
+    /**
+     * Generate HTML for the character's alias names.
+     *
+     * @returns {HTMLElement} - The HTML representation of the character's alias names.
+     */
+    #characterAliasNames() {
         const aliasNames = document.createElement("ul");
         aliasNames.classList.add("character-details-alias-names");
         this.alias_names.forEach((alias) => {
@@ -134,124 +180,162 @@ export class Character {
             li.textContent = alias;
             aliasNames.appendChild(li);
         });
-        container.appendChild(aliasNames);
+        return aliasNames;
+    }
 
+    /**
+     * Generates the HTML container for character facts.
+     *
+     * @returns {HTMLElement} - The HTML container for character facts.
+     */
+    #factsContainer() {
         const factsContainer = document.createElement("div");
-        {
-            factsContainer.classList.add("character-details-facts");
-            const factHeader = document.createElement("h3");
-            factHeader.textContent = "Facts";
-            factsContainer.appendChild(factHeader);
-            {
-                const houseFact = document.createElement("p");
-                houseFact.classList.add("character-details-fact");
-                houseFact.classList.add("character-details-fact-house");
-                if (this.house) {
-                    houseFact.textContent = `House: ${this.house}`;
-                } else {
-                    houseFact.textContent = "House: Unknown";
-                }
-                factsContainer.appendChild(houseFact);
-            }
-            {
-                const familyFact = document.createElement("div");
-                familyFact.classList.add("character-details-fact");
-                familyFact.classList.add("character-details-fact-family-members");
-                const familyHeader = document.createElement("h4");
-                familyHeader.textContent = "Family Members:";
-                familyFact.appendChild(familyHeader);
-                if (this.family_members.length === 0) {
-                    const noFamily = document.createElement("p");
-                    noFamily.textContent = "No known family members.";
-                    familyFact.appendChild(noFamily);
-                } else {
-                    const familyList = document.createElement("ul");
-                    this.family_members.forEach((member) => {
-                        const li = document.createElement("li");
-                        li.textContent = member;
-                        familyList.appendChild(li);
-                    });
-                    familyFact.appendChild(familyList);
-                }
-                factsContainer.appendChild(familyFact);
-            }
-            {
-                const jobsFact = document.createElement("div");
-                jobsFact.classList.add("character-details-fact");
-                jobsFact.classList.add("character-details-fact-jobs");
-                const jobsHeader = document.createElement("h4");
-                jobsHeader.textContent = "Jobs:";
-                jobsFact.appendChild(jobsHeader);
-                if (this.jobs.length === 0) {
-                    const noJobs = document.createElement("p");
-                    noJobs.textContent = "No known jobs.";
-                    jobsFact.appendChild(noJobs);
-                } else {
-                    const jobsList = document.createElement("ul");
-                    this.jobs.forEach((job) => {
-                        const li = document.createElement("li");
-                        li.textContent = job;
-                        jobsList.appendChild(li);
-                    });
-                    jobsFact.appendChild(jobsList);
-                }
-                factsContainer.appendChild(jobsFact);
-            }
-            {
-                const wandFact = document.createElement("div");
-                wandFact.classList.add("character-details-fact");
-                wandFact.classList.add("character-details-fact-wands");
-                const wandHeader = document.createElement("h4");
-                wandHeader.textContent = "Wands:";
-                wandFact.appendChild(wandHeader);
-                if (this.wands.length === 0) {
-                    const noWands = document.createElement("p");
-                    noWands.textContent = "No known wands.";
-                    wandFact.appendChild(noWands);
-                } else {
-                    const wandList = document.createElement("ul");
-                    this.wands.forEach((wand) => {
-                        const li = document.createElement("li");
-                        li.textContent = wand;
-                        wandList.appendChild(li);
-                    });
-                    wandFact.appendChild(wandList);
-                }
-                factsContainer.appendChild(wandFact);
-            }
-            {
-                const patronusFact = document.createElement("div");
-                patronusFact.classList.add("character-details-fact");
-                patronusFact.classList.add("character-details-fact-patronus");
-                const patronusHeader = document.createElement("h4");
-                patronusHeader.textContent = "Patronus:";
-                patronusFact.appendChild(patronusHeader);
-                const patronusInfo = document.createElement("p");
-                if (this.patronus) {
-                    patronusInfo.textContent = this.patronus;
-                } else {
-                    patronusInfo.textContent = "Unknown";
-                }
-            }
-            {
-                const boggartFact = document.createElement("div");
-                boggartFact.classList.add("character-details-fact");
-                boggartFact.classList.add("character-details-fact-boggart");
-                const boggartHeader = document.createElement("h4");
-                boggartHeader.textContent = "Boggart:";
-                boggartFact.appendChild(boggartHeader);
-                const boggartInfo = document.createElement("p");
-                if (this.boggart) {
-                    boggartInfo.textContent = this.boggart;
-                } else {
-                    boggartInfo.textContent = "Unknown";
-                }
-                boggartFact.appendChild(boggartInfo);
-                factsContainer.appendChild(boggartFact);
-            }
+        factsContainer.classList.add("character-details-facts");
+        const factHeader = document.createElement("h3");
+        factHeader.textContent = "Facts";
+        factsContainer.appendChild(factHeader);
+        factsContainer.appendChild(this.#houseHTML());
+        factsContainer.appendChild(this.#familyMembersHTML());
+        factsContainer.appendChild(this.#jobsHTML());
+        factsContainer.appendChild(this.#wandsHTML());
+        factsContainer.appendChild(this.#patronusHTML());
+        factsContainer.appendChild(this.#boggartHTML());
+        return factsContainer;
+    }
+
+    /**
+     * Generate HTML for the character's house.
+     *
+     * @returns {HTMLElement} - The HTML representation of the character's house.
+     */
+    #houseHTML() {
+        const houseFact = document.createElement("p");
+        houseFact.classList.add("character-details-fact");
+        houseFact.classList.add("character-details-fact-house");
+        if (this.house) {
+            houseFact.textContent = `House: ${this.house}`;
+        } else {
+            houseFact.textContent = "House: Unknown";
         }
-        container.appendChild(factsContainer);
-        return container;
+        return houseFact;
+    }
+
+    /**
+     * Generate HTML for the character's family members.
+     *
+     * @returns {HTMLElement} - The HTML representation of the character's family members.
+     */
+    #familyMembersHTML() {
+        const familyFact = document.createElement("div");
+        familyFact.classList.add("character-details-fact");
+        familyFact.classList.add("character-details-fact-family-members");
+        const familyHeader = document.createElement("h4");
+        familyHeader.textContent = "Family Members:";
+        familyFact.appendChild(familyHeader);
+        if (this.family_members.length === 0) {
+            const noFamily = document.createElement("p");
+            noFamily.textContent = "No known family members.";
+            familyFact.appendChild(noFamily);
+        } else {
+            const familyList = document.createElement("ul");
+            this.family_members.forEach((member) => {
+                const li = document.createElement("li");
+                li.textContent = member;
+                familyList.appendChild(li);
+            });
+            familyFact.appendChild(familyList);
+        }
+        return familyFact;
+    }
+
+    /**
+     * Generate HTML for the character's jobs.
+     *
+     * @returns {HTMLElement} - The HTML representation of the character's jobs.
+     */
+    #jobsHTML() {
+        const jobsFact = document.createElement("div");
+        jobsFact.classList.add("character-details-fact");
+        jobsFact.classList.add("character-details-fact-jobs");
+        const jobsHeader = document.createElement("h4");
+        jobsHeader.textContent = "Jobs:";
+        jobsFact.appendChild(jobsHeader);
+        if (this.jobs.length === 0) {
+            const noJobs = document.createElement("p");
+            noJobs.textContent = "No known jobs.";
+            jobsFact.appendChild(noJobs);
+        } else {
+            const jobsList = document.createElement("ul");
+            this.jobs.forEach((job) => {
+                const li = document.createElement("li");
+                li.textContent = job;
+                jobsList.appendChild(li);
+            });
+            jobsFact.appendChild(jobsList);
+        }
+        return jobsFact;
+    }
+
+    /**
+     * Generate HTML for the character's wands.
+     *
+     * @returns {HTMLElement} - The HTML representation of the character's wands.
+     */
+    #wandsHTML() {
+        const wandFact = document.createElement("div");
+        wandFact.classList.add("character-details-fact");
+        wandFact.classList.add("character-details-fact-wands");
+        const wandHeader = document.createElement("h4");
+        wandHeader.textContent = "Wands:";
+        wandFact.appendChild(wandHeader);
+        if (this.wands.length === 0) {
+            const noWands = document.createElement("p");
+            noWands.textContent = "No known wands.";
+            wandFact.appendChild(noWands);
+        } else {
+            const wandList = document.createElement("ul");
+            this.wands.forEach((wand) => {
+                const li = document.createElement("li");
+                li.textContent = wand;
+                wandList.appendChild(li);
+            });
+            wandFact.appendChild(wandList);
+        }
+        return wandFact;
+    }
+
+    /**
+     * Generate HTML for the character's patronus.
+     *
+     * @returns {HTMLElement} - The HTML representation of the character's patronus.
+     */
+    #patronusHTML() {
+        const patronusFact = document.createElement("p");
+        patronusFact.classList.add("character-details-fact");
+        patronusFact.classList.add("character-details-fact-patronus");
+        if (this.patronus) {
+            patronusFact.textContent = "Patronus: " + this.patronus;
+        } else {
+            patronusFact.textContent = "Unknown";
+        }
+        return patronusFact;
+    }
+
+    /**
+     * Generate HTML for the character's boggart.
+     *
+     * @returns {HTMLElement} - The HTML representation of the character's boggart.
+     */
+    #boggartHTML() {
+        const boggartFact = document.createElement("p");
+        boggartFact.classList.add("character-details-fact");
+        boggartFact.classList.add("character-details-fact-boggart");
+        if (this.boggart) {
+            boggartFact.textContent = "Boggart: " + this.boggart;
+        } else {
+            boggartFact.textContent = "Unknown";
+        }
+        return boggartFact;
     }
 
     /**
