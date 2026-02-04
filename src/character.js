@@ -76,6 +76,7 @@ export class Character {
 
     /**
      * Create a preview card HTML element for the character.
+     *
      * @returns {HTMLElement} - The HTML representation of the character.
      */
     previewHTML() {
@@ -91,6 +92,11 @@ export class Character {
         return container;
     }
 
+    /**
+     * Create a detailed card HTML element for the character.
+     *
+     * @returns {HTMLElement} - The detailed HTML representation of the character.
+     */
     detailsHTML() {
         const container = document.createElement("section");
         container.classList.add("character-details-card");
