@@ -73,29 +73,29 @@ const DETAILS_IMAGE_WIDTH = 300;
  * @property {string} slug
  * @property {string[]} alias_names
  * @property {string|null} animagus
- * @property {string} blood_status
+ * @property {string|null} blood_status
  * @property {string|null} boggart
  * @property {string|null} born
  * @property {string|null} died
  * @property {string|null} eye_color
  * @property {string[]} family_members
- * @property {string} gender
- * @property {string} hair_color
- * @property {string} height
- * @property {string} house
+ * @property {string|null} gender
+ * @property {string|null} hair_color
+ * @property {string|null} height
+ * @property {string|null} house
  * @property {string|null} image
  * @property {string[]} jobs
- * @property {string} marital_status
+ * @property {string|null} marital_status
  * @property {string} name
- * @property {string} nationality
- * @property {string} patronus
+ * @property {string|null} nationality
+ * @property {string|null} patronus
  * @property {string[]} romances
- * @property {string} skin_color
- * @property {string} species
+ * @property {string|null} skin_color
+ * @property {string|null} species
  * @property {string[]} titles
  * @property {string[]} wands
- * @property {string} weight
- * @property {string} wiki
+ * @property {string|null} weight
+ * @property {string|null} wiki
  */
 
 /**
