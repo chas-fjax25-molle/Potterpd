@@ -8,7 +8,7 @@ import { isURLValid } from "./utils";
  * CSS styles for the Character entity.
  * @constant {Object} CSS - CSS styles for the Character entity.
  */
-const CSS = {
+const CSS = Object.freeze({
     // Favorite icon class
     FAVORITE_ICON_CLASS: "character-favorite-icon",
 
@@ -51,7 +51,7 @@ const CSS = {
      * 3. character-details-fact-list
      */
     DETAILS_FACT_LIST_CLASS: "character-details-fact-list",
-};
+});
 
 /**
  * Constant for the width of the character image in the preview card.
