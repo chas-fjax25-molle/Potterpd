@@ -72,6 +72,21 @@ const CSS = {
 };
 
 /**
+ * Constant for the width of the character image in the preview card.
+ * Set to null to use the image's original width.
+ *
+ * @type {number|null}
+ */
+const PREVIEW_IMAGE_WIDTH = 200;
+/**
+ * Constant for the width of the character image in the details card.
+ * Set to null to use the image's original width.
+ *
+ * @type {number|null}
+ */
+const DETAILS_IMAGE_WIDTH = 300;
+
+/**
  * @typedef {Object} CharacterAttributes
  * @property {string} slug
  * @property {string[]} alias_names
@@ -308,7 +323,6 @@ export class Character {
     #favoriteIcon() {
         const favoriteIcon = document.createElement("span");
         favoriteIcon.classList.add(CSS.FAVORITE_ICON_CLASS);
-        favoriteIcon.id = this.id;
         favoriteIcon.role = "button";
         favoriteIcon.ariaLabel = "Toggle Favorite";
         favoriteIcon.setAttribute("aria-label", "Toggle Favorite");
@@ -330,7 +344,9 @@ export class Character {
             imageElem.classList.add(CSS.PREVIEW_IMAGE_CLASS);
             imageElem.src = this.image;
             imageElem.alt = `${this.name} image`;
-            imageElem.width = 200;
+            if (PREVIEW_IMAGE_WIDTH) {
+                imageElem.width = PREVIEW_IMAGE_WIDTH;
+            }
             container.appendChild(imageElem);
         } else {
             const placeholder = document.createElement("div");
@@ -354,7 +370,9 @@ export class Character {
             imageElem.classList.add(CSS.DETAILS_IMAGE_CLASS);
             imageElem.src = this.image;
             imageElem.alt = `${this.name} image`;
-            imageElem.width = 300;
+            if (DETAILS_IMAGE_WIDTH) {
+                imageElem.width = DETAILS_IMAGE_WIDTH;
+            }
             container.appendChild(imageElem);
         } else {
             const placeholder = document.createElement("div");
