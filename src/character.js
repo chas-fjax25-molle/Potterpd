@@ -314,6 +314,7 @@ export class Character {
     #favoriteIcon() {
         const favoriteIcon = document.createElement("span");
         favoriteIcon.classList.add(CSS.FAVORITE_ICON_CLASS);
+        favoriteIcon.dataset.characterId = this.id;
         favoriteIcon.setAttribute("role", "button");
         favoriteIcon.setAttribute("aria-label", "Toggle Favorite");
         favoriteIcon.tabIndex = 0;
