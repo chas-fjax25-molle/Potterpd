@@ -35,7 +35,7 @@ const CSS = Object.freeze({
      * Class for individual character fact item
      *
      * Used for facts that are single items (not lists)
-     * Well be added as three classes:
+     * Will be added as three classes:
      * 1. character-details-fact
      * 2. character-details-fact-{fact-name}
      * 3. character-details-fact-item
