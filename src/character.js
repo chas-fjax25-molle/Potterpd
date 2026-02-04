@@ -2,6 +2,8 @@
  * @file Character entity representation and HTML generation.
  */
 
+import { isURLValid } from "./utils";
+
 /**
  * CSS styles for the Character entity.
  * @constant {Object} CSS - CSS styles for the Character entity.
@@ -327,7 +329,7 @@ export class Character {
     #characterImageSmall() {
         const container = document.createElement("div");
         container.classList.add(CSS.PREVIEW_IMAGE_CONTAINER_CLASS);
-        if (this.image) {
+        if (this.image && isURLValid(this.image)) {
             const imageElem = document.createElement("img");
             imageElem.classList.add(CSS.PREVIEW_IMAGE_CLASS);
             imageElem.src = this.image;
@@ -353,7 +355,7 @@ export class Character {
     #characterImageLarge() {
         const container = document.createElement("div");
         container.classList.add(CSS.DETAILS_IMAGE_CONTAINER_CLASS);
-        if (this.image) {
+        if (this.image && isURLValid(this.image)) {
             const imageElem = document.createElement("img");
             imageElem.classList.add(CSS.DETAILS_IMAGE_CLASS);
             imageElem.src = this.image;
