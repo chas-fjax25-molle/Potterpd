@@ -25,4 +25,7 @@
         "vite-plugin-pwa": "^1.2.0",
         "vitest": "^4.0.18"
     }
+    ,"overrides": {
+    "esbuild": "0.23.1"
+    }
 }
