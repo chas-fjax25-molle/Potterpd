@@ -26,8 +26,7 @@ export async function getCategory(category, pageNumber) {
     }
 }
 
-console.log(getCategory("characters", "2"));
-console.log(getCategory("characters", "1"));
+//console.log(getCategory("characters", "2"));
 
 /**
  * @param {string} category
@@ -50,7 +49,7 @@ export async function getSpecific(category, id) {
     }
 }
 
-console.log(getSpecific("books", "3e161309-4c3c-4094-9db9-a8dfe911de14"));
+//console.log(getSpecific("books", "3e161309-4c3c-4094-9db9-a8dfe911de14"));
 
 
 /**
@@ -80,7 +79,7 @@ export async function getCategoryFilteredBy(category, filterParameter, filterVal
     }
 }
 
-console.log(getCategoryFilteredBy("characters", "name_cont", "Potter", "1"));
+//console.log(getCategoryFilteredBy("characters", "name_cont", "Potter", "1"));
 
 
 /**
@@ -108,4 +107,4 @@ export async function getSearchBy(searchValue, pageNumber) {
     }
 }
 
-console.log(getSearchBy("Phoenix", "1"));
+//console.log(getSearchBy("Phoenix", "1"));
