@@ -56,7 +56,18 @@ export default defineConfig(({ mode }) => {
                     theme_color: "#ffffff",
                     background_color: "#ffffff",
 
-                    // vites icons array removed
+                    icons: [
+                        {
+                            src: "vite.svg",
+                            sizes: "192x192",
+                            type: "image/png",
+                        },
+                        {
+                            src: "vite.svg",
+                            sizes: "512x512",
+                            type: "image/png",
+                        },
+                    ],
                 },
             }),
         ],
