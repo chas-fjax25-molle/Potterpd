@@ -313,6 +313,45 @@ export class Character {
     }
 
     /**
+     * Serialize the character instance into a JSON structure for storage.
+     * @returns {CharacterJSON} - The JSON structure representing the character.
+     */
+    serialize() {
+        return {
+            id: this.id,
+            type: this.type,
+            attributes: {
+                slug: this.slug,
+                alias_names: this.alias_names,
+                animagus: this.animagus,
+                blood_status: this.blood_status,
+                boggart: this.boggart,
+                born: this.born,
+                died: this.died,
+                eye_color: this.eye_color,
+                family_members: this.family_members,
+                gender: this.gender,
+                hair_color: this.hair_color,
+                height: this.height,
+                house: this.house,
+                image: this.image,
+                jobs: this.jobs,
+                marital_status: this.marital_status,
+                name: this.name,
+                nationality: this.nationality,
+                patronus: this.patronus,
+                romances: this.romances,
+                skin_color: this.skin_color,
+                species: this.species,
+                titles: this.titles,
+                wands: this.wands,
+                weight: this.weight,
+                wiki: this.wiki,
+            },
+        };
+    }
+
+    /**
      * Generate the favorite icon HTML element.
      *
      * @returns {HTMLElement} - The favorite icon HTML element.
