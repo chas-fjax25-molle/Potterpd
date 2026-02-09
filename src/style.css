@@ -60,6 +60,12 @@ input {
 
 .btn-search {
     margin-left: auto;
+    cursor: pointer;
+}
+
+.search-container input[type="text"] {
+    flex: 1;
+    outline: none;
 }
 
 .filter-container {
