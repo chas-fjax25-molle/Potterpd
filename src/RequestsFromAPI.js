@@ -51,13 +51,12 @@ export async function getSpecific(category, id) {
 
 //console.log(getSpecific("books", "3e161309-4c3c-4094-9db9-a8dfe911de14"));
 
-
 /**
- * 
- * @param {string} category 
- * @param {string} filterParameter 
+ *
+ * @param {string} category
+ * @param {string} filterParameter
  * @param {string} filterValue
- * @param {string} pageNumber 
+ * @param {string} pageNumber
  * @returns {Promise<*>} - Category objects filtered by filterParameter and filterValue, 50 results per page.
  */
 export async function getCategoryFilteredBy(category, filterParameter, filterValue, pageNumber) {
@@ -81,11 +80,10 @@ export async function getCategoryFilteredBy(category, filterParameter, filterVal
 
 //console.log(getCategoryFilteredBy("characters", "name_cont", "Potter", "1"));
 
-
 /**
- * 
+ *
  * @param {string} searchValue - Takes a string value and searches in all the fields of the API
- * @param {string} pageNumber 
+ * @param {string} pageNumber
  * @returns {Promise<*>} - Objects found by searching all objects for searchValue
  */
 export async function getSearchBy(searchValue, pageNumber) {
