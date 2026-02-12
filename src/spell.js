@@ -16,6 +16,7 @@ const CSS = Object.freeze({
     PREVIEW_IMAGE_CONTAINER_CLASS: "spell-preview-image-container",
     PREVIEW_IMAGE_CLASS: "spell-preview-image",
     PREVIEW_PLACEHOLDER_CLASS: "spell-preview-placeholder",
+    PREIVEW_EFFECT_CLASS: "spell-preview-effect",
 });
 
 /**
@@ -122,7 +123,10 @@ export class Spell {
         container.appendChild(header);
         container.appendChild(favoriteIcon(this.id));
         container.appendChild(this.#spellImageSmall());
-
+        const effectElem = document.createElement("p");
+        effectElem.classList.add(CSS.PREIVEW_EFFECT_CLASS);
+        effectElem.textContent = this.effect;
+        container.appendChild(effectElem);
         return container;
     }
 
