@@ -26,7 +26,7 @@ export async function getCategory(category, pageNumber) {
     }
 }
 
-//console.log(getCategory("characters", "2"));
+//console.log(getCategory("characters", 2));
 
 /**
  * @param {string} category
@@ -78,7 +78,7 @@ export async function getCategoryFilteredBy(category, filterParameter, filterVal
     }
 }
 
-//console.log(getCategoryFilteredBy("characters", "name_cont", "Potter", "1"));
+//console.log(getCategoryFilteredBy("characters", "name_cont", "Potter", 1));
 
 /**
  * @param {string} searchCategory - Takes a string value
@@ -105,4 +105,4 @@ export async function getSearchBy(searchCategory, searchValue, pageNumber) {
     }
 }
 
-//console.log(getSearchBy("Phoenix", "1"));
+//console.log(getSearchBy("boobs", "Phoenix", 1));
