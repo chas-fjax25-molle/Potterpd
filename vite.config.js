@@ -76,6 +76,7 @@ export default defineConfig(({ mode }) => {
         // Redirect the public directory to the correct location
         publicDir: resolve(rootDir, "public"),
         build: {
+            target: "es2015",
             // Set the output directory to 'dist' in the project root
             outDir: resolve(rootDir, "dist"),
             emptyOutDir: true,
