@@ -3,6 +3,7 @@
  */
 
 import { favoriteIcon } from "./favorite_icon";
+import { isURLValid } from "./utils";
 
 /**
  * CSS styles used in the Spell entity.
@@ -18,9 +19,26 @@ const CSS = Object.freeze({
 });
 
 /**
+ * Constant for the width of the character image in the preview card.
+ * Set to null to use the image's original width.
+ *
+ * @type {number|null}
+ */
+const PREVIEW_IMAGE_WIDTH = 200;
+/**
+ * Constant for the width of the character image in the details card.
+ * Set to null to use the image's original width.
+ *
+ * @type {number|null}
+ */
+//const DETAILS_IMAGE_WIDTH = 300;
+
+/**
  * @typedef {Object} SpellAttributes
  * @property {string} name - Name of the spell
  * @property {string} incantation - Incantation of the spell
+ * @property {string} effect - Effect of the spell
+ * @property {string} [image] - Optional image URL for the spell
  */
 
 /**
@@ -52,6 +70,16 @@ export class Spell {
     incantation = "";
 
     /**
+     * @type {string} effect - Effect of the spell
+     */
+    effect = "";
+
+    /**
+     * @type {string|null} image - Optional image URL for the spell
+     */
+    image = null;
+
+    /**
      *
      * @param {SpellJSON} json - JSON object representing a spell
      * @returns {Spell} - An instance of the Spell class populated with data from the JSON object
@@ -78,6 +106,8 @@ export class Spell {
 
         spell.name = attributes.name || "";
         spell.incantation = attributes.incantation || "";
+        spell.effect = attributes.effect || "";
+        spell.image = attributes.image || "";
 
         return spell;
     }
@@ -91,7 +121,34 @@ export class Spell {
         header.textContent = this.name;
         container.appendChild(header);
         container.appendChild(favoriteIcon(this.id));
+        container.appendChild(this.#spellImageSmall());
 
+        return container;
+    }
+
+    /**
+     * Generates the HTML container for a small character image.
+     *
+     * @returns {HTMLElement} - The HTML container for the small character image.
+     */
+    #spellImageSmall() {
+        const container = document.createElement("div");
+        container.classList.add(CSS.PREVIEW_IMAGE_CONTAINER_CLASS);
+        if (this.image && isURLValid(this.image)) {
+            const imageElem = document.createElement("img");
+            imageElem.classList.add(CSS.PREVIEW_IMAGE_CLASS);
+            imageElem.src = this.image;
+            imageElem.alt = `${this.name} image`;
+            if (PREVIEW_IMAGE_WIDTH) {
+                imageElem.width = PREVIEW_IMAGE_WIDTH;
+            }
+            container.appendChild(imageElem);
+        } else {
+            const placeholder = document.createElement("div");
+            placeholder.classList.add(CSS.PREVIEW_PLACEHOLDER_CLASS);
+            placeholder.textContent = "No Image";
+            container.appendChild(placeholder);
+        }
         return container;
     }
 }
