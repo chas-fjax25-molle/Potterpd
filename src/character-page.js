@@ -1,7 +1,6 @@
 import { Character } from "./character.js";
 import "./character/style.css";
 
-
 const API_BASE = "https://api.potterdb.com/v1";
 
 /**
@@ -9,8 +8,8 @@ const API_BASE = "https://api.potterdb.com/v1";
  */
 
 function getCharacterIdFromUrl() {
-  const params = new URLSearchParams(window.location.search);
-  return params.get("id");
+    const params = new URLSearchParams(window.location.search);
+    return params.get("id");
 }
 
 /**
@@ -45,22 +44,19 @@ async function renderCharacterDetails() {
         document.title = `${character.name} - Potterpd`;
         container.innerHTML = "";
         container.appendChild(character.previewHTML());
-        
-        if(character.detailsHTML){
-        container.appendChild(character.detailsHTML());
-    } else {
-        const fallback = document.createElement("p");
-        fallback.textContent = `Character:  ${character.name} (ID: ${character.id})`;'
-        container.appendChild(fallback);
-    }
 
+        if (character.detailsHTML) {
+            container.appendChild(character.detailsHTML());
+        } else {
+            const fallback = document.createElement("p");
+            fallback.textContent = `Character:  ${character.name} (ID: ${character.id})`;
+            container.appendChild(fallback);
+        }
     } catch (error) {
         console.error(error);
         container.innerHTML = "<p>Failed to load character details. Please try again later.</p>";
     }
 }
 
-
 // Run when DOM is fully loaded
 document.addEventListener("DOMContentLoaded", renderCharacterDetails);
-    
