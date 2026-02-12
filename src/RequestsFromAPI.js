@@ -4,7 +4,7 @@
 
 /**
  * @param {string} category
- * @param {string} pageNumber - The page number to fetch. Defaults to 1. 50 is the default number of results per page.
+ * @param {number} pageNumber - The page number to fetch. Defaults to 1. 50 is the default number of results per page.
  * @returns {Promise<*>} - Category objects 50 results per page.
  */
 export async function getCategory(category, pageNumber) {
@@ -56,7 +56,7 @@ export async function getSpecific(category, id) {
  * @param {string} category
  * @param {string} filterParameter
  * @param {string} filterValue
- * @param {string} pageNumber
+ * @param {number} pageNumber
  * @returns {Promise<*>} - Category objects filtered by filterParameter and filterValue, 50 results per page.
  */
 export async function getCategoryFilteredBy(category, filterParameter, filterValue, pageNumber) {
@@ -81,16 +81,16 @@ export async function getCategoryFilteredBy(category, filterParameter, filterVal
 //console.log(getCategoryFilteredBy("characters", "name_cont", "Potter", "1"));
 
 /**
- *
+ * @param {string} searchCategory - Takes a string value
  * @param {string} searchValue - Takes a string value and searches in all the fields of the API
- * @param {string} pageNumber
+ * @param {number} pageNumber
  * @returns {Promise<*>} - Objects found by searching all objects for searchValue
  */
-export async function getSearchBy(searchValue, pageNumber) {
+export async function getSearchBy(searchCategory, searchValue, pageNumber) {
     const defaultPage = 1;
     const pageNumberValue = pageNumber || defaultPage;
 
-    const filterUrl = `https://api.potterdb.com/v1/?filter[in_any]=${searchValue}&?page[number]=${pageNumberValue}`;
+    const filterUrl = `https://api.potterdb.com/v1/${searchCategory}?filter[in_any]=${searchValue}&?page[number]=${pageNumberValue}`;
 
     try {
         const response = await fetch(filterUrl);
