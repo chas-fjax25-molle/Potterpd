@@ -1,5 +1,6 @@
 // @ts-ignore
 import "./style.css";
+import "./spell_layout.css";
 
 import { Spell } from "./spell";
 //import { Favorites } from "./favorites";

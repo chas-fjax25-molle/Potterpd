@@ -35,6 +35,11 @@ const PREVIEW_IMAGE_WIDTH = 200;
 //const DETAILS_IMAGE_WIDTH = 300;
 
 /**
+ * importing the placeholder image for spells in the api missing an image.
+ */
+const PLACEHOLDER_IMAGE = "/image-placeholders/spells-placeholder-image.jpg";
+
+/**
  * @typedef {Object} SpellAttributes
  * @property {string} name - Name of the spell
  * @property {string} incantation - Incantation of the spell
@@ -108,20 +113,24 @@ export class Spell {
         spell.name = attributes.name || "";
         spell.incantation = attributes.incantation || "";
         spell.effect = attributes.effect || "";
-        spell.image = attributes.image || "";
+        spell.image = attributes.image || null;
 
         return spell;
     }
 
     previewHTML() {
-        const container = document.createElement("section");
+        const container = document.createElement("article");
         container.classList.add(CSS.PREVIEW_CARD_CLASS);
         container.dataset.spellId = this.id;
+        const headerRow = document.createElement("div");
+        headerRow.classList.add("spell-preview-header");
+
         const header = document.createElement("h3");
         header.classList.add(CSS.PREVIEW_NAME_CLASS);
         header.textContent = this.name;
-        container.appendChild(header);
-        container.appendChild(favoriteIcon(this.id));
+        headerRow.appendChild(header);
+        headerRow.appendChild(favoriteIcon(this.id));
+        container.appendChild(headerRow);
         container.appendChild(this.#spellImageSmall());
         const effectElem = document.createElement("p");
         effectElem.classList.add(CSS.PREIVEW_EFFECT_CLASS);
@@ -138,21 +147,19 @@ export class Spell {
     #spellImageSmall() {
         const container = document.createElement("div");
         container.classList.add(CSS.PREVIEW_IMAGE_CONTAINER_CLASS);
-        if (this.image && isURLValid(this.image)) {
-            const imageElem = document.createElement("img");
-            imageElem.classList.add(CSS.PREVIEW_IMAGE_CLASS);
-            imageElem.src = this.image;
-            imageElem.alt = `${this.name} image`;
-            if (PREVIEW_IMAGE_WIDTH) {
-                imageElem.width = PREVIEW_IMAGE_WIDTH;
-            }
-            container.appendChild(imageElem);
-        } else {
-            const placeholder = document.createElement("div");
-            placeholder.classList.add(CSS.PREVIEW_PLACEHOLDER_CLASS);
-            placeholder.textContent = "No Image";
-            container.appendChild(placeholder);
+
+        const imageElem = document.createElement("img");
+        imageElem.classList.add(CSS.PREVIEW_IMAGE_CLASS);
+
+        const src = this.image && isURLValid(this.image) ? this.image : PLACEHOLDER_IMAGE;
+
+        imageElem.src = src;
+        imageElem.alt = `${this.name} image`;
+
+        if (PREVIEW_IMAGE_WIDTH) {
+            imageElem.width = PREVIEW_IMAGE_WIDTH;
         }
+        container.appendChild(imageElem);
         return container;
     }
 }

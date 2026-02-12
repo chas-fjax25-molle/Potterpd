@@ -7,15 +7,32 @@ export const CSS = Object.freeze({
  *
  * @param {string} id - The entity ID associated with the favorite icon.
  *
- * @returns {HTMLElement} - The favorite icon HTML element.
+ * @returns {HTMLButtonElement} - The favorite icon HTML element.
  */
 export function favoriteIcon(id) {
-    const favoriteIcon = document.createElement("span");
-    favoriteIcon.classList.add(CSS.FAVORITE_ICON_CLASS);
-    favoriteIcon.dataset.entityId = id;
-    favoriteIcon.setAttribute("role", "button");
-    favoriteIcon.setAttribute("aria-label", "Toggle Favorite");
-    favoriteIcon.tabIndex = 0;
-    favoriteIcon.textContent = "★";
-    return favoriteIcon;
+    const favoriteButton = document.createElement("button");
+    favoriteButton.classList.add(CSS.FAVORITE_ICON_CLASS);
+    favoriteButton.type = "button";
+    favoriteButton.dataset.entityId = id;
+
+    let isActive = false;
+
+    const updateUI = () => {
+        favoriteButton.textContent = isActive ? "★" : "☆";
+        favoriteButton.classList.toggle(CSS.FAVORITE_ICON_ACTIVE_CLASS, isActive);
+
+        favoriteButton.setAttribute("aria-pressed", String(isActive));
+        favoriteButton.setAttribute(
+            "aria-label",
+            isActive ? "Remove from favorites" : "Add to favorites"
+        );
+    };
+    favoriteButton.addEventListener("click", () => {
+        isActive = !isActive;
+        //TODO: Connect to favorites logic! <3
+        updateUI();
+    });
+
+    updateUI();
+    return favoriteButton;
 }
