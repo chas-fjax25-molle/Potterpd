@@ -1,4 +1,5 @@
 import { Character } from "./character";
+import { Spell } from "./spell";
 
 /**
  * Entity types enum for type-safe favorites management.
@@ -123,7 +124,7 @@ export class Favorites {
     add(typeOrItem, item) {
         let type;
         let itemToAdd;
-
+        console.log("Adding to favorites:", typeOrItem, item);
         // Determine if called with (item) or (type, item)
         if (item === undefined) {
             // Called as add(item)
@@ -231,9 +232,9 @@ export class Favorites {
      * Get all favorites of a specific type.
      * Returns class instances (e.g., Character objects), not raw JSON.
      * @param {string} type - Entity type from EntityType enum.
-     * @returns {any[]} Array of favorite class instances of the specified type.
+     * @returns {Promise<any[]>} Array of favorite class instances of the specified type.
      */
-    getByType(type) {
+    async getByType(type) {
         const items = this.#favorites.get(type);
         if (!items) {
             throw new Error(`Invalid type: ${type}`);
@@ -302,41 +303,41 @@ export class Favorites {
 
     /**
      * Convenience method: Get all character favorites.
-     * @returns {Character[]} Array of favorite characters.
+     * @returns {Promise<Character[]>} Array of favorite characters.
      */
-    getCharacters() {
+    async getCharacters() {
         return this.getByType(EntityType.CHARACTER);
     }
 
     /**
      * Convenience method: Get all book favorites.
-     * @returns {any[]} Array of favorite books.
+     * @returns {Promise<any[]>} Array of favorite books.
      */
-    getBooks() {
+    async getBooks() {
         return this.getByType(EntityType.BOOK);
     }
 
     /**
      * Convenience method: Get all movie favorites.
-     * @returns {any[]} Array of favorite movies.
+     * @returns {Promise<any[]>} Array of favorite movies.
      */
-    getMovies() {
+    async getMovies() {
         return this.getByType(EntityType.MOVIE);
     }
 
     /**
      * Convenience method: Get all spell favorites.
-     * @returns {any[]} Array of favorite spells.
+     * @returns {Promise<Spell[]>} Array of favorite spells.
      */
-    getSpells() {
+    async getSpells() {
         return this.getByType(EntityType.SPELL);
     }
 
     /**
      * Convenience method: Get all potion favorites.
-     * @returns {any[]} Array of favorite potions.
+     * @returns {Promise<any[]>} Array of favorite potions.
      */
-    getPotions() {
+    async getPotions() {
         return this.getByType(EntityType.POTION);
     }
 
@@ -429,10 +430,10 @@ export class Favorites {
         /** @type {Record<string, (data: any) => any>} */
         const deserializers = {
             Character: Character.fromJson,
+            Spell: Spell.fromJson,
             // TODO: Add other entity types here
             // Book: Book.fromJson,
             // Movie: Movie.fromJson,
-            // Spell: Spell.fromJson,
             // Potion: Potion.fromJson,
         };
 

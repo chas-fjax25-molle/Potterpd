@@ -82,25 +82,25 @@ describe("Favorites", () => {
     });
 
     describe("add()", () => {
-        it("should add a character using object reference", () => {
+        it("should add a character using object reference", async () => {
             const character = createMockCharacter("1", "Harry Potter");
 
             favorites.add(character);
-
+            const characters = await favorites.getCharacters();
             expect(favorites.getCount()).toBe(1);
-            expect(favorites.getCharacters()).toHaveLength(1);
-            expect(favorites.getCharacters()[0].id).toBe("1");
-            expect(favorites.getCharacters()[0].name).toBe("Harry Potter");
+            expect(characters).toHaveLength(1);
+            expect(characters[0].id).toBe("1");
+            expect(characters[0].name).toBe("Harry Potter");
         });
 
-        it("should add a character using explicit type", () => {
+        it("should add a character using explicit type", async () => {
             const character = createMockCharacter("2", "Hermione Granger");
 
             favorites.add(EntityType.CHARACTER, character);
-
+            const characters = await favorites.getCharacters();
             expect(favorites.getCount()).toBe(1);
-            expect(favorites.getCharacters()).toHaveLength(1);
-            expect(favorites.getCharacters()[0].name).toBe("Hermione Granger");
+            expect(characters).toHaveLength(1);
+            expect(characters[0].name).toBe("Hermione Granger");
         });
 
         it("should not add duplicate characters", () => {
@@ -112,7 +112,7 @@ describe("Favorites", () => {
             expect(favorites.getCount()).toBe(1);
         });
 
-        it("should add multiple different characters", () => {
+        it("should add multiple different characters", async () => {
             const harry = createMockCharacter("1", "Harry Potter");
             const hermione = createMockCharacter("2", "Hermione Granger");
             const ron = createMockCharacter("3", "Ron Weasley");
@@ -122,7 +122,7 @@ describe("Favorites", () => {
             favorites.add(ron);
 
             expect(favorites.getCount()).toBe(3);
-            expect(favorites.getCharacters()).toHaveLength(3);
+            expect(await favorites.getCharacters()).toHaveLength(3);
         });
 
         it("should throw error for item without id", () => {
@@ -162,7 +162,7 @@ describe("Favorites", () => {
             expect(removed).toBe(false);
         });
 
-        it("should only remove the specified character", () => {
+        it("should only remove the specified character", async () => {
             const harry = createMockCharacter("1", "Harry Potter");
             const hermione = createMockCharacter("2", "Hermione Granger");
             favorites.add(harry);
@@ -171,7 +171,7 @@ describe("Favorites", () => {
             favorites.remove(harry);
 
             expect(favorites.getCount()).toBe(1);
-            expect(favorites.getCharacters()[0].name).toBe("Hermione Granger");
+            expect((await favorites.getCharacters())[0].name).toBe("Hermione Granger");
         });
 
         it("should throw error for item without id when using object reference", () => {
@@ -213,21 +213,21 @@ describe("Favorites", () => {
     });
 
     describe("getByType()", () => {
-        it("should return all characters", () => {
+        it("should return all characters", async () => {
             const harry = createMockCharacter("1", "Harry Potter");
             const hermione = createMockCharacter("2", "Hermione Granger");
             favorites.add(harry);
             favorites.add(hermione);
 
-            const characters = favorites.getByType(EntityType.CHARACTER);
+            const characters = await favorites.getByType(EntityType.CHARACTER);
 
             expect(characters).toHaveLength(2);
             expect(characters[0]).toBeInstanceOf(Character);
             expect(characters[1]).toBeInstanceOf(Character);
         });
 
-        it("should return empty array for type with no favorites", () => {
-            const books = favorites.getByType(EntityType.BOOK);
+        it("should return empty array for type with no favorites", async () => {
+            const books = await favorites.getByType(EntityType.BOOK);
 
             expect(books).toHaveLength(0);
         });
@@ -243,19 +243,21 @@ describe("Favorites", () => {
             expect(characters1).toEqual(characters2);
         });
 
-        it("should throw error for invalid type", () => {
-            expect(() => favorites.getByType("invalid-type")).toThrow("Invalid type: invalid-type");
+        it("should throw error for invalid type", async () => {
+            await expect(favorites.getByType("invalid-type")).rejects.toThrow(
+                "Invalid type: invalid-type"
+            );
         });
     });
 
     describe("getCharacters()", () => {
-        it("should return all character favorites", () => {
+        it("should return all character favorites", async () => {
             const harry = createMockCharacter("1", "Harry Potter");
             const hermione = createMockCharacter("2", "Hermione Granger");
             favorites.add(harry);
             favorites.add(hermione);
 
-            const characters = favorites.getCharacters();
+            const characters = await favorites.getCharacters();
 
             expect(characters).toHaveLength(2);
             expect(characters[0].name).toBe("Harry Potter");
@@ -358,7 +360,7 @@ describe("Favorites", () => {
             expect(parsed.character).toHaveLength(1);
         });
 
-        it("should load favorites from localStorage", () => {
+        it("should load favorites from localStorage", async () => {
             const harry = createMockCharacter("1", "Harry Potter");
             favorites.add(harry);
             favorites.store();
@@ -368,11 +370,11 @@ describe("Favorites", () => {
             newFavorites.load();
 
             expect(newFavorites.getCount()).toBe(1);
-            expect(newFavorites.getCharacters()[0].id).toBe("1");
-            expect(newFavorites.getCharacters()[0].name).toBe("Harry Potter");
+            expect((await newFavorites.getCharacters())[0].id).toBe("1");
+            expect((await newFavorites.getCharacters())[0].name).toBe("Harry Potter");
         });
 
-        it("should deserialize characters as Character instances", () => {
+        it("should deserialize characters as Character instances", async () => {
             const harry = createMockCharacter("1", "Harry Potter");
             favorites.add(harry);
             favorites.store();
@@ -380,7 +382,7 @@ describe("Favorites", () => {
             const newFavorites = new Favorites();
             newFavorites.load();
 
-            const characters = newFavorites.getCharacters();
+            const characters = await newFavorites.getCharacters();
             expect(characters[0]).toBeInstanceOf(Character);
         });
 
@@ -415,7 +417,7 @@ describe("Favorites", () => {
             expect(singleton1).toBe(singleton2);
         });
 
-        it("should load from localStorage when a new instance is created", () => {
+        it("should load from localStorage when a new instance is created", async () => {
             // Store data to localStorage first
             const harry = createMockCharacter("1", "Harry Potter");
             const tempFavorites = new Favorites();
@@ -429,13 +431,13 @@ describe("Favorites", () => {
             expect(newFavorites).not.toBe(tempFavorites); // They are different instances
 
             expect(newFavorites.getCount()).toBe(1);
-            expect(newFavorites.getCharacters()[0].id).toBe("1");
-            expect(newFavorites.getCharacters()[0].name).toBe("Harry Potter");
+            expect((await newFavorites.getCharacters())[0].id).toBe("1");
+            expect((await newFavorites.getCharacters())[0].name).toBe("Harry Potter");
         });
     });
 
     describe("Favorites minimal store/load", () => {
-        it("should store to localStorage and load into a new instance", () => {
+        it("should store to localStorage and load into a new instance", async () => {
             // Arrange: create and store
             const harry = createMockCharacter("1", "Harry Potter");
             const fav1 = new Favorites();
@@ -448,8 +450,8 @@ describe("Favorites", () => {
 
             // Assert
             expect(fav2.getCount()).toBe(1);
-            expect(fav2.getCharacters()[0].id).toBe("1");
-            expect(fav2.getCharacters()[0].name).toBe("Harry Potter");
+            expect((await fav2.getCharacters())[0].id).toBe("1");
+            expect((await fav2.getCharacters())[0].name).toBe("Harry Potter");
         });
     });
 });
