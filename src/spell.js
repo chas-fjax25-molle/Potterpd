@@ -37,7 +37,7 @@ const PREVIEW_IMAGE_WIDTH = 200;
 /**
  * importing the placeholder image for spells in the api missing an image.
  */
-const PLACEHOLDER_IMAGE = "/image-placeholders/spells-placeholder-image.jpg";
+const PLACEHOLDER_IMAGE = "/image-placeholders/spells-placeholder-image-200.webp";
 
 /**
  * @typedef {Object} SpellAttributes
@@ -59,6 +59,11 @@ export class Spell {
      * @type {string} id - Unique identifier for the spell
      */
     id = "";
+
+    /**
+     * @type {boolean} isFavorite - Indicates whether the spell is marked as a favorite
+     */
+    isFavorite = false;
 
     /**
      * @type {string} type - Type of the object (should be "spells")
@@ -129,7 +134,7 @@ export class Spell {
         header.classList.add(CSS.PREVIEW_NAME_CLASS);
         header.textContent = this.name;
         headerRow.appendChild(header);
-        headerRow.appendChild(favoriteIcon(this.id));
+        headerRow.appendChild(favoriteIcon(this.id, this.isFavorite));
         container.appendChild(headerRow);
         container.appendChild(this.#spellImageSmall());
         const effectElem = document.createElement("p");
@@ -137,6 +142,19 @@ export class Spell {
         effectElem.textContent = this.effect;
         container.appendChild(effectElem);
         return container;
+    }
+
+    serialize() {
+        return {
+            id: this.id,
+            type: this.type,
+            attributes: {
+                name: this.name,
+                incantation: this.incantation,
+                effect: this.effect,
+                image: this.image,
+            },
+        };
     }
 
     /**

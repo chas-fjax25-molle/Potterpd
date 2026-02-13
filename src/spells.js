@@ -2,9 +2,10 @@
 import "./style.css";
 import "./spell_layout.css";
 
-import { Spell } from "./spell";
 //import { Favorites } from "./favorites";
-import { getCategory } from "./RequestsFromAPI";
+//import { getCategory } from "./RequestsFromAPI";
+import { registerFavoriteIconClick } from "./favorite_icon";
+import { SpellService } from "./spell_service";
 
 document.addEventListener("DOMContentLoaded", () => {
     const spellsContainer = document.getElementById("spells-container");
@@ -12,13 +13,24 @@ document.addEventListener("DOMContentLoaded", () => {
         console.error("Spells container element not found.");
         return;
     }
+    let service = new SpellService();
 
-    getCategory("spells", "1")
-        .then((result) => {
-            if (result && result.data) {
-                /** @type {Spell[]} */
-                const spells = result.data.map(Spell.fromJson);
-                spells.forEach((spell) => {
+    /**
+     * This function is called when a favorite icon is clicked, and it toggles the favorite status of the corresponding spell in the SpellService.
+     * @param {string} id - The entity ID associated with the favorite icon that was clicked.
+     */
+    function onFavoriteIconClick(id) {
+        console.log(`Favorite icon clicked for entity ID: ${id}`);
+        service.toggleFavorite(id);
+    }
+
+    registerFavoriteIconClick(spellsContainer, onFavoriteIconClick);
+
+    service
+        .loadSpells(1)
+        .then((spells) => {
+            if (spells) {
+                spells.forEach((/** @type {import("./spell").Spell} */ spell) => {
                     const preview = spell.previewHTML();
                     spellsContainer.appendChild(preview);
                 });
