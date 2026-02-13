@@ -1,0 +1,14 @@
+/*
+Main stylesheet entry point.
+
+Imports base, layout, components,
+and responsive files in the correct order.
+
+Ensures proper cascading of styles.
+*/
+
+/* Main entry */
+@import url("./base.css");
+@import url("./layout.css");
+@import url("./components.css");
+@import url("./responsive.css");
