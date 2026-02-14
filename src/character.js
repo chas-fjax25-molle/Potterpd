@@ -3,6 +3,7 @@
  */
 
 import { isURLValid } from "./utils";
+import { favoriteIcon } from "./favorite_icon";
 
 /**
  * CSS styles for the Character entity.
@@ -285,7 +286,7 @@ export class Character {
         header.classList.add(CSS.PREVIEW_NAME_CLASS);
         header.textContent = this.name;
         container.appendChild(header);
-        container.appendChild(this.#favoriteIcon());
+        container.appendChild(favoriteIcon(this.id));
         container.appendChild(this.#characterImageSmall());
         return container;
     }
@@ -303,7 +304,7 @@ export class Character {
         header.classList.add(CSS.DETAILS_NAME_CLASS);
         header.textContent = this.name;
         container.appendChild(header);
-        container.appendChild(this.#favoriteIcon());
+        container.appendChild(favoriteIcon(this.id));
         container.appendChild(this.#characterImageLarge());
         if (this.alias_names.length > 0) {
             container.appendChild(this.#characterAliasNames());
@@ -349,22 +350,6 @@ export class Character {
                 wiki: this.wiki,
             },
         };
-    }
-
-    /**
-     * Generate the favorite icon HTML element.
-     *
-     * @returns {HTMLElement} - The favorite icon HTML element.
-     */
-    #favoriteIcon() {
-        const favoriteIcon = document.createElement("span");
-        favoriteIcon.classList.add(CSS.FAVORITE_ICON_CLASS);
-        favoriteIcon.dataset.characterId = this.id;
-        favoriteIcon.setAttribute("role", "button");
-        favoriteIcon.setAttribute("aria-label", "Toggle Favorite");
-        favoriteIcon.tabIndex = 0;
-        favoriteIcon.textContent = "★";
-        return favoriteIcon;
     }
 
     /**
