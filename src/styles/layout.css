@@ -1,0 +1,40 @@
+/*
+Shared structural layout for the site.
+
+Includes header, navigation container, footer,
+and global page structure using flex or grid.
+
+Focuses only on positioning and structure,
+not detailed component styling.
+*/
+
+/* Header */
+header {
+    text-align: center;
+    font-family: "HarryPotter", cursive;
+    scale: 1.5;
+    margin: 2rem 0;
+}
+
+/* Navigation container */
+.nav-search-container {
+    margin: 0 1rem;
+}
+
+/* Navigation list */
+.site-nav ul {
+    display: flex;
+    flex-wrap: wrap;
+    list-style: none;
+    gap: 1rem;
+    padding: 0;
+}
+
+/* Footer layout */
+footer {
+    text-align: center;
+    background-color: #292929;
+    margin-top: 2rem;
+    padding: 4rem 2rem;
+    gap: 5rem;
+}
