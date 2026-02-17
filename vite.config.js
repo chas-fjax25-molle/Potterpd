@@ -50,7 +50,7 @@ export default defineConfig(({ mode }) => {
         base,
         plugins: [
             // Provide the resolved `base` to the HTML transformation plugin so
-            // templates like <!-- basepath() --> can be replaced during build.
+            // templates like ${basepath} can be replaced during build.
             htmlPartials({ base }),
             eslint(),
             VitePWA({
