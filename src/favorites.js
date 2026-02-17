@@ -369,7 +369,7 @@ export class Favorites {
                     // Store the item in its API JSON format for proper deserialization
                     const jsonData = this.#serializeItem(item);
                     return {
-                        type: item.constructor.name,
+                        type: item.type,
                         data: jsonData,
                     };
                 });
@@ -432,13 +432,18 @@ export class Favorites {
 
         // Factory pattern for deserialization
         /** @type {Record<string, (data: any) => any>} */
+        // Prefer deserializers keyed by stable EntityType values to avoid
+        // relying on constructor names (which may be mangled in production builds).
         const deserializers = {
+            [EntityType.CHARACTER]: Character.fromJson,
+            [EntityType.SPELL]: Spell.fromJson,
+
+            // Backwards compatibility: also accept class-like type names
             Character: Character.fromJson,
             Spell: Spell.fromJson,
-            // TODO: Add other entity types here
+            // TODO: Add other entity types here, e.g.
+            // [EntityType.BOOK]: Book.fromJson,
             // Book: Book.fromJson,
-            // Movie: Movie.fromJson,
-            // Potion: Potion.fromJson,
         };
 
         const deserializer = deserializers[type];
