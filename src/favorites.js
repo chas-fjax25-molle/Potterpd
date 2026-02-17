@@ -97,6 +97,10 @@ export class Favorites {
      * @returns {string} The corresponding EntityType value.
      */
     #getEntityType(item) {
+        if (item.type) {
+            return item.type; // If the item has a 'type' property, use it directly
+        }
+
         const className = item.constructor.name;
         /** @type {Record<string, string>} */
         const typeMap = {
