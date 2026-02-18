@@ -1,0 +1,86 @@
+/*
+Responsive breakpoints for the project.
+
+Uses a mobile-first approach.
+Contains only overrides for tablet and desktop screens.
+
+No base styling here — only adjustments
+to layout and components for larger screens.
+*/
+
+/* Tablet */
+@media (min-width: 600px) {
+    .site-nav ul {
+        flex-wrap: wrap;
+        justify-content: center;
+    }
+
+    .site-nav a {
+        padding: 0.5rem 2rem;
+        height: auto;
+        color: inherit;
+    }
+
+    .site-nav span {
+        display: inline-block;
+    }
+
+    .site-nav img {
+        display: none;
+    }
+
+    .nav-search-container {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        margin: 1rem 4rem 0;
+    }
+
+    .search-filter {
+        margin-left: 2rem;
+        width: 90%;
+    }
+}
+
+/* Desktop */
+@media (min-width: 1154px) {
+    .site-nav ul {
+        flex-wrap: nowrap;
+        justify-content: start;
+    }
+
+    .site-nav a {
+        padding: 0.5rem 1rem;
+        height: auto;
+        color: inherit;
+    }
+
+    .site-nav span {
+        display: inline-block;
+    }
+
+    .site-nav img {
+        display: none;
+    }
+
+    .nav-search-container {
+        display: grid;
+        grid-template-columns: auto 2fr 1fr;
+        gap: 2rem;
+        align-items: center;
+        padding-top: 4rem;
+    }
+
+    .nav-text {
+        display: none; /* Hide text */
+    }
+
+    .nav-icon {
+        display: inline-block; /* Show icon */
+    }
+
+    .welcome-section {
+        margin: 6rem;
+        padding: 2rem;
+    }
+}
