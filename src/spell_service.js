@@ -65,6 +65,7 @@ export class SpellService {
                 console.error("Failed to load spell from API: ", error);
             }
             // TODO(Vera): Load from either API or favorites
+            // After loading, update the cache (see #cacheSpells) and return the spell
         }
 
         const favorites = Favorites.getInstance();
