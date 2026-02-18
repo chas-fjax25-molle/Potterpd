@@ -15,11 +15,11 @@ body {
     min-height: 100vh;
     margin: 0;
     color: white;
-    background-image: url("../../public/hogwarts.webp");
+    background-image: url("../../public/Hogwarts.webp");
     background-size: cover;
     background-position: center;
     background-attachment: fixed;
-    background-color: #444444;
+    background-color: #383838;
     background-blend-mode: overlay;
     font-family: Arial, Helvetica, sans-serif;
 }
@@ -28,6 +28,8 @@ body {
 @font-face {
     font-family: "HarryPotter";
     src: url("../../public/HARRYP.TTF") format("truetype");
+    font-weight: normal;
+    font-style: normal;
 }
 
 /* Global link reset */

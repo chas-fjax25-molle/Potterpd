@@ -6,3 +6,7 @@ import "./styles/layout.css";
 import "./styles/components.css";
 // @ts-ignore
 import "./styles/responsive.css";
+// @ts-ignore
+import "./styles/themes.css";
+// @ts-ignore
+import "./styles/themes";

@@ -38,17 +38,58 @@
     <body>
         <!-- include(../partials/header.html) -->
         <!-- include(../partials/hero.html) -->
-
-        <div class="welcome-section">
-            <h2>Welcome to PottoPedia</h2>
-            <p>
-                Your ultimate source for all things Harry Potter! Explore the magical world of
-                wizards, spells, and fantastic creatures with our comprehensive database. Whether
-                you're a Gryffindor, Slytherin, Ravenclaw, or Hufflepuff, there's something here for
-                every fan. Dive into character profiles, spell descriptions, and magical lore to
-                enhance your Potterverse knowledge. Start your magical journey today!
-            </p>
-        </div>
+        <section class="welcome-section">
+            <div class="welcome">
+                <h2>Welcome to PottoPedia</h2>
+                <p>
+                    Your ultimate source for all things Harry Potter! Explore the magical world of
+                    wizards, spells, and fantastic creatures with our comprehensive database.
+                    Whether you're a Gryffindor, Slytherin, Ravenclaw, or Hufflepuff, there's
+                    something here for every fan. Dive into character profiles, spell descriptions,
+                    and magical lore to enhance your Potterverse knowledge. Start your magical
+                    journey today!
+                </p>
+            </div>
+            <p>Change the theme</p>
+            <div class="theme-change">
+                <button
+                    data-theme="Default"
+                    style="
+                        background-image: url(&quot;/houses/house-crests1.png&quot;);
+                        background-size: cover;
+                        background-position: center;
+                        background-repeat: no-repeat;
+                    "
+                ></button>
+                <button
+                    data-theme="Slytherin"
+                    style="
+                        background-image: url(&quot;/houses/house-crests2.png&quot;);
+                        background-size: cover;
+                        background-position: center;
+                        background-repeat: no-repeat;
+                    "
+                ></button>
+                <button
+                    data-theme="Hufflepuff"
+                    style="
+                        background-image: url(&quot;/houses/house-crests3.png&quot;);
+                        background-size: cover;
+                        background-position: center;
+                        background-repeat: no-repeat;
+                    "
+                ></button>
+                <button
+                    data-theme="Gryffindor"
+                    style="
+                        background-image: url(&quot;/houses/house-crests4.png&quot;);
+                        background-size: cover;
+                        background-position: center;
+                        background-repeat: no-repeat;
+                    "
+                ></button>
+            </div>
+        </section>
 
         <section class="houses">
             <div>
