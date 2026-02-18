@@ -171,13 +171,13 @@ function setupPopstateListener() {
 }
 
 /**
- * Intercept clicks on preview items to navigate client-side (SPA behaviour).
- * @returns {void}
+ * Handle clicks on spell cards and their overlays to navigate to detail views.
  */
 function setupClickInterceptor() {
     if (!spellsContainer) return;
     spellsContainer.addEventListener("click", (ev) => {
         // Try overlay anchor first
+        // @ts-ignore - TS doesn't know about closest() and getAttribute() on EventTarget
         const overlay = ev.target.closest("a.spell-card-overlay");
         if (overlay && overlay.getAttribute("href")) {
             ev.preventDefault();
@@ -188,10 +188,12 @@ function setupClickInterceptor() {
         }
 
         // Or click on card element itself
+        // @ts-ignore - TS doesn't know about closest() and getAttribute() on EventTarget
         const card = ev.target.closest("[data-spell-id]");
         if (card) {
             const id = card.getAttribute("data-spell-id");
             if (id) {
+                // @ts-ignore - TS doesn't know about closest() and getAttribute() on EventTarget
                 const fav = ev.target.closest(".favorite-icon");
                 if (!fav) {
                     ev.preventDefault();
