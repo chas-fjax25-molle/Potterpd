@@ -39,6 +39,23 @@ export class SpellService {
     }
 
     /**
+     * Load a specific spell by its ID.
+     *
+     * This method first checks the cache for the spell. If not found, it attempts to load it from either the API or the favorites.
+     *
+     * @param {string} spellId - The ID of the spell to load.
+     * @returns {Promise<Spell>} A promise that resolves to the loaded Spell instance.
+     * @throws Will throw an error if the spell cannot be found in either the cache, API, or favorites.
+     */
+    async loadSpellById(spellId) {
+        let spell = this.#spells.get(spellId);
+        if (!spell) {
+            // TODO(Vera): Load from either API or favorites
+        }
+        return spell;
+    }
+
+    /**
      * Toggle the favorite status of a spell by its ID. If the spell is currently a favorite, it will be removed from favorites; if it is not a favorite, it will be added to favorites. The updated favorites list is then stored persistently.
      * @param {string} spellId - The ID of the spell to toggle as a favorite.
      */
