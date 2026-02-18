@@ -204,13 +204,19 @@ function setupClickInterceptor() {
 
 /**
  * Expose programmatic search helper for external code to trigger searches.
- * @returns {void}
+ * @throws Will throw an error if the search container or its elements are not found.
  */
 function setupSearchHandler() {
-    // TODO: wire up search form and call `navigateToSearch` with the query on submit
-    if (!spellsContainer) {
-        navigateToSearch("stupify");
-    }
+    const searchContainer = document.getElementsByClassName("search-container")[0];
+    if (!searchContainer) throw new Error("Search container not found");
+    const button = searchContainer.querySelector("button");
+    const input = searchContainer.querySelector("input");
+    if (!button || !input) throw new Error("Search button or input not found");
+
+    button.addEventListener("click", () => {
+        const query = input.value.trim();
+        if (query) navigateToSearch(query);
+    });
 }
 
 document.addEventListener("DOMContentLoaded", initApp);
