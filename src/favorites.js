@@ -247,6 +247,20 @@ export class Favorites {
     }
 
     /**
+     * Get a favorite item by type and ID.
+     * @param {string} type - Entity type from EntityType enum.
+     * @param {string} id - The ID of the item to retrieve.
+     * @returns {Promise<any|null>} The favorite item, or null if not found.
+     */
+    async getById(type, id) {
+        const items = this.#favorites.get(type);
+        if (!items) {
+            throw new Error(`Invalid type: ${type}`);
+        }
+        return items.find((i) => i.id === id) || null;
+    }
+
+    /**
      * Get all favorites across all types.
      * Returns class instances (e.g., Character, Book objects), not raw JSON.
      * @returns {any[]} Array of all favorite class instances.
