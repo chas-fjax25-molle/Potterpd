@@ -11,12 +11,14 @@ to layout and components for larger screens.
 /* Tablet */
 @media (min-width: 600px) {
     .site-nav ul {
-        flex-wrap: nowrap;
+        flex-wrap: wrap;
+        justify-content: center;
     }
 
     .site-nav a {
         padding: 0.5rem 2rem;
         height: auto;
+        color: inherit;
     }
 
     .site-nav span {
@@ -42,6 +44,11 @@ to layout and components for larger screens.
 
 /* Desktop */
 @media (min-width: 1154px) {
+    .site-nav ul {
+        flex-wrap: nowrap;
+        justify-content: start;
+    }
+
     .site-nav a {
         padding: 0.5rem 1rem;
         height: auto;
