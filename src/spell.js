@@ -203,44 +203,60 @@ export class Spell {
         container.classList.add(CSS.DETAILS_CARD_CLASS);
         container.dataset.spellId = this.id;
 
+        // Header row
+        const headerRow = document.createElement("div");
+        headerRow.classList.add("spell-details-header");
+
         const header = document.createElement("h2");
         header.classList.add(CSS.DETAILS_NAME_CLASS);
         header.textContent = this.name;
-        container.appendChild(header);
 
-        container.appendChild(favoriteIcon(this.id, this.isFavorite));
+        headerRow.appendChild(header);
+        headerRow.appendChild(favoriteIcon(this.id, this.isFavorite));
+        container.appendChild(headerRow);
 
+        // Image
         container.appendChild(this.#spellsImageLarge());
 
-        const effect = document.createElement("p");
-        effect.classList.add(CSS.DETAILS_EFFECT_CLASS);
-        effect.textContent = `Effect: ${this.effect}`;
-        container.appendChild(effect);
+        // Info grid
+        const infoGrid = document.createElement("div");
+        infoGrid.classList.add("spell-details-grid");
 
-        const incantation = document.createElement("p");
-        incantation.classList.add(CSS.DETAILS_INCANTATION_CLASS);
-        incantation.textContent = `Incantation: ${this.incantation}`;
-        container.appendChild(incantation);
+        let hasAnyInfo = false;
 
-        const hand = document.createElement("p");
-        hand.classList.add(CSS.DETAILS_HANDMOVEMENT_CLASS);
-        hand.textContent = `Hand movement: ${this.handmovement}`;
-        container.appendChild(hand);
+        const addRow = (label, value) => {
+            if (!value) return;
 
-        const creator = document.createElement("p");
-        creator.classList.add(CSS.DETAILS_CREATOR_CLASS);
-        creator.textContent = `Creator: ${this.creator}`;
-        container.appendChild(creator);
+            hasAnyInfo = true;
 
-        const category = document.createElement("p");
-        category.classList.add(CSS.DETAILS_CATEGORY_CLASS);
-        category.textContent = `Category: ${this.category}`;
-        container.appendChild(category);
+            const labelElem = document.createElement("div");
+            labelElem.classList.add("spell-details-label");
+            labelElem.textContent = label;
 
-        const light = document.createElement("p");
-        light.classList.add(CSS.DETAILS_LIGHT_CLASS);
-        light.textContent = `Light: ${this.light}`;
-        container.appendChild(light);
+            const valueElem = document.createElement("div");
+            valueElem.classList.add("spell-details-value");
+            valueElem.textContent = value;
+
+            infoGrid.appendChild(labelElem);
+            infoGrid.appendChild(valueElem);
+        };
+
+        addRow("Effect", this.effect);
+        addRow("Incantation", this.incantation);
+        addRow("Hand movement", this.handmovement);
+        addRow("Creator", this.creator);
+        addRow("Category", this.category);
+        addRow("Light", this.light);
+
+        if (hasAnyInfo) {
+            container.appendChild(infoGrid);
+        } else {
+            const emptyMsg = document.createElement("p");
+            emptyMsg.classList.add("spell-details-empty");
+            emptyMsg.textContent =
+                "No additional information available for this spell.";
+            container.appendChild(emptyMsg);
+        }
 
         return container;
     }
@@ -267,18 +283,24 @@ export class Spell {
         const container = document.createElement("div");
         container.classList.add(CSS.PREVIEW_IMAGE_CONTAINER_CLASS);
 
+        const hasImage = this.image && isURLValid(this.image);
+
         const imageElem = document.createElement("img");
         imageElem.classList.add(CSS.PREVIEW_IMAGE_CLASS);
-
-        const src = this.image && isURLValid(this.image) ? this.image : PLACEHOLDER_IMAGE;
-
-        imageElem.src = src;
+        imageElem.src = hasImage ? this.image : PLACEHOLDER_IMAGE;
         imageElem.alt = `${this.name} image`;
 
         if (PREVIEW_IMAGE_WIDTH) {
             imageElem.width = PREVIEW_IMAGE_WIDTH;
         }
         container.appendChild(imageElem);
+
+        if (!hasImage) {
+            const overlay = document.createElement("div");
+            overlay.classList.add("image-placeholder-overlay");
+            overlay.textContent = "Missing image for this spell!";
+            container.appendChild(overlay);
+        }
         return container;
     }
 
@@ -290,21 +312,27 @@ export class Spell {
     #spellsImageLarge() {
         const container = document.createElement("div");
         container.classList.add(CSS.DETAILS_IMAGE_CONTAINER_CLASS);
-        if (this.image && isURLValid(this.image)) {
-            const imageElem = document.createElement("img");
-            imageElem.classList.add(CSS.DETAILS_IMAGE_CLASS);
-            imageElem.src = this.image;
-            imageElem.alt = `${this.name} image`;
-            if (DETAILS_IMAGE_WIDTH) {
-                imageElem.width = DETAILS_IMAGE_WIDTH;
-            }
-            container.appendChild(imageElem);
-        } else {
-            const placeholder = document.createElement("div");
-            placeholder.classList.add(CSS.DETAILS_PLACEHOLDER_CLASS);
-            placeholder.textContent = "No Image";
-            container.appendChild(placeholder);
+
+        const hasRealImage = this.image && isURLValid(this.image);
+
+        const imageElem = document.createElement("img");
+        imageElem.classList.add(CSS.DETAILS_IMAGE_CLASS);
+        imageElem.src = hasRealImage ? this.image : PLACEHOLDER_IMAGE;
+        imageElem.alt = `${this.name} image`;
+
+        if (DETAILS_IMAGE_WIDTH) {
+            imageElem.width = DETAILS_IMAGE_WIDTH;
         }
+
+        container.appendChild(imageElem);
+
+        if (!hasRealImage) {
+            const overlay = document.createElement("div");
+            overlay.classList.add("image-placeholder-overlay");
+            overlay.textContent = "Missing image for this spell!";
+            container.appendChild(overlay);
+        }
+
         return container;
     }
 }
