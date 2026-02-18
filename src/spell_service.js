@@ -1,4 +1,4 @@
-import { Favorites } from "./favorites";
+import { EntityType, Favorites } from "./favorites";
 import { getCategory } from "./RequestsFromAPI";
 import { Spell } from "./spell";
 
@@ -50,7 +50,7 @@ export class SpellService {
     async loadSpellById(spellId) {
         let spell = this.#spells.get(spellId);
         if (spell) return spell;
-        
+
         if (navigator.onLine) {
             try {
                 const response = await getCategory("spells", spellId);
@@ -69,7 +69,7 @@ export class SpellService {
         }
 
         const favorites = Favorites.getInstance();
-        const favSpell = await favorites.getById?.(spellId);
+        const favSpell = await favorites.getById(EntityType.SPELL, spellId);
 
         if (favSpell) {
             this.#cacheSpells([favSpell]);
@@ -125,6 +125,4 @@ export class SpellService {
             this.#spells.set(spell.id, spell);
         });
     }
-
 }
-
