@@ -7,13 +7,13 @@ import "./spell_layout.css";
 import { registerFavoriteIconClick } from "./favorite_icon";
 import { SpellService } from "./spell_service";
 
-document.addEventListener("DOMContentLoaded", () => {
+document.addEventListener("DOMContentLoaded", async () => {
     const spellsContainer = document.getElementById("spells-container");
     if (!spellsContainer) {
         console.error("Spells container element not found.");
         return;
     }
-    let service = new SpellService();
+    const service = new SpellService();
 
     /**
      * This function is called when a favorite icon is clicked, and it toggles the favorite status of the corresponding spell in the SpellService.
