@@ -17,6 +17,31 @@ section {
     border: 1px solid #e0e0e0;
     border-radius: 8px;
     background: #fff;
+    position: relative;
+}
+
+/* overlay is for the link element! (to details)
+*  did it like this to not have overlapping func. with favorite icon.
+*/
+.spell-card-overlay {
+    position: absolute;
+    inset: 0;
+    z-index: 1;
+}
+
+.spell-preview-card > *:not(.spell-card-overlay) {
+  position: relative;
+  z-index: 2;
+}
+
+.spell-preview-card:hover {
+  box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+  transform: translateY(-1px);
+}
+
+.spell-card-overlay:focus-visible {
+  outline: 3px solid #aaa;
+  border-radius: 8px;
 }
 
 .spell-preview-header {
@@ -63,6 +88,7 @@ section {
     background: rgba(255, 255, 255, 0.85);
     padding: 0.15rem 0.35rem;
     border-radius: 6px;
+    z-index: 3;
 }
 
 .favorite-icon:hover,
