@@ -51,6 +51,7 @@ export class SpellService {
         let spell = this.#spells.get(spellId);
         if (!spell) {
             // TODO(Vera): Load from either API or favorites
+            // After loading, update the cache (see #cacheSpells) and return the spell
         }
         return spell;
     }
