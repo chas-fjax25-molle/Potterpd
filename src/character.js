@@ -3,6 +3,7 @@
  */
 
 import { isURLValid } from "./utils";
+import { favoriteIcon } from "./favorite_icon";
 
 /**
  * CSS styles for the Character entity.
@@ -285,7 +286,7 @@ export class Character {
         header.classList.add(CSS.PREVIEW_NAME_CLASS);
         header.textContent = this.name;
         container.appendChild(header);
-        container.appendChild(this.#favoriteIcon());
+        container.appendChild(favoriteIcon(this.id));
         container.appendChild(this.#characterImageSmall());
         return container;
     }
@@ -303,7 +304,7 @@ export class Character {
         header.classList.add(CSS.DETAILS_NAME_CLASS);
         header.textContent = this.name;
         container.appendChild(header);
-        container.appendChild(this.#favoriteIcon());
+        container.appendChild(favoriteIcon(this.id));
         container.appendChild(this.#characterImageLarge());
         if (this.alias_names.length > 0) {
             container.appendChild(this.#characterAliasNames());
@@ -313,19 +314,42 @@ export class Character {
     }
 
     /**
-     * Generate the favorite icon HTML element.
-     *
-     * @returns {HTMLElement} - The favorite icon HTML element.
+     * Serialize the character instance into a JSON structure for storage.
+     * @returns {CharacterJSON} - The JSON structure representing the character.
      */
-    #favoriteIcon() {
-        const favoriteIcon = document.createElement("span");
-        favoriteIcon.classList.add(CSS.FAVORITE_ICON_CLASS);
-        favoriteIcon.dataset.characterId = this.id;
-        favoriteIcon.setAttribute("role", "button");
-        favoriteIcon.setAttribute("aria-label", "Toggle Favorite");
-        favoriteIcon.tabIndex = 0;
-        favoriteIcon.textContent = "★";
-        return favoriteIcon;
+    serialize() {
+        return {
+            id: this.id,
+            type: this.type,
+            attributes: {
+                slug: this.slug,
+                alias_names: this.alias_names,
+                animagus: this.animagus,
+                blood_status: this.blood_status,
+                boggart: this.boggart,
+                born: this.born,
+                died: this.died,
+                eye_color: this.eye_color,
+                family_members: this.family_members,
+                gender: this.gender,
+                hair_color: this.hair_color,
+                height: this.height,
+                house: this.house,
+                image: this.image,
+                jobs: this.jobs,
+                marital_status: this.marital_status,
+                name: this.name,
+                nationality: this.nationality,
+                patronus: this.patronus,
+                romances: this.romances,
+                skin_color: this.skin_color,
+                species: this.species,
+                titles: this.titles,
+                wands: this.wands,
+                weight: this.weight,
+                wiki: this.wiki,
+            },
+        };
     }
 
     /**
