@@ -2,6 +2,12 @@ section {
     background-color: #f0f0f0;
 }
 
+.spells-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+    gap: 1rem;
+}
+
 .spell-preview-card {
     display: grid;
     grid-template-columns: 160px 1fr;
@@ -11,7 +17,6 @@ section {
     border: 1px solid #e0e0e0;
     border-radius: 8px;
     background: #fff;
-    max-width: 640px;
 }
 
 .spell-preview-header {
@@ -68,3 +73,5 @@ section {
 .favorite-icon--active {
     color: gold;
 }
+
+

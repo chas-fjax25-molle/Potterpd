@@ -168,6 +168,12 @@ input {
     text-decoration: underline;
 }
 
+/* MAIN */
+
+main {
+    margin: 0 1rem;
+}
+
 /* footer styling */
 footer {
     margin-top: auto;
