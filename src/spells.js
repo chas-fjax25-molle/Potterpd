@@ -109,18 +109,29 @@ async function detailView(id) {
  */
 async function searchView(q, page = 1) {
     clearContainer();
-    console.log(`Searching for "${q}" (page ${page})...`);
-    // TODO: call `service.searchSpells(q, page)` and append previews to `spellsContainer`
+    try {
+        service?.searchSpells(q, page).then((spells) => {
+            console.log("Search results: ", spells);
+            spells.forEach((/** @type {import("./spell").Spell} */ spell) => {
+                console.log("Rendering spell: ", spell);
+                const preview = spell.previewHTML();
+                if (spellsContainer) spellsContainer.appendChild(preview);
+            });
+        });
+    } catch (error) {
+        console.error("Search failed: ", error);
+        navigateToList();
+    }
 }
 
 /**
  * Navigate to the list view and update the history state.
  * @returns {void}
  */
-/*function navigateToList() {
+function navigateToList() {
     history.pushState({}, "", "/spells");
     listView();
-}*/
+}
 
 /**
  * Navigate to a detail view for a spell id and update history.

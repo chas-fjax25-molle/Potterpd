@@ -1,5 +1,5 @@
 import { EntityType, Favorites } from "./favorites";
-import { getCategory } from "./RequestsFromAPI";
+import { getCategory, getCategoryFilteredBy } from "./RequestsFromAPI";
 import { Spell } from "./spell";
 
 export class SpellService {
@@ -77,6 +77,41 @@ export class SpellService {
         }
 
         throw new Error(`Spell ${spellId} not found`);
+    }
+
+    /**
+     * Search for spells matching the given query.
+     * @param {string} query - The search query.
+     * @param {number} [page=1] - The page number for paginated results (optional).
+     * @returns {Promise<Spell[]>} A promise that resolves to an array of matching Spell instances.
+     * @throws Will throw an error if the search cannot be performed while offline.
+     */
+    async searchSpells(query, page = 1) {
+        if (!navigator.onLine) {
+            console.warn("Cannot perform search while offline.");
+            throw new Error("Offline: Search is not available.");
+        }
+        try {
+            const response = await getCategoryFilteredBy(
+                "spells",
+                "name_cont",
+                query,
+                String(page)
+            );
+            console.log("API search response: ", response);
+            if (response?.data) {
+                console.log("API search results: ", response.data);
+                const spells = response.data.map(Spell.fromJson);
+                console.log("Mapped Spell instances: ", spells);
+                this.#updateFavoriteStatus(spells);
+                this.#cacheSpells(spells);
+                return spells;
+            }
+        } catch (error) {
+            console.error("Search failed: ", error);
+        }
+        console.warn("Search returned no results.");
+        return [];
     }
 
     /**
