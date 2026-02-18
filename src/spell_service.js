@@ -49,10 +49,33 @@ export class SpellService {
      */
     async loadSpellById(spellId) {
         let spell = this.#spells.get(spellId);
-        if (!spell) {
+        if (spell) return spell;
+        
+        if (navigator.onLine) {
+            try {
+                const response = await getCategory("spells", spellId);
+
+                if (response?.data) {
+                    spell = Spell.fromJson(response.data);
+                    this.#updateFavoriteStatus([spell]);
+                    this.#cacheSpells([spell]);
+                    return spell;
+                }
+            } catch (error) {
+                console.error("Failed to load spell from API: ", error);
+            }
             // TODO(Vera): Load from either API or favorites
         }
-        return spell;
+
+        const favorites = Favorites.getInstance();
+        const favSpell = await favorites.getById?.(spellId);
+
+        if (favSpell) {
+            this.#cacheSpells([favSpell]);
+            return favSpell;
+        }
+
+        throw new Error(`Spell ${spellId} not found`);
     }
 
     /**
@@ -101,4 +124,6 @@ export class SpellService {
             this.#spells.set(spell.id, spell);
         });
     }
+
 }
+
