@@ -2,6 +2,8 @@
  * @file Functions for fetching data from the API.
  */
 
+import { Character } from "./character";
+
 /**
  * @param {string} category
  * @param {number} pageNumber - The page number to fetch. Defaults to 1. 50 is the default number of results per page.
@@ -90,7 +92,10 @@ export async function getSearchBy(searchCategory, searchValue, pageNumber) {
     const defaultPage = 1;
     const pageNumberValue = pageNumber || defaultPage;
 
-    const filterUrl = `https://api.potterdb.com/v1/${searchCategory}?filter[in_any]=${searchValue}&?page[number]=${pageNumberValue}`;
+    console.log(searchCategory);
+    console.log(searchValue);
+
+    const filterUrl = `https://api.potterdb.com/v1/${searchCategory}?filter[name_cont]=${searchValue}&?page[number]=${pageNumberValue}`;
 
     try {
         const response = await fetch(filterUrl);
@@ -98,7 +103,21 @@ export async function getSearchBy(searchCategory, searchValue, pageNumber) {
         if (!response.ok) {
             throw new Error(`HTTP error! status: ${response.status}`);
         }
-        return response.json();
+
+        const mainSection = document.getElementById("character-previews");
+        const result = await response.json();
+        console.log(result);
+
+        if (result && Array.isArray(result.data)) {
+            /**
+             * @type {Character[]}
+             */
+            const characters = result.data.map(Character.fromJson);
+
+            characters.forEach((element) => {
+                mainSection?.appendChild(element.previewHTML());
+            });
+        }
     } catch (error) {
         console.error(error);
         return null;

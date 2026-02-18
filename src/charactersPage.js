@@ -1,6 +1,6 @@
 import { Character } from "./character.js";
 
-import "./characters/style.css";
+import "./style.css";
 
 const API_BASE = "https://api.potterdb.com/v1/.json";
 

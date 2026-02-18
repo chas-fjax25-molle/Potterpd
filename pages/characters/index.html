@@ -33,14 +33,62 @@
         <title>Potterpd</title>
         <link rel="icon" type="image/svg+xml" href="/vite.svg" />
         <script type="module" src="/src/main.js" defer></script>
+        <script type="module" src="/src/RequestsFromAPI.js"></script>
+
+        <script type="module">
+            import { getSearchBy } from "/src/RequestsFromAPI.js";
+            document.getElementById("searchForm").addEventListener("submit", function (event) {
+                event.preventDefault(); // Prevent page reload
+
+                // Get form values
+                const searchValue = document.querySelector('input[type="text"]').value;
+                const searchCategory = document.getElementById("filter").value;
+                const pageNumber = 1; // Default page number
+
+                // Call the function from RequestFromAPI.js
+                getSearchBy(searchCategory, searchValue, pageNumber);
+            });
+        </script>
     </head>
 
     <body>
-        <!-- include(../../partials/header.html) -->
-        <!-- include(../../partials/hero.html) -->
+         
+        <div class="nav-search-container">
+            <h2>Categories</h2>
+            <nav class="site-nav">
+                <ul>
+                    <li><a href="${basepath}index.html">Home</a></li>
+                    <li><a href="${basepath}books/index.html">Books</a></li>
+                    <li><a href="${basepath}characters/index.html">Characters</a></li>
+                    <li><a href="${basepath}spells/index.html">Spells</a></li>
+                    <li><a href="${basepath}movies/index.html">Movies</a></li>
+                    <li><a href="${basepath}potions/index.html">Potions</a></li>
+                </ul>
+            </nav>
+
+            <section class="search-filter">
+                <form id="searchForm">
+                    <div class="search-container">
+                        <input type="text" placeholder="Search..." />
+                        <button class="btn-search" type="submit">Search</button>
+                    </div>
+                    <div class="filter-container">
+                        <select id="filter">
+                            <option selected hidden>Filter</option>
+                            <option value="books">Books</option>
+                            <option value="characters">Characters</option>
+                            <option value="spells">Spells</option>
+                            <option value="movies">Movies</option>
+                            <option value="potions">Potions</option>
+                        </select>
+                    </div>
+                </form>
+            </section>
+        </div>
+
         <main>
             <!-- HIT ska character preview cards in -->
-            <section id="characters-container" class="characters-grid"></section>
+            <section id="character-previews" class="characters-grid"></section>
         </main>
 
         <!-- include(../../partials/footer.html) -->
