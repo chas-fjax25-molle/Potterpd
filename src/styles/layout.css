@@ -12,8 +12,7 @@ not detailed component styling.
 header {
     text-align: center;
     font-family: "HarryPotter", cursive;
-    scale: 1.5;
-    margin: 2rem 0;
+    font-size: 1.6rem;
 }
 
 /* Navigation container */
@@ -26,8 +25,22 @@ header {
     display: flex;
     flex-wrap: wrap;
     list-style: none;
-    gap: 1rem;
+    gap: 2rem 1.5rem;
     padding: 0;
+}
+
+.site-nav a {
+    display: block;
+    height: 32px;
+}
+
+/* theme toggle */
+.theme-change {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 1rem;
 }
 
 /* Footer layout */

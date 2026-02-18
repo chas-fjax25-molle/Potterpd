@@ -14,8 +14,11 @@ it belongs here.
     background-color: rgba(71, 61, 139);
     font-size: 17px;
     border-radius: 5px;
-    padding: 0.3rem 1rem;
+    padding: 1rem 1rem;
+}
 
+.site-nav span {
+    display: none;
 }
 
 .site-nav a:hover {
@@ -90,10 +93,10 @@ input {
     pointer-events: none;
 }
 
-/* Welcome section */
+/* Welcome section + theme toggle */
 .welcome-section {
     text-align: center;
-    margin: 5rem 1rem;
+    margin: 4rem 1rem;
     padding: 2rem;
     border-radius: 1rem;
     background-color: rgba(71, 61, 139, 0.685);
@@ -101,6 +104,18 @@ input {
 
 .welcome-section p {
     padding: 1rem 0;
+}
+
+.theme-change button {
+    cursor: pointer;
+    background-color: transparent;
+    color: white;
+    padding: 4.5rem 4rem;
+}
+
+.theme-change button:hover {
+    scale: 1.05;
+    transition: all 0.2s ease-in-out;
 }
 
 /* Houses cards */
@@ -112,7 +127,7 @@ input {
 }
 
 .houses div {
-    margin: 5rem 3rem;
+    margin: 4rem 1rem;
     padding: 2rem;
     max-width: 300px;
     background-color: rgba(71, 61, 139, 0.685);

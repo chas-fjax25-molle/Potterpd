@@ -10,8 +10,21 @@ to layout and components for larger screens.
 
 /* Tablet */
 @media (min-width: 600px) {
-    header {
-        font-size: larger;
+    .site-nav ul {
+        flex-wrap: nowrap;
+    }
+
+    .site-nav a {
+        padding: 0.5rem 2rem;
+        height: auto;
+    }
+
+    .site-nav span {
+        display: inline-block;
+    }
+
+    .site-nav img {
+        display: none;
     }
 
     .nav-search-container {
@@ -19,10 +32,6 @@ to layout and components for larger screens.
         flex-direction: column;
         align-items: center;
         margin: 1rem 4rem 0;
-    }
-
-    .site-nav ul {
-        flex-wrap: nowrap;
     }
 
     .search-filter {
@@ -33,6 +42,20 @@ to layout and components for larger screens.
 
 /* Desktop */
 @media (min-width: 1154px) {
+    .site-nav a {
+        padding: 0.5rem 1rem;
+        height: auto;
+        color: inherit;
+    }
+
+    .site-nav span {
+        display: inline-block;
+    }
+
+    .site-nav img {
+        display: none;
+    }
+
     .nav-search-container {
         display: grid;
         grid-template-columns: auto 2fr 1fr;
@@ -41,8 +64,16 @@ to layout and components for larger screens.
         padding-top: 4rem;
     }
 
+    .nav-text {
+        display: none; /* Hide text */
+    }
+
+    .nav-icon {
+        display: inline-block; /* Show icon */
+    }
+
     .welcome-section {
-        margin: 12rem;
-        padding: 3rem;
+        margin: 6rem;
+        padding: 2rem;
     }
 }
