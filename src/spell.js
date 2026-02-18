@@ -17,6 +17,7 @@ const CSS = Object.freeze({
     PREVIEW_IMAGE_CLASS: "spell-preview-image",
     PREVIEW_PLACEHOLDER_CLASS: "spell-preview-placeholder",
     PREIVEW_EFFECT_CLASS: "spell-preview-effect",
+    SPELL_CARD_OVERLAY_CLASS: "spell-card-overlay",
 });
 
 /**
@@ -127,6 +128,13 @@ export class Spell {
         const container = document.createElement("article");
         container.classList.add(CSS.PREVIEW_CARD_CLASS);
         container.dataset.spellId = this.id;
+
+        const link = document.createElement("a");
+        link.href = `/spells/${this.id}`;
+        link.classList.add(CSS.SPELL_CARD_OVERLAY_CLASS);
+        link.setAttribute("aria-label", `View details for ${this.name}`);
+        container.appendChild(link);
+
         const headerRow = document.createElement("div");
         headerRow.classList.add("spell-preview-header");
 
