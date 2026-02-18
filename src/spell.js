@@ -30,8 +30,7 @@ const CSS = Object.freeze({
     DETAILS_HANDMOVEMENT_CLASS: "spell-details-handmovement",
     DETAILS_CREATOR_CLASS: "spell-details-creator",
     DETAILS_CATEGORY_CLASS: "spell-details-category",
-    DETAILS_LIGHT_CLASS: "spell-details-light"
-
+    DETAILS_LIGHT_CLASS: "spell-details-light",
 });
 
 /**
@@ -209,7 +208,7 @@ export class Spell {
         header.textContent = this.name;
         container.appendChild(header);
 
-        container.appendChild(favoriteIcon(this.id));
+        container.appendChild(favoriteIcon(this.id, this.isFavorite));
 
         container.appendChild(this.#spellsImageLarge());
 
@@ -308,6 +307,4 @@ export class Spell {
         }
         return container;
     }
-
-
 }
