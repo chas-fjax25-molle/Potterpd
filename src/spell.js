@@ -18,6 +18,20 @@ const CSS = Object.freeze({
     PREVIEW_PLACEHOLDER_CLASS: "spell-preview-placeholder",
     PREIVEW_EFFECT_CLASS: "spell-preview-effect",
     SPELL_CARD_OVERLAY_CLASS: "spell-card-overlay",
+
+    // Details card classes
+    DETAILS_CARD_CLASS: "spell-details-card",
+    DETAILS_NAME_CLASS: "spell-details-name",
+    DETAILS_IMAGE_CONTAINER_CLASS: "spell-image-container",
+    DETAILS_IMAGE_CLASS: "spell-details-image",
+    DETAILS_PLACEHOLDER_CLASS: "spell-details-placeholder",
+    DETAILS_EFFECT_CLASS: "spell-details-effect",
+    DETAILS_INCANTATION_CLASS: "spell-details-incantation",
+    DETAILS_HANDMOVEMENT_CLASS: "spell-details-handmovement",
+    DETAILS_CREATOR_CLASS: "spell-details-creator",
+    DETAILS_CATEGORY_CLASS: "spell-details-category",
+    DETAILS_LIGHT_CLASS: "spell-details-light"
+
 });
 
 /**
@@ -33,7 +47,7 @@ const PREVIEW_IMAGE_WIDTH = 200;
  *
  * @type {number|null}
  */
-//const DETAILS_IMAGE_WIDTH = 300;
+const DETAILS_IMAGE_WIDTH = 300;
 
 /**
  * importing the placeholder image for spells in the api missing an image.
@@ -46,6 +60,10 @@ const PLACEHOLDER_IMAGE = "/image-placeholders/spells-placeholder-image-200.webp
  * @property {string} incantation - Incantation of the spell
  * @property {string} effect - Effect of the spell
  * @property {string} [image] - Optional image URL for the spell
+ * @property {string} handmovement - Hand movement for the spell
+ * @property {string} creator - Creator of the spell
+ * @property {string} category - Category of the spell
+ * @property {string} light - The light of a spell
  */
 
 /**
@@ -87,6 +105,26 @@ export class Spell {
     effect = "";
 
     /**
+     * @type {string} handmovement - Hand movement of the spell
+     */
+    handmovement = "";
+
+    /**
+     * @type {string} creator - Creator of the spell
+     */
+    creator = "";
+
+    /**
+     * @type {string} category - Category of the spell
+     */
+    category = "";
+
+    /**
+     * @type {string} light - Light of the spell
+     */
+    light = "";
+
+    /**
      * @type {string|null} image - Optional image URL for the spell
      */
     image = null;
@@ -120,6 +158,10 @@ export class Spell {
         spell.incantation = attributes.incantation || "";
         spell.effect = attributes.effect || "";
         spell.image = attributes.image || null;
+        spell.handmovement = attributes.handmovement || "";
+        spell.creator = attributes.creator || "";
+        spell.category = attributes.category || "";
+        spell.light = attributes.light || "";
 
         return spell;
     }
@@ -141,14 +183,66 @@ export class Spell {
         const header = document.createElement("h3");
         header.classList.add(CSS.PREVIEW_NAME_CLASS);
         header.textContent = this.name;
+
         headerRow.appendChild(header);
         headerRow.appendChild(favoriteIcon(this.id, this.isFavorite));
+
         container.appendChild(headerRow);
         container.appendChild(this.#spellImageSmall());
+
         const effectElem = document.createElement("p");
         effectElem.classList.add(CSS.PREIVEW_EFFECT_CLASS);
         effectElem.textContent = this.effect;
+
         container.appendChild(effectElem);
+
+        return container;
+    }
+
+    detailsHTML() {
+        const container = document.createElement("section");
+        container.classList.add(CSS.DETAILS_CARD_CLASS);
+        container.dataset.spellId = this.id;
+
+        const header = document.createElement("h2");
+        header.classList.add(CSS.DETAILS_NAME_CLASS);
+        header.textContent = this.name;
+        container.appendChild(header);
+
+        container.appendChild(favoriteIcon(this.id));
+
+        container.appendChild(this.#spellsImageLarge());
+
+        const effect = document.createElement("p");
+        effect.classList.add(CSS.DETAILS_EFFECT_CLASS);
+        effect.textContent = `Effect: ${this.effect}`;
+        container.appendChild(effect);
+
+        const incantation = document.createElement("p");
+        incantation.classList.add(CSS.DETAILS_INCANTATION_CLASS);
+        incantation.textContent = `Incantation: ${this.incantation}`;
+        container.appendChild(incantation);
+
+        const hand = document.createElement("p");
+        hand.classList.add(CSS.DETAILS_HANDMOVEMENT_CLASS);
+        hand.textContent = `Hand movement: ${this.handmovement}`;
+        container.appendChild(hand);
+
+        const creator = document.createElement("p");
+        creator.classList.add(CSS.DETAILS_CREATOR_CLASS);
+        creator.textContent = `Creator: ${this.creator}`;
+        container.appendChild(creator);
+
+        const category = document.createElement("p");
+        category.classList.add(CSS.DETAILS_CATEGORY_CLASS);
+        category.textContent = `Category: ${this.category}`;
+        container.appendChild(category);
+
+        const light = document.createElement("p");
+        light.classList.add(CSS.DETAILS_LIGHT_CLASS);
+        light.textContent = `Light: ${this.light}`;
+        container.appendChild(light);
+
         return container;
     }
 
@@ -166,9 +260,9 @@ export class Spell {
     }
 
     /**
-     * Generates the HTML container for a small character image.
+     * Generates the HTML container for a small spell image.
      *
-     * @returns {HTMLElement} - The HTML container for the small character image.
+     * @returns {HTMLElement} - The HTML container for the small spell image.
      */
     #spellImageSmall() {
         const container = document.createElement("div");
@@ -188,4 +282,32 @@ export class Spell {
         container.appendChild(imageElem);
         return container;
     }
+
+    /**
+     * Generates the HTML container for a large spell image.
+     *
+     * @returns {HTMLElement} - The HTML container for the large spell image.
+     */
+    #spellsImageLarge() {
+        const container = document.createElement("div");
+        container.classList.add(CSS.DETAILS_IMAGE_CONTAINER_CLASS);
+        if (this.image && isURLValid(this.image)) {
+            const imageElem = document.createElement("img");
+            imageElem.classList.add(CSS.DETAILS_IMAGE_CLASS);
+            imageElem.src = this.image;
+            imageElem.alt = `${this.name} image`;
+            if (DETAILS_IMAGE_WIDTH) {
+                imageElem.width = DETAILS_IMAGE_WIDTH;
+            }
+            container.appendChild(imageElem);
+        } else {
+            const placeholder = document.createElement("div");
+            placeholder.classList.add(CSS.DETAILS_PLACEHOLDER_CLASS);
+            placeholder.textContent = "No Image";
+            container.appendChild(placeholder);
+        }
+        return container;
+    }
+
+
 }
