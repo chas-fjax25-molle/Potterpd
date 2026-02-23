@@ -1,8 +1,3 @@
-
-/**
- * Finds the search section HTML element.
- * Generate the search section HTML element.
- */
 function searchSection() {
     const container = document.getElementsByClassName("nav-search-container");
 
@@ -36,4 +31,3 @@ function searchSection() {
     container[0].appendChild(searchSection);
 }
 searchSection();
-
