@@ -1,4 +1,5 @@
 import { Character } from "./character";
+import { Spell } from "./spell";
 
 /**
  * Entity types enum for type-safe favorites management.
@@ -96,6 +97,10 @@ export class Favorites {
      * @returns {string} The corresponding EntityType value.
      */
     #getEntityType(item) {
+        if (item.type) {
+            return item.type; // If the item has a 'type' property, use it directly
+        }
+
         const className = item.constructor.name;
         /** @type {Record<string, string>} */
         const typeMap = {
@@ -123,7 +128,7 @@ export class Favorites {
     add(typeOrItem, item) {
         let type;
         let itemToAdd;
-
+        console.log("Adding to favorites:", typeOrItem, item);
         // Determine if called with (item) or (type, item)
         if (item === undefined) {
             // Called as add(item)
@@ -231,14 +236,28 @@ export class Favorites {
      * Get all favorites of a specific type.
      * Returns class instances (e.g., Character objects), not raw JSON.
      * @param {string} type - Entity type from EntityType enum.
-     * @returns {any[]} Array of favorite class instances of the specified type.
+     * @returns {Promise<any[]>} Array of favorite class instances of the specified type.
      */
-    getByType(type) {
+    async getByType(type) {
         const items = this.#favorites.get(type);
         if (!items) {
             throw new Error(`Invalid type: ${type}`);
         }
         return [...items]; // Return a copy to prevent external modification
+    }
+
+    /**
+     * Get a favorite item by type and ID.
+     * @param {string} type - Entity type from EntityType enum.
+     * @param {string} id - The ID of the item to retrieve.
+     * @returns {Promise<any|null>} The favorite item, or null if not found.
+     */
+    async getById(type, id) {
+        const items = this.#favorites.get(type);
+        if (!items) {
+            throw new Error(`Invalid type: ${type}`);
+        }
+        return items.find((i) => i.id === id) || null;
     }
 
     /**
@@ -302,41 +321,41 @@ export class Favorites {
 
     /**
      * Convenience method: Get all character favorites.
-     * @returns {Character[]} Array of favorite characters.
+     * @returns {Promise<Character[]>} Array of favorite characters.
      */
-    getCharacters() {
+    async getCharacters() {
         return this.getByType(EntityType.CHARACTER);
     }
 
     /**
      * Convenience method: Get all book favorites.
-     * @returns {any[]} Array of favorite books.
+     * @returns {Promise<any[]>} Array of favorite books.
      */
-    getBooks() {
+    async getBooks() {
         return this.getByType(EntityType.BOOK);
     }
 
     /**
      * Convenience method: Get all movie favorites.
-     * @returns {any[]} Array of favorite movies.
+     * @returns {Promise<any[]>} Array of favorite movies.
      */
-    getMovies() {
+    async getMovies() {
         return this.getByType(EntityType.MOVIE);
     }
 
     /**
      * Convenience method: Get all spell favorites.
-     * @returns {any[]} Array of favorite spells.
+     * @returns {Promise<Spell[]>} Array of favorite spells.
      */
-    getSpells() {
+    async getSpells() {
         return this.getByType(EntityType.SPELL);
     }
 
     /**
      * Convenience method: Get all potion favorites.
-     * @returns {any[]} Array of favorite potions.
+     * @returns {Promise<any[]>} Array of favorite potions.
      */
-    getPotions() {
+    async getPotions() {
         return this.getByType(EntityType.POTION);
     }
 
@@ -364,7 +383,7 @@ export class Favorites {
                     // Store the item in its API JSON format for proper deserialization
                     const jsonData = this.#serializeItem(item);
                     return {
-                        type: item.constructor.name,
+                        type: item.type,
                         data: jsonData,
                     };
                 });
@@ -427,13 +446,18 @@ export class Favorites {
 
         // Factory pattern for deserialization
         /** @type {Record<string, (data: any) => any>} */
+        // Prefer deserializers keyed by stable EntityType values to avoid
+        // relying on constructor names (which may be mangled in production builds).
         const deserializers = {
+            [EntityType.CHARACTER]: Character.fromJson,
+            [EntityType.SPELL]: Spell.fromJson,
+
+            // Backwards compatibility: also accept class-like type names
             Character: Character.fromJson,
-            // TODO: Add other entity types here
+            Spell: Spell.fromJson,
+            // TODO: Add other entity types here, e.g.
+            // [EntityType.BOOK]: Book.fromJson,
             // Book: Book.fromJson,
-            // Movie: Movie.fromJson,
-            // Spell: Spell.fromJson,
-            // Potion: Potion.fromJson,
         };
 
         const deserializer = deserializers[type];
