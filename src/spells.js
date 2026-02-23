@@ -13,7 +13,9 @@ import "./styles/themes";
 import "./spell_layout.css";
 
 import { registerFavoriteIconClick } from "./favorite_icon";
-import { SpellService } from "./spell_service";
+import { EntityService } from "./entity_service";
+import { EntityType } from "./favorites";
+import { Spell } from "./spell";
 
 /**
  * Container and service instances used across small helpers.
@@ -22,7 +24,7 @@ import { SpellService } from "./spell_service";
 let spellsContainer = null;
 
 /**
- * @type {SpellService | null}
+ * @type {EntityService | null}
  */
 let service = null;
 
@@ -59,7 +61,12 @@ function ensureContainer() {
  * @returns {void}
  */
 function setupService() {
-    service = new SpellService();
+    service = new EntityService({
+        category: "spells",
+        fromJson: Spell.fromJson,
+        entityType: EntityType.SPELL,
+        favoritesTypeKey: "spell"
+    });
 }
 
 /**
@@ -90,7 +97,7 @@ function clearContainer() {
 async function listView(page = 1) {
     clearContainer();
 
-    service?.loadSpells(page).then((spells) => {
+    service?.loadList(page).then((spells) => {
         spells.forEach((/** @type {import("./spell").Spell} */ spell) => {
             const preview = spell.previewHTML();
             if (spellsContainer) spellsContainer.appendChild(preview);
@@ -105,7 +112,7 @@ async function listView(page = 1) {
  */
 async function detailView(id) {
     clearContainer();
-    service?.loadSpellById(id).then((spell) => {
+    service?.loadById(id).then((spell) => {
         const detail = spell.detailsHTML();
         if (spellsContainer) spellsContainer.appendChild(detail);
     });
@@ -120,7 +127,7 @@ async function detailView(id) {
 async function searchView(q, page = 1) {
     clearContainer();
     try {
-        service?.searchSpells(q, page).then((spells) => {
+        service?.search(q, page).then((spells) => {
             console.log("Search results: ", spells);
             spells.forEach((/** @type {import("./spell").Spell} */ spell) => {
                 console.log("Rendering spell: ", spell);
