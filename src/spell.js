@@ -253,8 +253,7 @@ export class Spell {
         } else {
             const emptyMsg = document.createElement("p");
             emptyMsg.classList.add("spell-details-empty");
-            emptyMsg.textContent =
-                "No additional information available for this spell.";
+            emptyMsg.textContent = "No additional information available for this spell.";
             container.appendChild(emptyMsg);
         }
 
