@@ -16,6 +16,7 @@ import { registerFavoriteIconClick } from "./favorite_icon";
 import { EntityService } from "./entity_service";
 import { EntityType } from "./favorites";
 import { Spell } from "./spell";
+import { createEntityRouter } from "./entity_router";
 
 /**
  * Container and service instances used across small helpers.
@@ -39,8 +40,12 @@ function initApp() {
     setupFavoriteHandler();
     setupClickInterceptor();
     setupSearchHandler();
-    setupPopstateListener();
-    initRouter();
+    createEntityRouter({
+        basePath: "/spells",
+        renderList: listView,
+        renderDetail: detailView,
+        renderSearch: searchView,
+    }).init();
 }
 
 /**
@@ -65,7 +70,7 @@ function setupService() {
         category: "spells",
         fromJson: Spell.fromJson,
         entityType: EntityType.SPELL,
-        favoritesTypeKey: "spell"
+        favoritesTypeKey: "spell",
     });
 }
 
@@ -168,34 +173,6 @@ function navigateToDetail(id) {
 function navigateToSearch(q) {
     history.pushState({ s: q }, "", "?s=" + encodeURIComponent(q));
     searchView(q);
-}
-
-/**
- * Initialize router by reading URLSearchParams and routing to the appropriate view.
- * @returns {void}
- */
-function initRouter() {
-    const params = new URLSearchParams(window.location.search);
-    const idParam = params.get("id");
-    const sParam = params.get("s");
-
-    if (idParam) {
-        detailView(idParam);
-    } else if (sParam) {
-        searchView(sParam);
-    } else {
-        listView();
-    }
-}
-
-/**
- * Attach popstate listener to support back/forward.
- * @returns {void}
- */
-function setupPopstateListener() {
-    window.addEventListener("popstate", () => {
-        initRouter();
-    });
 }
 
 /**
