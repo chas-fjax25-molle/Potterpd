@@ -8,6 +8,7 @@ import "./styles/components.css";
 import "./styles/responsive.css";
 // @ts-ignore
 import "./styles/themes.css";
+import "./styles/themes";
 // @ts-ignore
 import "./spell_layout.css";
 
