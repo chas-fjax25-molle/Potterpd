@@ -131,7 +131,7 @@ function addEventListenerSearch() {
         event.preventDefault(); // Prevent page reload
 
         // Get form values
-        const searchInput = document.querySelector("input[type=\"text\"]");
+        const searchInput = document.querySelector('input[type="text"]');
         const searchValue =
             (searchInput instanceof HTMLInputElement ? searchInput.value : "") || "";
         const filterElement = document.getElementById("filter");
