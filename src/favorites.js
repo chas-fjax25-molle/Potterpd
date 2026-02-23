@@ -1,4 +1,5 @@
 import { Character } from "./character";
+import { Potion } from "./potion";
 
 /**
  * Entity types enum for type-safe favorites management.
@@ -433,7 +434,7 @@ export class Favorites {
             // Book: Book.fromJson,
             // Movie: Movie.fromJson,
             // Spell: Spell.fromJson,
-            // Potion: Potion.fromJson,
+            Potion: Potion.fromJson,
         };
 
         const deserializer = deserializers[type];
