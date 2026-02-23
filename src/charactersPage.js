@@ -42,4 +42,27 @@ async function renderAllCharacters() {
         container.innerHTML = "<p> failed to load characters. PLEAS try agin later</p>";
     }
 }
+
 document.addEventListener("DOMContentLoaded", renderAllCharacters);
+
+/**
+ * @param {Character[]} characters
+ */
+export function renderCharacters(characters) {
+    const mainSection = document.getElementById("character-previews");
+
+    /**
+     * clears previous results
+     */
+    if (mainSection) {
+        while (mainSection.firstChild) {
+            mainSection.removeChild(mainSection.firstChild);
+        }
+    }
+    /**
+     * @type {Character[]}
+     */
+    characters.forEach((element) => {
+        mainSection?.appendChild(element.previewHTML());
+    });
+}

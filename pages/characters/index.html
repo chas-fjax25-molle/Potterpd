@@ -33,22 +33,8 @@
         <title>Potterpd</title>
         <link rel="icon" type="image/svg+xml" href="/vite.svg" />
         <script type="module" src="/src/main.js" defer></script>
+        <script type="module" src="/src/search.js"></script>
         <script type="module" src="/src/RequestsFromAPI.js"></script>
-
-        <script type="module">
-            import { getSearchBy } from "/src/RequestsFromAPI.js";
-            document.getElementById("searchForm").addEventListener("submit", function (event) {
-                event.preventDefault(); // Prevent page reload
-
-                // Get form values
-                const searchValue = document.querySelector('input[type="text"]').value;
-                const searchCategory = document.getElementById("filter").value;
-                const pageNumber = 1; // Default page number
-
-                // Call the function from RequestFromAPI.js
-                getSearchBy(searchCategory, searchValue, pageNumber);
-            });
-        </script>
     </head>
 
     <body>
@@ -65,25 +51,6 @@
                     <li><a href="${basepath}potions/index.html">Potions</a></li>
                 </ul>
             </nav>
-
-            <section class="search-filter">
-                <form id="searchForm">
-                    <div class="search-container">
-                        <input type="text" placeholder="Search..." />
-                        <button class="btn-search" type="submit">Search</button>
-                    </div>
-                    <div class="filter-container">
-                        <select id="filter">
-                            <option selected hidden>Filter</option>
-                            <option value="books">Books</option>
-                            <option value="characters">Characters</option>
-                            <option value="spells">Spells</option>
-                            <option value="movies">Movies</option>
-                            <option value="potions">Potions</option>
-                        </select>
-                    </div>
-                </form>
-            </section>
         </div>
 
         <main>

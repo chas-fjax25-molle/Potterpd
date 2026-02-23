@@ -3,6 +3,7 @@
  */
 
 import { Character } from "./character";
+import { renderCharacters } from "./charactersPage";
 
 /**
  * @param {string} category
@@ -86,7 +87,6 @@ export async function getCategoryFilteredBy(category, filterParameter, filterVal
  * @param {string} searchCategory - Takes a string value
  * @param {string} searchValue - Takes a string value and searches in all the fields of the API
  * @param {number} pageNumber
- * @returns {Promise<*>} - Objects found by searching all objects for searchValue
  */
 export async function getSearchBy(searchCategory, searchValue, pageNumber) {
     const defaultPage = 1;
@@ -103,8 +103,6 @@ export async function getSearchBy(searchCategory, searchValue, pageNumber) {
         if (!response.ok) {
             throw new Error(`HTTP error! status: ${response.status}`);
         }
-
-        const mainSection = document.getElementById("character-previews");
         const result = await response.json();
         console.log(result);
 
@@ -113,10 +111,7 @@ export async function getSearchBy(searchCategory, searchValue, pageNumber) {
              * @type {Character[]}
              */
             const characters = result.data.map(Character.fromJson);
-
-            characters.forEach((element) => {
-                mainSection?.appendChild(element.previewHTML());
-            });
+            renderCharacters(characters);
         }
     } catch (error) {
         console.error(error);
@@ -125,3 +120,21 @@ export async function getSearchBy(searchCategory, searchValue, pageNumber) {
 }
 
 //console.log(getSearchBy("boobs", "Phoenix", 1));
+
+function addEventListenerSearch() {
+    // @ts-ignore
+    document.getElementById("searchForm").addEventListener("submit", function (event) {
+        event.preventDefault(); // Prevent page reload
+
+        // Get form values
+        // @ts-ignore
+        const searchValue = document.querySelector("input[type=\"text\"]").value;
+        // @ts-ignore
+        const searchCategory = document.getElementById("filter").value;
+        const pageNumber = 1; // Default page number
+
+        // Call the function from RequestFromAPI.js
+        getSearchBy(searchCategory, searchValue, pageNumber);
+    });
+}
+addEventListenerSearch();
