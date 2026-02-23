@@ -1,6 +1,29 @@
 import { Character } from "./character.js";
-import { getSearchBy } from "./RequestsFromAPI";
+import EntityService from "./entity_service.js";
+import { EntityType } from "./favorites.js";
 
+/**
+ * @type {EntityService | null}
+ */
+let service = null;
+
+function initApp() {
+    setupService();
+    addEventListenerSearch();
+}
+
+/**
+ * Initialize the SpellService instance.
+ * @returns {void}
+ */
+function setupService() {
+    service = new EntityService({
+        category: "characters",
+        fromJson: Character.fromJson,
+        entityType: EntityType.CHARACTER,
+        favoritesTypeKey: "character",
+    });
+}
 
 async function addEventListenerSearch() {
     const searchForm = document.getElementById("searchForm");
@@ -16,28 +39,17 @@ async function addEventListenerSearch() {
         const searchInput = document.querySelector('input[type="text"]');
         const searchValue =
             (searchInput instanceof HTMLInputElement ? searchInput.value : "") || "";
-        const filterElement = document.getElementById("filter");
-        const searchCategory =
-            (filterElement instanceof HTMLSelectElement ? filterElement.value : "") || "";
         const pageNumber = 1; // Default page number
 
-        // Call the function from RequestFromAPI.js
-        renderCharacters(await getSearchBy(searchCategory, searchValue, pageNumber));
+        service?.search(searchValue, pageNumber).then(renderCharacters);
     });
 }
 
-addEventListenerSearch();
-
-
 /**
- * @param {*} response
+ * @param {Character[]} characters
  */
-export function renderCharacters(response) {
+export function renderCharacters(characters) {
     const mainSection = document.getElementById("character-previews");
-    /**
-     * @type {Character[]}
-     */
-    const characters = response.data.map(Character.fromJson);
     // Clear the existing content
     if (mainSection) {
         while (mainSection.firstChild) {
@@ -53,3 +65,6 @@ export function renderCharacters(response) {
         }
     );
 }
+
+
+initApp();
