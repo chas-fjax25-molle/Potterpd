@@ -13,7 +13,7 @@ function searchSection() {
                 </button>
             </div>
             <div class="filter-container">
-                <select id="filter">
+                <select id="filter" type="text">
                     <option selected hidden>
                         Filter
                     </option>
