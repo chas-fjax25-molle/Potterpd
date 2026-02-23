@@ -131,6 +131,7 @@ function addEventListenerSearch() {
         event.preventDefault(); // Prevent page reload
 
         // Get form values
+        // eslint-disable-next-line quotes
         const searchInput = document.querySelector('input[type="text"]');
         const searchValue =
             (searchInput instanceof HTMLInputElement ? searchInput.value : "") || "";
