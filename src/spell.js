@@ -51,7 +51,8 @@ const DETAILS_IMAGE_WIDTH = 300;
 /**
  * importing the placeholder image for spells in the api missing an image.
  */
-const PLACEHOLDER_IMAGE = import.meta.env.BASE_URL + "image-placeholders/spells-placeholder-image-200.webp";
+const PLACEHOLDER_IMAGE =
+    import.meta.env.BASE_URL + "image-placeholders/spells-placeholder-image-200.webp";
 
 /**
  * @typedef {Object} SpellAttributes
