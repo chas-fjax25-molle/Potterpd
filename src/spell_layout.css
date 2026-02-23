@@ -1,0 +1,185 @@
+section {
+    background-color: #f0f0f0;
+}
+
+.spells-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(min(350px, 100%), 1fr));
+    gap: 1rem;
+}
+
+.spell-preview-card {
+    display: grid;
+    grid-template-columns: 160px 1fr;
+    grid-template-rows: auto 1fr;
+    gap: 0.75rem;
+    padding: 0.75rem;
+    border: 1px solid #e0e0e0;
+    border-radius: 8px;
+    background: #fff;
+    position: relative;
+}
+
+.spell-preview-card {
+    transition:
+        box-shadow 0.15s ease,
+        transform 0.15s ease;
+}
+
+/* overlay is for the link element! (to details)
+*  did it like this to not have overlapping func. with favorite icon.
+*/
+.spell-card-overlay {
+    position: absolute;
+    inset: 0;
+    z-index: 1;
+}
+
+.spell-preview-card > *:not(.spell-card-overlay) {
+    position: relative;
+    z-index: 2;
+}
+
+.spell-preview-card:hover {
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+    transform: translateY(-1px);
+}
+
+.spell-card-overlay:focus-visible {
+    outline: 3px solid #aaa;
+    border-radius: 8px;
+}
+
+.spell-preview-header {
+    grid-column: 2;
+    grid-row: 1;
+
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    gap: 0.5rem;
+}
+
+.spell-preview-name {
+    margin: 0;
+    font-size: 1.1rem;
+    overflow-wrap: anywhere;
+    word-wrap: break-word;
+}
+.spell-preview-effect {
+    grid-column: 2;
+    grid-row: 2;
+    margin: 0;
+    font-size: 0.9rem;
+    color: #555;
+}
+
+.spell-preview-image-container {
+    grid-column: 1;
+    grid-row: 1 / span 2;
+    width: 100%;
+}
+
+.spell-preview-image-container,
+.spell-image-container {
+    position: relative;
+}
+
+.spell-image-container {
+    width: 100%;
+    max-width: 500px;
+    margin: 0 auto;
+    border-radius: 10px;
+    overflow: hidden;
+    border: 1px solid #e0e0e0;
+}
+
+.image-placeholder-overlay {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    background: rgba(0, 0, 0, 0.45);
+    color: white;
+    font-size: 0.85rem;
+    font-weight: 500;
+    text-align: center;
+
+    border-radius: 6px;
+    pointer-events: none;
+}
+
+.spell-preview-image {
+    width: 100%;
+    height: 100%;
+    aspect-ratio: 4 / 3;
+    object-fit: cover;
+    border-radius: 6px;
+}
+
+.favorite-icon {
+    margin-top: -5px;
+    font-size: 1.25rem;
+    cursor: pointer;
+    background: rgba(255, 255, 255, 0.85);
+    padding: 0.15rem 0.35rem;
+    border-radius: 6px;
+    z-index: 3;
+}
+
+.favorite-icon:hover,
+.favorite-icon:focus {
+    outline: 2px solid #cfcfcf;
+}
+
+.favorite-icon--active {
+    color: gold;
+}
+
+/* ----- DETAILS PAGE ----- */
+.spell-details-card {
+    max-width: 800px;
+    margin: 2rem auto;
+    padding: 1.5rem;
+    background: white;
+    border-radius: 12px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+}
+
+.spell-details-image {
+    width: 100%;
+    aspect-ratio: 4 / 3;
+    object-fit: cover;
+    display: block;
+}
+
+.spell-details-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.spell-details-grid {
+    display: grid;
+    grid-template-columns: 140px 1fr;
+    gap: 0.6rem 1rem;
+}
+
+.spell-details-label {
+    font-weight: 600;
+    color: #444;
+}
+
+.spell-details-value {
+    color: #222;
+}
+
+.spell-details-empty {
+    color: #777;
+    font-style: italic;
+}

@@ -4,6 +4,7 @@
  * Usage:
  * const router = createEntityRouter({
  *   basePath: '/potions',
+ *   basePath: '/spells',
  *   renderList: () => listView(),
  *   renderDetail: (id) => detailView(id),
  *   renderSearch: (q) => searchView(q)
