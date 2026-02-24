@@ -26,9 +26,6 @@ section {
         transform 0.15s ease;
 }
 
-/* overlay is for the link element! (to details)
-*  did it like this to not have overlapping func. with favorite icon.
-*/
 .spell-card-overlay {
     position: absolute;
     inset: 0;
@@ -94,6 +91,9 @@ section {
     border: 1px solid #e0e0e0;
 }
 
+/* This overlay creats bug on potions page */
+
+/* 
 .image-placeholder-overlay {
     position: absolute;
     inset: 0;
@@ -109,7 +109,7 @@ section {
 
     border-radius: 6px;
     pointer-events: none;
-}
+} */
 
 .spell-preview-image {
     width: 100%;
@@ -138,7 +138,6 @@ section {
     color: gold;
 }
 
-/* ----- DETAILS PAGE ----- */
 .spell-details-card {
     max-width: 800px;
     margin: 2rem auto;

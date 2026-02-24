@@ -10,3 +10,5 @@ import "./styles/responsive.css";
 import "./styles/themes.css";
 // @ts-ignore
 import "./styles/themes";
+// @ts-ignore
+import "./styles/spell_layout.css";

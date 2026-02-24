@@ -1,17 +1,3 @@
-// @ts-ignore
-import "./styles/base.css";
-// @ts-ignore
-import "./styles/layout.css";
-// @ts-ignore
-import "./styles/components.css";
-// @ts-ignore
-import "./styles/responsive.css";
-// @ts-ignore
-import "./styles/themes.css";
-import "./styles/themes";
-// @ts-ignore
-import "./spell_layout.css";
-
 import { registerFavoriteIconClick } from "./favorite_icon";
 import { EntityService } from "./entity_service";
 import { EntityType } from "./favorites";
