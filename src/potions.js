@@ -4,6 +4,7 @@ import { EntityType } from "./favorites";
 import { Potion } from "./potion";
 import { createEntityRouter } from "./entity_router";
 import { registerSearchCallback } from "./search_form";
+import { registerSearchCallback } from "./search_form";
 
 /**
  * Container and service instances used across small helpers.
@@ -15,6 +16,19 @@ let potionsContainer = null;
  * @type {EntityService | null}
  */
 let service = null;
+
+/**
+ * @type {() => void}
+ */
+let navigateToList;
+/**
+ * @type {(id: string) => void}
+ */
+let navigateToDetail;
+/**
+ * @type {(q: string) => void}
+ */
+let navigateToSearch;
 
 /**
  * @type {() => void}
