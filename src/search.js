@@ -1,6 +1,5 @@
 import { getSearchBy } from "./RequestsFromAPI";
 
-
 function addEventListenerSearch() {
     const searchForm = document.getElementById("searchForm");
     if (searchForm === null) {

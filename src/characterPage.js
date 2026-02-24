@@ -66,5 +66,4 @@ export function renderCharacters(characters) {
     );
 }
 
-
 initApp();

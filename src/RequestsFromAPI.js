@@ -59,8 +59,12 @@ export async function getSpecific(category, id) {
  * @param {number} pageNumber
  * @returns {Promise<*>} - Category objects filtered by filterParameter and filterValue, 50 results per page.
  */
-export async function getCategoryFilteredBy(category, filterParameter, filterValue, pageNumber = 1) {
-
+export async function getCategoryFilteredBy(
+    category,
+    filterParameter,
+    filterValue,
+    pageNumber = 1
+) {
     const filterUrl = `https://api.potterdb.com/v1/${category}?filter[${filterParameter}]=${filterValue}&?page[number]=${pageNumber}`;
 
     try {
@@ -82,12 +86,10 @@ export async function getCategoryFilteredBy(category, filterParameter, filterVal
  * @param {string} searchCategory - Takes a string value
  * @param {string} searchValue - Takes a string value and searches in all the fields of the API
  * @param {number} pageNumber
- * 
+ *
  */
 export async function getSearchBy(searchCategory, searchValue, pageNumber = 1) {
-    
     return getCategoryFilteredBy(searchCategory, "name_cont", searchValue, pageNumber);
 }
 
 //console.log(getSearchBy("boobs", "Phoenix", 1));
-
