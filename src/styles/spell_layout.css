@@ -26,7 +26,6 @@ section {
         transform 0.15s ease;
 }
 
-
 .spell-card-overlay {
     position: absolute;
     inset: 0;
@@ -138,7 +137,6 @@ section {
 .favorite-icon--active {
     color: gold;
 }
-
 
 .spell-details-card {
     max-width: 800px;
