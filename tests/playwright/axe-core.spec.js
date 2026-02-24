@@ -1,5 +1,7 @@
 import { test, expect } from "@playwright/test";
 import axe from "axe-core";
+import { createRequire } from "module";
+const require = createRequire(import.meta.url);
 
 test("wcag / axe audit", async ({ page }) => {
     // point to your local dev/preview URL in CI
