@@ -18,7 +18,6 @@ import { EntityType } from "./favorites";
 import { Spell } from "./spell";
 import { createEntityRouter } from "./entity_router";
 import { registerSearchCallback } from "./search_form";
-import { registerSearchCallback } from "./search_form";
 
 /**
  * Container and service instances used across small helpers.
@@ -64,7 +63,6 @@ function initApp() {
     navigateToList = router.navigateToList;
     navigateToDetail = router.navigateToDetail;
     navigateToSearch = router.navigateToSearch;
-    // Register search callback after router has provided `navigateToSearch`
     registerSearchCallback(navigateToSearch);
 }
 
