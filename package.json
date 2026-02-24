@@ -11,6 +11,7 @@
         "test": "vitest run"
     },
     "devDependencies": {
+        "@axe-core/cli": "^4.11.1",
         "@eslint/css": "^0.14.1",
         "@eslint/js": "^9.39.2",
         "@eslint/json": "^0.14.0",
