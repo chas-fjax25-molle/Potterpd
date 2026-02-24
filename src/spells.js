@@ -30,6 +30,19 @@ let spellsContainer = null;
 let service = null;
 
 /**
+ * @type {() => void}
+ */
+let navigateToList;
+/**
+ * @type {(id: string) => void}
+ */
+let navigateToDetail
+/**
+ * @type {(q: string) => void}
+ */
+let navigateToSearch;
+
+/**
  * Initialize the application: ensure DOM elements and service are present,
  * wire handlers and start the router.
  * @returns {void}
@@ -40,12 +53,16 @@ function initApp() {
     setupFavoriteHandler();
     setupClickInterceptor();
     setupSearchHandler();
-    createEntityRouter({
+    let router = createEntityRouter({
         basePath: "/spells",
         renderList: listView,
         renderDetail: detailView,
         renderSearch: searchView,
-    }).init();
+    });
+    router.init();
+    navigateToList = router.navigateToList;
+    navigateToDetail = router.navigateToDetail;
+    navigateToSearch = router.navigateToSearch;
 }
 
 /**
@@ -144,35 +161,6 @@ async function searchView(q, page = 1) {
         console.error("Search failed: ", error);
         navigateToList();
     }
-}
-
-/**
- * Navigate to the list view and update the history state.
- * @returns {void}
- */
-function navigateToList() {
-    history.pushState({}, "", "/spells");
-    listView();
-}
-
-/**
- * Navigate to a detail view for a spell id and update history.
- * @param {string} id
- * @returns {void}
- */
-function navigateToDetail(id) {
-    history.pushState({ id }, "", "?id=" + encodeURIComponent(id));
-    detailView(id);
-}
-
-/**
- * Navigate to search results for query `q` and update history.
- * @param {string} q
- * @returns {void}
- */
-function navigateToSearch(q) {
-    history.pushState({ s: q }, "", "?s=" + encodeURIComponent(q));
-    searchView(q);
 }
 
 /**
