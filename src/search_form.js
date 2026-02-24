@@ -9,7 +9,8 @@ export function registerSearchCallback(callback) {
     const input = searchContainer.querySelector("input");
     if (!button || !input) throw new Error("Search button or input not found");
 
-    button.addEventListener("click", () => {
+    button.addEventListener("click", (e) => {
+        e.preventDefault();
         const query = input.value.trim();
         if (query) callback(query);
     });

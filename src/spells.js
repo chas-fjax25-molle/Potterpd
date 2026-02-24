@@ -53,7 +53,6 @@ function initApp() {
     setupService();
     setupFavoriteHandler();
     setupClickInterceptor();
-    registerSearchCallback(navigateToSearch);
     const router = createEntityRouter({
         basePath: "/spells",
         renderList: listView,
@@ -64,6 +63,8 @@ function initApp() {
     navigateToList = router.navigateToList;
     navigateToDetail = router.navigateToDetail;
     navigateToSearch = router.navigateToSearch;
+    // Register search callback after router has provided `navigateToSearch`
+    registerSearchCallback(navigateToSearch);
 }
 
 /**

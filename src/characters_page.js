@@ -1,6 +1,7 @@
 import { Character } from "./character.js";
 import EntityService from "./entity_service.js";
 import { EntityType } from "./favorites.js";
+import { registerSearchCallback } from "./search_form.js";
 
 /**
  * @type {EntityService | null}
@@ -9,7 +10,11 @@ let service = null;
 
 function initApp() {
     setupService();
-    addEventListenerSearch();
+    // TODO(Pontus)
+    //addEventListenerSearch();
+    registerSearchCallback((q) => {
+        service?.search(q, 1).then(renderCharacters);
+    });
 }
 
 /**
@@ -24,7 +29,7 @@ function setupService() {
         favoritesTypeKey: "character",
     });
 }
-
+/*
 async function addEventListenerSearch() {
     const searchForm = document.getElementById("searchForm");
     if (searchForm === null) {
@@ -43,7 +48,7 @@ async function addEventListenerSearch() {
 
         service?.search(searchValue, pageNumber).then(renderCharacters);
     });
-}
+}*/
 
 /**
  * @param {Character[]} characters
