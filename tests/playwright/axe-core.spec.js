@@ -3,7 +3,7 @@ import axe from "axe-core";
 
 test("wcag / axe audit", async ({ page }) => {
     // point to your local dev/preview URL in CI
-    await page.goto("http://localhost:5173/");
+    await page.goto("http://localhost:4173/");
 
     // inject axe
     await page.addScriptTag({ path: require.resolve("axe-core/axe.min.js") });
