@@ -36,7 +36,7 @@ let navigateToList;
 /**
  * @type {(id: string) => void}
  */
-let navigateToDetail
+let navigateToDetail;
 /**
  * @type {(q: string) => void}
  */
