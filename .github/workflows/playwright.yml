@@ -26,7 +26,7 @@ jobs:
             - name: Install Playwright Browsers
               run: npx playwright install --with-deps
             - name: Run Playwright tests (chromium only)
-              run: npx playwright test --project=chromium --config=playwright.config.js
+              run: npx playwright test --project=chromium --config=playwright.config.js --retries=0
             - uses: actions/upload-artifact@v4
               if: ${{ !cancelled() }}
               with:
@@ -55,7 +55,7 @@ jobs:
             - name: Install Playwright Browsers
               run: npx playwright install --with-deps
             - name: Run Playwright tests (all browsers)
-              run: npx playwright test --config=playwright.config.js
+              run: npx playwright test --config=playwright.config.js --retries=0
             - uses: actions/upload-artifact@v4
               if: ${{ !cancelled() }}
               with:
