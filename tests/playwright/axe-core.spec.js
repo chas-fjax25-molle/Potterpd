@@ -1,10 +1,10 @@
-import { test, expect } from "@playwright/test";
+import { test } from "@playwright/test";
 import axe from "axe-core";
 import { createRequire } from "module";
 const require = createRequire(import.meta.url);
 
 test("wcag / axe audit", async ({ page }) => {
-    // point to your local dev/preview URL in CI
+    // NOTE: Must match the URL where the app is running
     await page.goto("http://localhost:4173/");
 
     // inject axe
@@ -17,10 +17,22 @@ test("wcag / axe audit", async ({ page }) => {
         });
     });
 
-    // log details for CI output if there are violations
+    // If there are violations, format each affected node as its own message
     if (results.violations.length) {
+        const errors = [];
+        for (const violation of results.violations) {
+            for (const node of violation.nodes) {
+                const target =
+                    node.target && node.target.length ? node.target.join(" | ") : "<unknown>";
+                const message = `Error: ${target} : ${violation.id} - ${violation.help}`;
+                // Log each violation line for CI readability
+                console.error(message);
+                errors.push(message);
+            }
+        }
+        // Include full JSON for richer debugging
         console.log("AXE violations:", JSON.stringify(results.violations, null, 2));
-    }
 
-    expect(results.violations.length).toBe(0);
+        throw new Error(errors.join("\n"));
+    }
 });
