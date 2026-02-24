@@ -45,7 +45,7 @@ function initApp() {
         renderList: listView,
         renderDetail: detailView,
         renderSearch: searchView,
-    });   
+    });
     router.init();
     navigateToList = router.navigateToList;
     navigateToDetail = router.navigateToDetail;

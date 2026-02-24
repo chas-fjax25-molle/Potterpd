@@ -1,6 +1,6 @@
 /**
- * 
- * @param {function(string): void} callback 
+ *
+ * @param {function(string): void} callback
  */
 export function registerSearchCallback(callback) {
     const searchContainer = document.getElementsByClassName("search-container")[0];
