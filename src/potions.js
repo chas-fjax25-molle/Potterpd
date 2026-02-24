@@ -39,7 +39,6 @@ function initApp() {
     setupService();
     setupFavoriteHandler();
     setupClickInterceptor();
-    registerSearchCallback(navigateToSearch);
     const router = createEntityRouter({
         basePath: "/potions",
         renderList: listView,
@@ -50,6 +49,7 @@ function initApp() {
     navigateToList = router.navigateToList;
     navigateToDetail = router.navigateToDetail;
     navigateToSearch = router.navigateToSearch;
+    registerSearchCallback(navigateToSearch);
 }
 
 /**
