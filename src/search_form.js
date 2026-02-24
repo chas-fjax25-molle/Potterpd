@@ -1,5 +1,4 @@
 /**
- *
  * @param {function(string): void} callback
  */
 export function registerSearchCallback(callback) {
