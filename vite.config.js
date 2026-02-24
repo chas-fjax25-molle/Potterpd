@@ -58,8 +58,8 @@ export default defineConfig(({ mode }) => {
                 devOptions: { enabled: true },
 
                 manifest: {
-                    name: "Potterpd",
-                    short_name: "Potterpd",
+                    name: "Potter Pedia",
+                    short_name: "Potter Pedia",
 
                     start_url: base,
                     scope: base,
