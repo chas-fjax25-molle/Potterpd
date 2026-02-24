@@ -202,13 +202,13 @@ function setupClickInterceptor() {
  * @throws Will throw an error if the search container or its elements are not found.
  */
 function setupSearchHandler() {
-    const searchContainer = document.getElementsByClassName("search-container")[0];
-    if (!searchContainer) throw new Error("Search container not found");
-    const button = searchContainer.querySelector("button");
-    const input = searchContainer.querySelector("input");
-    if (!button || !input) throw new Error("Search button or input not found");
+    const form = document.querySelector(".search-container");
+    if (!form) throw new Error("Search form not found");
+    const input = form.querySelector("input");
+    if (!input) throw new Error("Search input not found");
 
-    button.addEventListener("click", () => {
+    form.addEventListener("submit", (ev) => {
+        ev.preventDefault();
         const query = input.value.trim();
         if (query) navigateToSearch(query);
     });
