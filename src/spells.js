@@ -17,6 +17,7 @@ import { EntityService } from "./entity_service";
 import { EntityType } from "./favorites";
 import { Spell } from "./spell";
 import { createEntityRouter } from "./entity_router";
+import { registerSearchCallback } from "./search_form";
 
 /**
  * Container and service instances used across small helpers.
@@ -52,8 +53,8 @@ function initApp() {
     setupService();
     setupFavoriteHandler();
     setupClickInterceptor();
-    setupSearchHandler();
-    let router = createEntityRouter({
+    registerSearchCallback(navigateToSearch);
+    const router = createEntityRouter({
         basePath: "/spells",
         renderList: listView,
         renderDetail: detailView,
@@ -194,23 +195,6 @@ function setupClickInterceptor() {
                 }
             }
         }
-    });
-}
-
-/**
- * Expose programmatic search helper for external code to trigger searches.
- * @throws Will throw an error if the search container or its elements are not found.
- */
-function setupSearchHandler() {
-    const form = document.querySelector(".search-container");
-    if (!form) throw new Error("Search form not found");
-    const input = form.querySelector("input");
-    if (!input) throw new Error("Search input not found");
-
-    form.addEventListener("submit", (ev) => {
-        ev.preventDefault();
-        const query = input.value.trim();
-        if (query) navigateToSearch(query);
     });
 }
 
