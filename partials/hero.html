@@ -35,12 +35,12 @@
         </ul>
     </nav>
     <section class="search-filter">
-        <div class="search-container">
-            <input type="text" placeholder="Search..." />
+        <form class="search-container">
+            <input type="text" placeholder="Search..." name="search" />
             <button class="btn-search" type="submit">Search</button>
-        </div>
-        <div class="filter-container">
-            <select id="filter">
+        </form>
+        <form class="filter-container">
+            <select id="filter" name="filter">
                 <option selected hidden>Filter</option>
                 <option value="books">Books</option>
                 <option value="characters">Characters</option>
@@ -48,6 +48,6 @@
                 <option value="movies">Movies</option>
                 <option value="potions">Potions</option>
             </select>
-        </div>
+        </form>
     </section>
 </div>
