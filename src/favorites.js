@@ -1,4 +1,5 @@
 import { Character } from "./character";
+import { Potion } from "./potion";
 import { Spell } from "./spell";
 
 /**
@@ -458,6 +459,9 @@ export class Favorites {
             // TODO: Add other entity types here, e.g.
             // [EntityType.BOOK]: Book.fromJson,
             // Book: Book.fromJson,
+            // Movie: Movie.fromJson,
+            // Spell: Spell.fromJson,
+            Potion: Potion.fromJson,
         };
 
         const deserializer = deserializers[type];
