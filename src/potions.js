@@ -3,6 +3,7 @@ import { EntityService } from "./entity_service";
 import { EntityType } from "./favorites";
 import { Potion } from "./potion";
 import { createEntityRouter } from "./entity_router";
+import { registerSearchCallback } from "./search_form";
 
 /**
  * Container and service instances used across small helpers.
@@ -16,6 +17,19 @@ let potionsContainer = null;
 let service = null;
 
 /**
+ * @type {() => void}
+ */
+let navigateToList;
+/**
+ * @type {(id: string) => void}
+ */
+let navigateToDetail;
+/**
+ * @type {(q: string) => void}
+ */
+let navigateToSearch;
+
+/**
  * Initialize the application: ensure DOM elements and service are present,
  * wire handlers and start the router.
  * @returns {void}
@@ -25,13 +39,17 @@ function initApp() {
     setupService();
     setupFavoriteHandler();
     setupClickInterceptor();
-    setupSearchHandler();
-    createEntityRouter({
+    registerSearchCallback(navigateToSearch);
+    const router = createEntityRouter({
         basePath: "/potions",
         renderList: listView,
         renderDetail: detailView,
         renderSearch: searchView,
-    }).init();
+    });
+    router.init();
+    navigateToList = router.navigateToList;
+    navigateToDetail = router.navigateToDetail;
+    navigateToSearch = router.navigateToSearch;
 }
 
 /**
@@ -133,35 +151,6 @@ async function searchView(q, page = 1) {
 }
 
 /**
- * Navigate to the list view and update the history state.
- * @returns {void}
- */
-function navigateToList() {
-    history.pushState({}, "", "/potions");
-    listView();
-}
-
-/**
- * Navigate to a detail view for a potion id and update history.
- * @param {string} id
- * @returns {void}
- */
-function navigateToDetail(id) {
-    history.pushState({ id }, "", "?id=" + encodeURIComponent(id));
-    detailView(id);
-}
-
-/**
- * Navigate to search results for query `q` and update history.
- * @param {string} q
- * @returns {void}
- */
-function navigateToSearch(q) {
-    history.pushState({ s: q }, "", "?s=" + encodeURIComponent(q));
-    searchView(q);
-}
-
-/**
  * Handle clicks on potion cards and their overlays to navigate to detail views.
  */
 function setupClickInterceptor() {
@@ -192,23 +181,6 @@ function setupClickInterceptor() {
                 }
             }
         }
-    });
-}
-
-/**
- * Expose programmatic search helper for external code to trigger searches.
- * @throws Will throw an error if the search container or its elements are not found.
- */
-function setupSearchHandler() {
-    const searchContainer = document.getElementsByClassName("search-container")[0];
-    if (!searchContainer) throw new Error("Search container not found");
-    const button = searchContainer.querySelector("button");
-    const input = searchContainer.querySelector("input");
-    if (!button || !input) throw new Error("Search button or input not found");
-
-    button.addEventListener("click", () => {
-        const query = input.value.trim();
-        if (query) navigateToSearch(query);
     });
 }
 
