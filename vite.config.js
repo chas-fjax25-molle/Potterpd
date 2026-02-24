@@ -101,9 +101,6 @@ export default defineConfig(({ mode }) => {
                     books: resolve(rootDir, "pages/books/index.html"),
                     spells: resolve(rootDir, "pages/spells/index.html"),
                     movies: resolve(rootDir, "pages/movies/index.html"),
-                    character: resolve(rootDir, "pages/character/index.html"),
-                    book: resolve(rootDir, "pages/book/index.html"),
-                    movie: resolve(rootDir, "pages/movie/index.html"),
                     favourites: resolve(rootDir, "pages/favourites/index.html"),
                     "favourites/characters": resolve(
                         rootDir,
