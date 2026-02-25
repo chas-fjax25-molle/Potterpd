@@ -1,14 +1,10 @@
-section {
-    background-color: #f0f0f0;
-}
-
-.spells-container {
+.section-container {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(min(350px, 100%), 1fr));
     gap: 1rem;
 }
 
-.spell-preview-card {
+.preview-card {
     display: grid;
     grid-template-columns: 160px 1fr;
     grid-template-rows: auto 1fr;
@@ -20,34 +16,34 @@ section {
     position: relative;
 }
 
-.spell-preview-card {
+.preview-card {
     transition:
         box-shadow 0.15s ease,
         transform 0.15s ease;
 }
 
-.spell-card-overlay {
+.card-overlay {
     position: absolute;
     inset: 0;
     z-index: 1;
 }
 
-.spell-preview-card > *:not(.spell-card-overlay) {
+.preview-card > *:not(.card-overlay) {
     position: relative;
     z-index: 2;
 }
 
-.spell-preview-card:hover {
+.preview-card:hover {
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
     transform: translateY(-1px);
 }
 
-.spell-card-overlay:focus-visible {
+.card-overlay:focus-visible {
     outline: 3px solid #aaa;
     border-radius: 8px;
 }
 
-.spell-preview-header {
+.preview-header {
     grid-column: 2;
     grid-row: 1;
 
@@ -57,13 +53,22 @@ section {
     gap: 0.5rem;
 }
 
-.spell-preview-name {
+/* ----- ERROR HERE (break-word): This can also be done in JS, maybe thats a better solution?
+* ex: 
+document.querySelectorAll('.spell-preview-name').forEach(el => {
+  el.textContent = el.textContent.replaceAll('/', '/\u200B');
+});
+----- */
+
+.preview-name {
     margin: 0;
     font-size: 1.1rem;
     overflow-wrap: anywhere;
     word-wrap: break-word;
+    word-break: break-word;
 }
-.spell-preview-effect {
+
+.preview-detail {
     grid-column: 2;
     grid-row: 2;
     margin: 0;
@@ -71,18 +76,18 @@ section {
     color: #555;
 }
 
-.spell-preview-image-container {
+.preview-image-container {
     grid-column: 1;
     grid-row: 1 / span 2;
     width: 100%;
 }
 
-.spell-preview-image-container,
-.spell-image-container {
+.preview-image-container,
+.image-container {
     position: relative;
 }
 
-.spell-image-container {
+.image-container {
     width: 100%;
     max-width: 500px;
     margin: 0 auto;
@@ -93,7 +98,6 @@ section {
 
 /* This overlay creats bug on potions page */
 
-/* 
 .image-placeholder-overlay {
     position: absolute;
     inset: 0;
@@ -109,9 +113,9 @@ section {
 
     border-radius: 6px;
     pointer-events: none;
-} */
+} 
 
-.spell-preview-image {
+.preview-image {
     width: 100%;
     height: 100%;
     aspect-ratio: 4 / 3;
@@ -138,7 +142,7 @@ section {
     color: gold;
 }
 
-.spell-details-card {
+.details-card {
     max-width: 800px;
     margin: 2rem auto;
     padding: 1.5rem;
@@ -150,35 +154,35 @@ section {
     gap: 1.5rem;
 }
 
-.spell-details-image {
+.details-image {
     width: 100%;
     aspect-ratio: 4 / 3;
     object-fit: cover;
     display: block;
 }
 
-.spell-details-header {
+.details-header {
     display: flex;
     justify-content: space-between;
     align-items: center;
 }
 
-.spell-details-grid {
+.details-grid {
     display: grid;
     grid-template-columns: 140px 1fr;
     gap: 0.6rem 1rem;
 }
 
-.spell-details-label {
+.details-label {
     font-weight: 600;
     color: #444;
 }
 
-.spell-details-value {
+.details-value {
     color: #222;
 }
 
-.spell-details-empty {
+.details-empty {
     color: #777;
     font-style: italic;
 }

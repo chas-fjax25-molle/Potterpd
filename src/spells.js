@@ -12,6 +12,11 @@ import { registerSearchCallback } from "./search_form";
 let spellsContainer = null;
 
 /**
+ * Inner view wrapper
+ * @type {HTMLElement | null}
+ */
+
+/**
  * @type {EntityService | null}
  */
 let service = null;
@@ -62,6 +67,8 @@ function ensureContainer() {
         console.error("Spells container element not found.");
         return false;
     }
+
+    
     return true;
 }
 

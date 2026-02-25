@@ -11,26 +11,28 @@ import { isURLValid } from "./utils";
  */
 const CSS = Object.freeze({
     // Preview card classes
-    PREVIEW_CARD_CLASS: "spell-preview-card",
-    PREVIEW_NAME_CLASS: "spell-preview-name",
-    PREVIEW_IMAGE_CONTAINER_CLASS: "spell-preview-image-container",
-    PREVIEW_IMAGE_CLASS: "spell-preview-image",
-    PREVIEW_PLACEHOLDER_CLASS: "spell-preview-placeholder",
-    PREIVEW_EFFECT_CLASS: "spell-preview-effect",
-    SPELL_CARD_OVERLAY_CLASS: "spell-card-overlay",
+    PREVIEW_ITEM: "preview-card-item",
+    PREVIEW_CARD: "preview-card",
+    PREVIEW_HEADER: "preview-card-header",
+    PREVIEW_NAME: "preview-name",
+    PREVIEW_IMAGE_CONTAINER: "preview-image-container",
+    PREVIEW_IMAGE: "preview-image",
+    PREIVEW_DETAIL: "preview-detail",
+    CARD_OVERLAY: "card-overlay",
 
     // Details card classes
-    DETAILS_CARD_CLASS: "spell-details-card",
-    DETAILS_NAME_CLASS: "spell-details-name",
-    DETAILS_IMAGE_CONTAINER_CLASS: "spell-image-container",
-    DETAILS_IMAGE_CLASS: "spell-details-image",
-    DETAILS_PLACEHOLDER_CLASS: "spell-details-placeholder",
-    DETAILS_EFFECT_CLASS: "spell-details-effect",
-    DETAILS_INCANTATION_CLASS: "spell-details-incantation",
-    DETAILS_HANDMOVEMENT_CLASS: "spell-details-handmovement",
-    DETAILS_CREATOR_CLASS: "spell-details-creator",
-    DETAILS_CATEGORY_CLASS: "spell-details-category",
-    DETAILS_LIGHT_CLASS: "spell-details-light",
+    DETAILS_CARD: "details-card",
+    DETAILS_HEADER: "details-header",
+    DETAILS_NAME: "details-name",
+    DETAILS_FIGURE: "details-figure",
+    DETAILS_IMAGE_CONTAINER: "details-image-container",
+    DETAILS_IMAGE: "details-image",
+    DETAILS_GRID: "details-grid",
+    DETAILS_LABEL: "details-label",
+    DETAILS_VALUE: "details-value",
+    DETAILS_EMPTY: "details-empty",
+
+    IMAGE_PLACEHOLDER_OVERLAY: "image-placeholder-overlay"
 });
 
 /**
@@ -53,6 +55,15 @@ const DETAILS_IMAGE_WIDTH = 300;
  */
 const PLACEHOLDER_IMAGE =
     import.meta.env.BASE_URL + "image-placeholders/spells-placeholder-image-200.webp";
+
+/**
+ * Utility: fixes long API words like "Apparition/Disapparition"
+ * by allowing a break after slashes (WITHOUT changing visible text)
+ */
+const formatWithWordBreaks = (text) => {
+    if (!text) return "";
+    return text.replaceAll("/", "/\u200B");
+};
 
 /**
  * @typedef {Object} SpellAttributes
@@ -166,53 +177,62 @@ export class Spell {
         return spell;
     }
 
+
     previewHTML() {
-        const container = document.createElement("article");
-        container.classList.add(CSS.PREVIEW_CARD_CLASS);
-        container.dataset.spellId = this.id;
+        const listItem = document.createElement("li");
+        listItem.classList.add(CSS.PREVIEW_ITEM);
+
+        const article = document.createElement("article");
+        article.classList.add(CSS.PREVIEW_CARD);
+        article.dataset.spellId = this.id;
+
+        const titleId = `spell-title-${this.id}`;
+        article.setAttribute("aria-labelledby", titleId);
 
         const link = document.createElement("a");
         link.href = `/spells/${this.id}`;
-        link.classList.add(CSS.SPELL_CARD_OVERLAY_CLASS);
-        link.setAttribute("aria-label", `View details for ${this.name}`);
-        container.appendChild(link);
+        link.classList.add(CSS.CARD_OVERLAY);
+        link.setAttribute("aria-labelledby", titleId);
+        article.appendChild(link);
 
         const headerRow = document.createElement("div");
-        headerRow.classList.add("spell-preview-header");
+        headerRow.classList.add(CSS.PREVIEW_HEADER);
 
         const header = document.createElement("h3");
-        header.classList.add(CSS.PREVIEW_NAME_CLASS);
-        header.textContent = this.name;
+        header.id = titleId;
+        header.classList.add(CSS.PREVIEW_NAME);
+        header.textContent = formatWithWordBreaks(this.name);
 
         headerRow.appendChild(header);
         headerRow.appendChild(favoriteIcon(this.id, this.isFavorite));
 
-        container.appendChild(headerRow);
-        container.appendChild(this.#spellImageSmall());
+        article.appendChild(headerRow);
+        article.appendChild(this.#spellImageSmall());
 
-        const effectElem = document.createElement("p");
-        effectElem.classList.add(CSS.PREIVEW_EFFECT_CLASS);
-        effectElem.textContent = this.effect;
+        const detailElem = document.createElement("p");
+        detailElem.classList.add(CSS.PREIVEW_DETAIL);
+        detailElem.textContent = this.effect;
 
-        container.appendChild(effectElem);
+        article.appendChild(detailElem);
+        listItem.appendChild(article);
 
-        return container;
+        return listItem;
     }
 
     detailsHTML() {
         const container = document.createElement("section");
-        container.classList.add(CSS.DETAILS_CARD_CLASS);
+        container.classList.add(CSS.DETAILS_CARD);
         container.dataset.spellId = this.id;
 
-        // Header row
+        // Component header (NOT semantic <header>, just a UI row)
         const headerRow = document.createElement("div");
-        headerRow.classList.add("spell-details-header");
+        headerRow.classList.add(CSS.DETAILS_HEADER);
 
-        const header = document.createElement("h2");
-        header.classList.add(CSS.DETAILS_NAME_CLASS);
-        header.textContent = this.name;
+        const title = document.createElement("h3"); // <- changed from h2 to h3
+        title.classList.add(CSS.DETAILS_NAME);
+        title.textContent = this.name;
 
-        headerRow.appendChild(header);
+        headerRow.appendChild(title);
         headerRow.appendChild(favoriteIcon(this.id, this.isFavorite));
         container.appendChild(headerRow);
 
@@ -221,7 +241,7 @@ export class Spell {
 
         // Info grid
         const infoGrid = document.createElement("div");
-        infoGrid.classList.add("spell-details-grid");
+        infoGrid.classList.add(CSS.DETAILS_GRID);
 
         let hasAnyInfo = false;
 
@@ -231,12 +251,12 @@ export class Spell {
             hasAnyInfo = true;
 
             const labelElem = document.createElement("div");
-            labelElem.classList.add("spell-details-label");
+            labelElem.classList.add(CSS.DETAILS_LABEL);
             labelElem.textContent = label;
 
             const valueElem = document.createElement("div");
-            valueElem.classList.add("spell-details-value");
-            valueElem.textContent = value;
+            valueElem.classList.add(CSS.DETAILS_VALUE);
+            valueElem.textContent = formatWithWordBreaks(value);
 
             infoGrid.appendChild(labelElem);
             infoGrid.appendChild(valueElem);
@@ -253,7 +273,7 @@ export class Spell {
             container.appendChild(infoGrid);
         } else {
             const emptyMsg = document.createElement("p");
-            emptyMsg.classList.add("spell-details-empty");
+            emptyMsg.classList.add("details-empty");
             emptyMsg.textContent = "No additional information available for this spell.";
             container.appendChild(emptyMsg);
         }
@@ -281,12 +301,12 @@ export class Spell {
      */
     #spellImageSmall() {
         const container = document.createElement("div");
-        container.classList.add(CSS.PREVIEW_IMAGE_CONTAINER_CLASS);
+        container.classList.add(CSS.PREVIEW_IMAGE_CONTAINER);
 
         const hasImage = this.image && isURLValid(this.image);
 
         const imageElem = document.createElement("img");
-        imageElem.classList.add(CSS.PREVIEW_IMAGE_CLASS);
+        imageElem.classList.add(CSS.PREVIEW_IMAGE);
         imageElem.src = hasImage ? this.image : PLACEHOLDER_IMAGE;
         imageElem.alt = `${this.name} image`;
 
@@ -311,12 +331,12 @@ export class Spell {
      */
     #spellsImageLarge() {
         const container = document.createElement("div");
-        container.classList.add(CSS.DETAILS_IMAGE_CONTAINER_CLASS);
+        container.classList.add(CSS.DETAILS_IMAGE_CONTAINER);
 
         const hasRealImage = this.image && isURLValid(this.image);
 
         const imageElem = document.createElement("img");
-        imageElem.classList.add(CSS.DETAILS_IMAGE_CLASS);
+        imageElem.classList.add(CSS.DETAILS_IMAGE);
         imageElem.src = hasRealImage ? this.image : PLACEHOLDER_IMAGE;
         imageElem.alt = `${this.name} image`;
 
