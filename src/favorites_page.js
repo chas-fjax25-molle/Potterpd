@@ -1,3 +1,8 @@
+/**
+ * truned off eslint becouse switch statement had errors that
+ * disurbed code and have been trowing errors on webpage too.
+ */
+
 /* eslint-disable indent */
 import { Favorites, EntityType } from "./favorites";
 import { registerFavoriteIconClick } from "./favorite_icon";
