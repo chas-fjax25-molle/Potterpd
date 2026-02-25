@@ -111,6 +111,12 @@ export class Character {
      * @type {string} id - Unique identifier for the character
      */
     id = "";
+
+    /**
+     * @type {boolean} isFavorite - Indicates whether the character is marked as a favorite
+     */
+    isFavorite = false;
+
     /**
      * @type {string} type - Type of the entity (character)
      */
@@ -286,7 +292,7 @@ export class Character {
         header.classList.add(CSS.PREVIEW_NAME_CLASS);
         header.textContent = this.name;
         container.appendChild(header);
-        container.appendChild(favoriteIcon(this.id));
+        container.appendChild(favoriteIcon(this.id, this.isFavorite));
         container.appendChild(this.#characterImageSmall());
         return container;
     }
@@ -304,7 +310,7 @@ export class Character {
         header.classList.add(CSS.DETAILS_NAME_CLASS);
         header.textContent = this.name;
         container.appendChild(header);
-        container.appendChild(favoriteIcon(this.id));
+        container.appendChild(favoriteIcon(this.id, this.isFavorite));
         container.appendChild(this.#characterImageLarge());
         if (this.alias_names.length > 0) {
             container.appendChild(this.#characterAliasNames());

@@ -452,6 +452,7 @@ export class Favorites {
         const deserializers = {
             [EntityType.CHARACTER]: Character.fromJson,
             [EntityType.SPELL]: Spell.fromJson,
+            [EntityType.POTION]: Potion.fromJson,
 
             // Backwards compatibility: also accept class-like type names
             Character: Character.fromJson,
