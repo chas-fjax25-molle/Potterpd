@@ -1,4 +1,3 @@
-
 import { registerFavoriteIconClick } from "./favorite_icon";
 import { EntityService } from "./entity_service";
 import { EntityType } from "./favorites";
@@ -186,4 +185,3 @@ function setupClickInterceptor() {
 }
 
 document.addEventListener("DOMContentLoaded", initApp);
-
