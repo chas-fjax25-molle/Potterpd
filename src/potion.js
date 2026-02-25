@@ -33,6 +33,7 @@ const CSS = Object.freeze({
     DETAILS_MANUFACTURERS_CLASS: "potion-details-manufacturers",
     DETAILS_INGREDIENTS_CLASS: "potion-details-ingredients",
     DETAILS_SIDE_EFFECTS_CLASS: "potion-details-side-effects",
+    DETAILS_BACK_BUTTON_CLASS: "potion-details-back-button",
 });
 
 /**
@@ -215,6 +216,12 @@ export class Potion {
         // Header row
         const headerRow = document.createElement("div");
         headerRow.classList.add("potion-details-header");
+
+        const backButton = document.createElement("button");
+        backButton.classList.add(CSS.DETAILS_BACK_BUTTON_CLASS);
+        backButton.setAttribute("aria-label", "Back to potions list");
+        backButton.textContent = "← Back";
+        headerRow.appendChild(backButton);
 
         const header = document.createElement("h2");
         header.classList.add(CSS.DETAILS_NAME_CLASS);

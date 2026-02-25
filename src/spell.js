@@ -31,6 +31,7 @@ const CSS = Object.freeze({
     DETAILS_CREATOR_CLASS: "spell-details-creator",
     DETAILS_CATEGORY_CLASS: "spell-details-category",
     DETAILS_LIGHT_CLASS: "spell-details-light",
+    DETAILS_BACK_BUTTON_CLASS: "spell-details-back-button",
 });
 
 /**
@@ -207,6 +208,12 @@ export class Spell {
         // Header row
         const headerRow = document.createElement("div");
         headerRow.classList.add("spell-details-header");
+
+        const backButton = document.createElement("button");
+        backButton.classList.add(CSS.DETAILS_BACK_BUTTON_CLASS);
+        backButton.setAttribute("aria-label", "Back to spells list");
+        backButton.textContent = "← Back";
+        headerRow.appendChild(backButton);
 
         const header = document.createElement("h2");
         header.classList.add(CSS.DETAILS_NAME_CLASS);
