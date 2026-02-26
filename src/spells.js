@@ -9,7 +9,7 @@ import { registerSearchCallback } from "./search_form";
  * Container and service instances used across small helpers.
  * @type {HTMLElement | null}
  */
-let spellsContainer = null;
+let listContainer = null;
 
 /**
  * @type {EntityService | null}
@@ -57,8 +57,8 @@ function initApp() {
  * @returns {boolean} true when container is found
  */
 function ensureContainer() {
-    spellsContainer = document.getElementById("spells-container");
-    if (!spellsContainer) {
+    listContainer = document.getElementById("list-container");
+    if (!listContainer) {
         console.error("Spells container element not found.");
         return false;
     }
@@ -85,9 +85,9 @@ function setupService() {
  * @returns {void}
  */
 function setupFavoriteHandler() {
-    if (!spellsContainer || !service) return;
+    if (!listContainer || !service) return;
 
-    registerFavoriteIconClick(spellsContainer, (id) => {
+    registerFavoriteIconClick(listContainer, (id) => {
         service?.toggleFavorite(id);
     });
 }
@@ -97,7 +97,7 @@ function setupFavoriteHandler() {
  * @returns {void}
  */
 function clearContainer() {
-    if (spellsContainer) spellsContainer.innerHTML = "";
+    if (listContainer) listContainer.innerHTML = "";
 }
 
 /**
@@ -108,7 +108,7 @@ function clearContainer() {
 async function listView(page = 1) {
     clearContainer();
 
-    if (!spellsContainer) return;
+    if (!listContainer) return;
 
     // Create a proper semantic list wrapper
     const list = document.createElement("ul");
@@ -120,7 +120,7 @@ async function listView(page = 1) {
             list.appendChild(preview); // ✅ now li is inside ul
         });
 
-        spellsContainer?.appendChild(list);
+        listContainer?.appendChild(list);
     });
 }
 
@@ -133,7 +133,7 @@ async function detailView(id) {
     clearContainer();
     service?.loadById(id).then((spell) => {
         const detail = spell.detailsHTML();
-        if (spellsContainer) spellsContainer.appendChild(detail);
+        if (listContainer) listContainer.appendChild(detail);
     });
 }
 
@@ -145,7 +145,7 @@ async function detailView(id) {
  */
 async function searchView(q, page = 1) {
     clearContainer();
-    if (!spellsContainer) return;
+    if (!listContainer) return;
 
     const list = document.createElement("ul");
     list.classList.add("preview-list");
@@ -157,7 +157,7 @@ async function searchView(q, page = 1) {
                 list.appendChild(preview);
             });
 
-            spellsContainer?.appendChild(list);
+            listContainer?.appendChild(list);
         });
     } catch (error) {
         console.error("Search failed: ", error);
@@ -169,11 +169,11 @@ async function searchView(q, page = 1) {
  * Handle clicks on spell cards and their overlays to navigate to detail views.
  */
 function setupClickInterceptor() {
-    if (!spellsContainer) return;
-    spellsContainer.addEventListener("click", (ev) => {
+    if (!listContainer) return;
+    listContainer.addEventListener("click", (ev) => {
         // Try overlay anchor first
         // @ts-ignore - TS doesn't know about closest() and getAttribute() on EventTarget
-        const overlay = ev.target.closest("a.spell-card-overlay");
+        const overlay = ev.target.closest("a.card-overlay");
         if (overlay && overlay.getAttribute("href")) {
             ev.preventDefault();
             const card = overlay.closest("[data-spell-id]");

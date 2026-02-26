@@ -9,7 +9,7 @@ import { registerSearchCallback } from "./search_form";
  * Container and service instances used across small helpers.
  * @type {HTMLElement | null}
  */
-let potionsContainer = null;
+let listContainer = null;
 
 /**
  * @type {EntityService | null}
@@ -57,8 +57,8 @@ function initApp() {
  * @returns {boolean} true when container is found
  */
 function ensureContainer() {
-    potionsContainer = document.getElementById("potions-container");
-    if (!potionsContainer) {
+    listContainer = document.getElementById("list-container");
+    if (!listContainer) {
         console.error("Potions container element not found.");
         return false;
     }
@@ -83,9 +83,9 @@ function setupService() {
  * @returns {void}
  */
 function setupFavoriteHandler() {
-    if (!potionsContainer || !service) return;
+    if (!listContainer || !service) return;
 
-    registerFavoriteIconClick(potionsContainer, (id) => {
+    registerFavoriteIconClick(listContainer, (id) => {
         service?.toggleFavorite(id);
     });
 }
@@ -95,7 +95,7 @@ function setupFavoriteHandler() {
  * @returns {void}
  */
 function clearContainer() {
-    if (potionsContainer) potionsContainer.innerHTML = "";
+    if (listContainer) listContainer.innerHTML = "";
 }
 
 /**
@@ -106,7 +106,7 @@ function clearContainer() {
 async function listView(page = 1) {
     clearContainer();
 
-    if (!potionsContainer) return;
+    if (!listContainer) return;
 
     const list = document.createElement("ul");
     list.classList.add("preview-list");
@@ -114,9 +114,9 @@ async function listView(page = 1) {
     service?.loadList(page).then((potions) => {
         potions.forEach((/** @type {import("./potion").Potion} */ potion) => {
             const preview = potion.previewHTML();
-            if (potionsContainer) potionsContainer.appendChild(preview);
+            if (listContainer) list.appendChild(preview);
         });
-        potionsContainer?.appendChild(list);
+        listContainer?.appendChild(list);
     });
 }
 
@@ -129,7 +129,7 @@ async function detailView(id) {
     clearContainer();
     service?.loadById(id).then((potion) => {
         const detail = potion.detailsHTML();
-        if (potionsContainer) potionsContainer.appendChild(detail);
+        if (listContainer) listContainer.appendChild(detail);
     });
 }
 
@@ -141,7 +141,7 @@ async function detailView(id) {
  */
 async function searchView(q, page = 1) {
     clearContainer();
-    if (!potionsContainer) return;
+    if (!listContainer) return;
 
     const list = document.createElement("ul");
     list.classList.add("preview-list");
@@ -154,7 +154,7 @@ async function searchView(q, page = 1) {
                 const preview = potion.previewHTML();
                 list.appendChild(preview);
             });
-            potionsContainer?.appendChild(list);
+            listContainer?.appendChild(list);
         });
     } catch (error) {
         console.error("Search failed: ", error);
@@ -166,11 +166,11 @@ async function searchView(q, page = 1) {
  * Handle clicks on potion cards and their overlays to navigate to detail views.
  */
 function setupClickInterceptor() {
-    if (!potionsContainer) return;
-    potionsContainer.addEventListener("click", (ev) => {
+    if (!listContainer) return;
+    listContainer.addEventListener("click", (ev) => {
         // Try overlay anchor first
         // @ts-ignore - TS doesn't know about closest() and getAttribute() on EventTarget
-        const overlay = ev.target.closest("a.potion-card-overlay");
+        const overlay = ev.target.closest("a.card-overlay");
         if (overlay && overlay.getAttribute("href")) {
             ev.preventDefault();
             const card = overlay.closest("[data-potion-id]");

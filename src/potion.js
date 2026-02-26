@@ -195,9 +195,9 @@ export class Potion {
  
         const article = document.createElement("article");
         article.classList.add(CSS.PREVIEW_CARD);
-        article.dataset.spellId = this.id;
+        article.dataset.potionId = this.id;
  
-        const titleId = `spell-title-${this.id}`;
+        const titleId = `potion-title-${this.id}`;
         article.setAttribute("aria-labelledby", titleId);
  
         const link = document.createElement("a");
