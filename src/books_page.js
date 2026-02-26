@@ -3,7 +3,7 @@ import { getCategoryFilteredBy } from "./RequestsFromAPI";
 /**
  * @param {Promise<*>} books
  */
-let books = null;
+let res = null;
 
 /**
  * @type {HTMLElement | null}
@@ -12,9 +12,9 @@ let container = null;
 
 async function initApp() {
     ensureContainer();
-    books = await getCategoryFilteredBy("books", "title_cont", "", 1);
+    res = await getCategoryFilteredBy("books", "title_cont", "", 1);
 
-    const generatedHTML = generateHTMLFromData(books, "data", "title");
+    const generatedHTML = generateHTMLFromData(res, "data", "title");
 
     if (container) {
         // Initialize the HTML string
