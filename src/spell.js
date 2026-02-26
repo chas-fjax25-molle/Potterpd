@@ -33,6 +33,7 @@ const CSS = Object.freeze({
     DETAILS_LABEL: "details-label",
     DETAILS_VALUE: "details-value",
     DETAILS_EMPTY: "details-empty",
+    DETAILS_BACK_BUTTON: "details-back-button",
 
     IMAGE_PLACEHOLDER_OVERLAY: "image-placeholder-overlay",
 });
@@ -238,15 +239,12 @@ export class Spell {
         const title = document.createElement("h3");
         title.classList.add(CSS.DETAILS_NAME);
         title.textContent = this.name;
+
         const backButton = document.createElement("button");
-        backButton.classList.add(CSS.DETAILS_BACK_BUTTON_CLASS);
+        backButton.classList.add(CSS.DETAILS_BACK_BUTTON);
         backButton.setAttribute("aria-label", "Back to spells list");
         backButton.textContent = "← Back";
         headerRow.appendChild(backButton);
-
-        const header = document.createElement("h2");
-        header.classList.add(CSS.DETAILS_NAME_CLASS);
-        header.textContent = this.name;
 
         headerRow.appendChild(title);
         headerRow.appendChild(favoriteIcon(this.id, this.isFavorite));
