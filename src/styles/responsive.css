@@ -51,7 +51,7 @@ to layout and components for larger screens.
 }
 
 /* Desktop */
-@media (min-width: 1154px) {
+@media (min-width: 1284px) {
     .site-nav ul {
         flex-wrap: nowrap;
         justify-content: start;
@@ -73,18 +73,18 @@ to layout and components for larger screens.
 
     .nav-search-container {
         display: grid;
-        grid-template-columns: auto 2fr 1fr;
+        grid-template-columns: 2fr 1fr;
         gap: 2rem;
         align-items: center;
         padding-top: 4rem;
     }
 
     .nav-text {
-        display: none; /* Hide text */
+        display: none;
     }
 
     .nav-icon {
-        display: inline-block; /* Show icon */
+        display: inline-block;
     }
 
     .welcome-section {
