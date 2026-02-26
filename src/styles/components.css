@@ -34,7 +34,6 @@ it belongs here.
 
 .search-container {
     display: flex;
-    background-color: lightgray;
     height: 30px;
     width: 100%;
     border-radius: 5px;
@@ -44,9 +43,10 @@ it belongs here.
 .search-container,
 button,
 input {
-    background-color: lightgray;
+    background-color: rgb(71, 61, 139);
     border: none;
     font-size: 14px;
+    color: inherit;
 }
 
 .search-container input[type="text"] {
@@ -63,8 +63,7 @@ input {
 /* Filter dropdown */
 .filter-container {
     display: flex;
-    color: #000;
-    background-color: lightgray;
+    background-color: rgb(71, 61, 139);
     border-radius: 5px;
     padding: 0.5rem;
     gap: 0.5rem;
@@ -78,10 +77,6 @@ input {
     font: inherit;
     color: inherit;
     cursor: pointer;
-}
-
-#filter:focus {
-    outline: none;
 }
 
 .filter-container::after {
@@ -109,7 +104,6 @@ input {
 .theme-change button {
     cursor: pointer;
     background-color: transparent;
-    color: white;
     padding: 4.5rem 4rem;
 }
 
