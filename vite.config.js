@@ -205,7 +205,7 @@ export default defineConfig(({ mode }) => {
                             sizes: "2940x1594",
                             form_factor: "wide",
                             type: "image/png",
-                            lable: "Full size screenshot",
+                            label: "Full size screenshot",
                         },
                         {
                             src: "splash/splash-1280x1920.png",
