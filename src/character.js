@@ -52,6 +52,7 @@ const CSS = Object.freeze({
      * 3. character-details-fact-list
      */
     DETAILS_FACT_LIST_CLASS: "character-details-fact-list",
+    DETAILS_BACK_BUTTON_CLASS: "character-details-back-button",
 });
 
 /**
@@ -111,6 +112,12 @@ export class Character {
      * @type {string} id - Unique identifier for the character
      */
     id = "";
+
+    /**
+     * @type {boolean} isFavorite - Indicates whether the character is marked as a favorite
+     */
+    isFavorite = false;
+
     /**
      * @type {string} type - Type of the entity (character)
      */
@@ -286,7 +293,7 @@ export class Character {
         header.classList.add(CSS.PREVIEW_NAME_CLASS);
         header.textContent = this.name;
         container.appendChild(header);
-        container.appendChild(favoriteIcon(this.id));
+        container.appendChild(favoriteIcon(this.id, this.isFavorite));
         container.appendChild(this.#characterImageSmall());
         return container;
     }
@@ -300,11 +307,25 @@ export class Character {
         const container = document.createElement("section");
         container.classList.add(CSS.DETAILS_CARD_CLASS);
         container.dataset.characterId = this.id;
+
+        // Header row
+        const headerRow = document.createElement("div");
+        headerRow.classList.add("character-details-header");
+
+        const backButton = document.createElement("button");
+        backButton.classList.add(CSS.DETAILS_BACK_BUTTON_CLASS);
+        backButton.setAttribute("aria-label", "Back to characters list");
+        backButton.textContent = "← Back";
+        headerRow.appendChild(backButton);
+
         const header = document.createElement("h2");
         header.classList.add(CSS.DETAILS_NAME_CLASS);
         header.textContent = this.name;
-        container.appendChild(header);
-        container.appendChild(favoriteIcon(this.id));
+
+        headerRow.appendChild(header);
+        headerRow.appendChild(favoriteIcon(this.id, this.isFavorite));
+        container.appendChild(headerRow);
+
         container.appendChild(this.#characterImageLarge());
         if (this.alias_names.length > 0) {
             container.appendChild(this.#characterAliasNames());

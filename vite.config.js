@@ -60,26 +60,162 @@ export default defineConfig(({ mode }) => {
                 manifest: {
                     name: "Potter Pedia",
                     short_name: "Potter Pedia",
-
+                    description: "A PWA front end for harry potter API",
                     start_url: base,
-                    scope: base,
-
                     display: "standalone",
-                    theme_color: "#ffffff",
                     background_color: "#ffffff",
-
+                    theme_color: "#ffffffff",
                     icons: [
                         {
-                            src: "vite.svg",
+                            src: "icons/icon-48x48.png",
+                            sizes: "48x48",
+                            type: "image/png",
+                        },
+                        {
+                            src: "icons/icon-72x72.png",
+                            sizes: "72x72",
+                            type: "image/png",
+                        },
+                        {
+                            src: "icons/icon-96x96.png",
+                            sizes: "96x96",
+                            type: "image/png",
+                        },
+                        {
+                            src: "icons/icon-144x144.png",
+                            sizes: "144x144",
+                            type: "image/png",
+                        },
+                        {
+                            src: "icons/icon-192x192.png",
                             sizes: "192x192",
                             type: "image/png",
                         },
                         {
-                            src: "vite.svg",
+                            src: "icons/icon-512x512.png",
                             sizes: "512x512",
                             type: "image/png",
                         },
+                        {
+                            src: "icons/icon-180x180.png",
+                            sizes: "180x180",
+                            type: "image/png",
+                        },
+                        {
+                            src: "icons/icon-167x167.png",
+                            sizes: "167x167",
+                            type: "image/png",
+                        },
+                        {
+                            src: "icons/icon-152x152.png",
+                            sizes: "152x152",
+                            type: "image/png",
+                        },
+                        {
+                            src: "icons/icon-120x120.png",
+                            sizes: "120x120",
+                            type: "image/png",
+                        },
+                        {
+                            src: "icons/icon-76x76.png",
+                            sizes: "76x76",
+                            type: "image/png",
+                        },
+                        {
+                            src: "icons/icon-70x70.png",
+                            sizes: "70x70",
+                            type: "image/png",
+                        },
+                        {
+                            src: "icons/icon-150x150.png",
+                            sizes: "150x150",
+                            type: "image/png",
+                        },
+                        {
+                            src: "icons/icon-310x310.png",
+                            sizes: "310x310",
+                            type: "image/png",
+                        },
                     ],
+                    splash_screens: [
+                        {
+                            src: "splash/splash-1125x2436.webp",
+                            sizes: "1125x2436",
+                            type: "image/webp",
+                        },
+                        {
+                            src: "splash/splash-750x1334.webp",
+                            sizes: "750x1334",
+                            type: "image/webp",
+                        },
+                        {
+                            src: "splash/splash-1242x2208.webp",
+                            sizes: "1242x2208",
+                            type: "image/webp",
+                        },
+                        {
+                            src: "splash/splash-1668x2224.webp",
+                            sizes: "1668x2224",
+                            type: "image/webp",
+                        },
+                        {
+                            src: "splash/splash-2048x2732.webp",
+                            sizes: "2048x2732",
+                            type: "image/webp",
+                        },
+                        {
+                            src: "splash/splash-1536x2048.webp",
+                            sizes: "1536x2048",
+                            type: "image/webp",
+                        },
+                        {
+                            src: "splash/splash-320x426.webp",
+                            sizes: "320x426",
+                            type: "image/webp",
+                        },
+                        {
+                            src: "splash/splash-320x470.webp",
+                            sizes: "320x470",
+                            type: "image/webp",
+                        },
+                        {
+                            src: "splash/splash-480x640.webp",
+                            sizes: "480x640",
+                            type: "image/webp",
+                        },
+                        {
+                            src: "splash/splash-720x960.webp",
+                            sizes: "720x960",
+                            type: "image/webp",
+                        },
+                        {
+                            src: "splash/splash-960x1280.webp",
+                            sizes: "960x1280",
+                            type: "image/webp",
+                        },
+                        {
+                            src: "splash/splash-1280x1920.webp",
+                            sizes: "1280x1920",
+                            type: "image/webp",
+                        },
+                    ],
+                    screenshots: [
+                        {
+                            src: "splash/screenshot-af.webp",
+                            sizes: "2940x1594",
+                            form_factor: "wide",
+                            type: "image/webp",
+                            label: "Full size screenshot",
+                        },
+                        {
+                            src: "splash/splash-1280x1920.webp",
+                            sizes: "1280x1920",
+                            type: "image/webp",
+                        },
+                    ],
+                    orientation: "portrait",
+                    scope: base,
+                    lang: "en",
                 },
             }),
         ],
@@ -102,14 +238,6 @@ export default defineConfig(({ mode }) => {
                     spells: resolve(rootDir, "pages/spells/index.html"),
                     movies: resolve(rootDir, "pages/movies/index.html"),
                     favourites: resolve(rootDir, "pages/favourites/index.html"),
-                    "favourites/characters": resolve(
-                        rootDir,
-                        "pages/favourites/characters/index.html"
-                    ),
-                    "favourites/spells": resolve(rootDir, "pages/favourites/spells/index.html"),
-                    "favourites/potions": resolve(rootDir, "pages/favourites/potions/index.html"),
-                    "favourites/books": resolve(rootDir, "pages/favourites/books/index.html"),
-                    "favourites/movies": resolve(rootDir, "pages/favourites/movies/index.html"),
                 },
             },
         },

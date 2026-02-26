@@ -35,7 +35,7 @@ const CSS = Object.freeze({
     DETAILS_VALUE: "details-value",
     DETAILS_EMPTY: "details-empty",
 
-    IMAGE_PLACEHOLDER_OVERLAY: "image-placeholder-overlay"
+    IMAGE_PLACEHOLDER_OVERLAY: "image-placeholder-overlay",
 });
 
 /**
@@ -56,7 +56,8 @@ const DETAILS_IMAGE_WIDTH = 300;
 /**
  * importing the placeholder image for potions in the api missing an image.
  */
-const PLACEHOLDER_IMAGE = import.meta.env.BASE_URL + "image-placeholders/potions-placeholder-image-200.webp";
+const PLACEHOLDER_IMAGE =
+    import.meta.env.BASE_URL + "image-placeholders/potions-placeholder-image-200.webp";
 
 /**
  * Utility: fixes long API words like "Apparition/Disapparition"
@@ -192,41 +193,41 @@ export class Potion {
     previewHTML() {
         const listItem = document.createElement("li");
         listItem.classList.add(CSS.PREVIEW_ITEM);
- 
+
         const article = document.createElement("article");
         article.classList.add(CSS.PREVIEW_CARD);
         article.dataset.potionId = this.id;
- 
+
         const titleId = `potion-title-${this.id}`;
         article.setAttribute("aria-labelledby", titleId);
- 
+
         const link = document.createElement("a");
         link.href = `/potions/${this.id}`;
         link.classList.add(CSS.CARD_OVERLAY);
         link.setAttribute("aria-labelledby", titleId);
         article.appendChild(link);
- 
+
         const headerRow = document.createElement("div");
         headerRow.classList.add(CSS.PREVIEW_HEADER);
- 
+
         const header = document.createElement("h3");
         header.id = titleId;
         header.classList.add(CSS.PREVIEW_NAME);
         header.textContent = formatWithWordBreaks(this.name);
- 
+
         headerRow.appendChild(header);
         headerRow.appendChild(favoriteIcon(this.id, this.isFavorite));
- 
+
         article.appendChild(headerRow);
         article.appendChild(this.#potionImageSmall());
- 
+
         const detailElem = document.createElement("p");
         detailElem.classList.add(CSS.PREIVEW_DETAIL);
         detailElem.textContent = this.effect;
- 
+
         article.appendChild(detailElem);
         listItem.appendChild(article);
- 
+
         return listItem;
     }
 
@@ -245,13 +246,22 @@ export class Potion {
         const title = document.createElement("h3");
         title.classList.add(CSS.DETAILS_NAME);
         title.textContent = this.name;
+        const backButton = document.createElement("button");
+        backButton.classList.add(CSS.DETAILS_BACK_BUTTON_CLASS);
+        backButton.setAttribute("aria-label", "Back to potions list");
+        backButton.textContent = "← Back";
+        headerRow.appendChild(backButton);
+
+        const header = document.createElement("h2");
+        header.classList.add(CSS.DETAILS_NAME_CLASS);
+        header.textContent = this.name;
 
         headerRow.appendChild(title);
         headerRow.appendChild(favoriteIcon(this.id, this.isFavorite));
-        
+
         topWrapper.appendChild(headerRow);
         topWrapper.appendChild(this.#potionsImageLarge());
-        
+
         container.appendChild(topWrapper);
 
         // Info grid

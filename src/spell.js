@@ -34,7 +34,7 @@ const CSS = Object.freeze({
     DETAILS_VALUE: "details-value",
     DETAILS_EMPTY: "details-empty",
 
-    IMAGE_PLACEHOLDER_OVERLAY: "image-placeholder-overlay"
+    IMAGE_PLACEHOLDER_OVERLAY: "image-placeholder-overlay",
 });
 
 /**
@@ -183,7 +183,6 @@ export class Spell {
         return spell;
     }
 
-
     previewHTML() {
         const listItem = document.createElement("li");
         listItem.classList.add(CSS.PREVIEW_ITEM);
@@ -236,13 +235,22 @@ export class Spell {
         const headerRow = document.createElement("div");
         headerRow.classList.add(CSS.DETAILS_HEADER);
 
-        const title = document.createElement("h3"); 
+        const title = document.createElement("h3");
         title.classList.add(CSS.DETAILS_NAME);
         title.textContent = this.name;
+        const backButton = document.createElement("button");
+        backButton.classList.add(CSS.DETAILS_BACK_BUTTON_CLASS);
+        backButton.setAttribute("aria-label", "Back to spells list");
+        backButton.textContent = "← Back";
+        headerRow.appendChild(backButton);
+
+        const header = document.createElement("h2");
+        header.classList.add(CSS.DETAILS_NAME_CLASS);
+        header.textContent = this.name;
 
         headerRow.appendChild(title);
         headerRow.appendChild(favoriteIcon(this.id, this.isFavorite));
-        
+
         topWrapper.appendChild(headerRow);
         topWrapper.appendChild(this.#spellsImageLarge());
 

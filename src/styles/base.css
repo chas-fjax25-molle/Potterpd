@@ -15,7 +15,16 @@ body {
     min-height: 100vh;
     margin: 0;
     color: white;
-    background-image: url("../../public/Hogwarts.webp");
+
+    background-image: url("/Hogwarts-600.webp");
+    /* eslint-disable-next-line */
+    background-image: -webkit-image-set(
+        url("/Hogwarts-600.webp") 1x,
+        url("/Hogwarts-1200.webp") 2x
+    );
+    /* eslint-disable-next-line */
+    background-image: image-set(url("/Hogwarts-600.webp") 1x, url("/Hogwarts-1200.webp") 2x);
+
     background-size: cover;
     background-position: center;
     background-attachment: fixed;
@@ -36,4 +45,66 @@ body {
 a {
     text-decoration: none;
     color: #fff;
+}
+
+.offline {
+    display: none;
+}
+
+/* Background image adjustments for smaller screens */
+
+/* small screens */
+@media (max-width: 599px) {
+    body {
+        background-image: url("/Hogwarts-600.webp");
+        /* eslint-disable-next-line */
+        background-image: -webkit-image-set(
+            url("/Hogwarts-600.webp") 1x,
+            url("/Hogwarts-1200.webp") 2x
+        );
+        /* eslint-disable-next-line */
+        background-image: image-set(url("/Hogwarts-600.webp") 1x, url("/Hogwarts-1200.webp") 2x);
+    }
+}
+
+/* small tablets / narrow desktops */
+@media (min-width: 600px) and (max-width: 1153px) {
+    body {
+        background-image: url("/Hogwarts-1152.webp");
+        /* eslint-disable-next-line */
+        background-image: -webkit-image-set(
+            url("/Hogwarts-1152.webp") 1x,
+            url("/Hogwarts-2304.webp") 2x
+        );
+        /* eslint-disable-next-line */
+        background-image: image-set(url("/Hogwarts-1152.webp") 1x, url("/Hogwarts-2304.webp") 2x);
+    }
+}
+
+/* desktop */
+@media (min-width: 1154px) and (max-width: 1599px) {
+    body {
+        background-image: url("/Hogwarts-1600.webp");
+        /* eslint-disable-next-line */
+        background-image: -webkit-image-set(
+            url("/Hogwarts-1600.webp") 1x,
+            url("/Hogwarts-3200.webp") 2x
+        );
+        /* eslint-disable-next-line */
+        background-image: image-set(url("/Hogwarts-1600.webp") 1x, url("/Hogwarts-3200.webp") 2x);
+    }
+}
+
+/* large desktops */
+@media (min-width: 1600px) {
+    body {
+        background-image: url("/Hogwarts-2400.webp");
+        /* eslint-disable-next-line */
+        background-image: -webkit-image-set(
+            url("/Hogwarts-2400.webp") 1x,
+            url("/Hogwarts.webp") 2x
+        );
+        /* eslint-disable-next-line */
+        background-image: image-set(url("/Hogwarts-2400.webp") 1x, url("/Hogwarts.webp") 2x);
+    }
 }
