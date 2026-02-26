@@ -40,6 +40,14 @@ to layout and components for larger screens.
         margin-left: 2rem;
         width: 90%;
     }
+
+    .preview-card {
+        min-width: 300px;
+    }
+
+    .details-image {
+        max-height: 100%;
+    }
 }
 
 /* Desktop */
@@ -82,5 +90,28 @@ to layout and components for larger screens.
     .welcome-section {
         margin: 6rem;
         padding: 2rem;
+    }
+
+    .preview-card {
+        min-width: 300px;
+    }
+
+    .details-card {
+        flex-direction: row;
+        align-items: flex-start;
+        max-width: 1000px;
+    }
+
+    .details-image-container {
+        flex: 0 0 40%;
+        max-width: 400px;
+    }
+
+    .details-grid {
+        flex: 1;
+    }
+
+    .details-header {
+        width: 100%;
     }
 }

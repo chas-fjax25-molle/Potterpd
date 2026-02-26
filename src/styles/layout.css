@@ -51,3 +51,7 @@ footer {
     padding: 4rem 2rem;
     gap: 5rem;
 }
+
+.category-header {
+    margin: 1rem;
+}
