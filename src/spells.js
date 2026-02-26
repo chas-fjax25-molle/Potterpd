@@ -156,6 +156,15 @@ async function searchView(q, page = 1) {
 function setupClickInterceptor() {
     if (!spellsContainer) return;
     spellsContainer.addEventListener("click", (ev) => {
+        // Handle back button click
+        // @ts-ignore - TS doesn't know about closest() on EventTarget
+        const backButton = ev.target.closest(".spell-details-back-button");
+        if (backButton) {
+            ev.preventDefault();
+            navigateToList();
+            return;
+        }
+
         // Try overlay anchor first
         // @ts-ignore - TS doesn't know about closest() and getAttribute() on EventTarget
         const overlay = ev.target.closest("a.spell-card-overlay");

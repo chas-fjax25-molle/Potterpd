@@ -238,14 +238,6 @@ export default defineConfig(({ mode }) => {
                     spells: resolve(rootDir, "pages/spells/index.html"),
                     movies: resolve(rootDir, "pages/movies/index.html"),
                     favourites: resolve(rootDir, "pages/favourites/index.html"),
-                    "favourites/characters": resolve(
-                        rootDir,
-                        "pages/favourites/characters/index.html"
-                    ),
-                    "favourites/spells": resolve(rootDir, "pages/favourites/spells/index.html"),
-                    "favourites/potions": resolve(rootDir, "pages/favourites/potions/index.html"),
-                    "favourites/books": resolve(rootDir, "pages/favourites/books/index.html"),
-                    "favourites/movies": resolve(rootDir, "pages/favourites/movies/index.html"),
                 },
             },
         },
