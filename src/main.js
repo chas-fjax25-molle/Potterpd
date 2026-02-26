@@ -12,3 +12,5 @@ import "./styles/themes.css";
 import "./styles/themes";
 // @ts-ignore
 import "./styles/spell_layout.css";
+// @ts-ignore
+import "./index";

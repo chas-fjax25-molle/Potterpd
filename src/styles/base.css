@@ -47,6 +47,10 @@ a {
     color: #fff;
 }
 
+.offline {
+    display: none;
+}
+
 /* Background image adjustments for smaller screens */
 
 /* small screens */
