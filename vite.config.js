@@ -201,7 +201,7 @@ export default defineConfig(({ mode }) => {
                     ],
                     screenshots: [
                         {
-                            src: "splash/screenshot-full-size.webp",
+                            src: "splash/screenshot-af.webp",
                             sizes: "2940x1594",
                             form_factor: "wide",
                             type: "image/webp",
