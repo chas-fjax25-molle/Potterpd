@@ -16,6 +16,7 @@ let spellsContainer = null;
  * @type {HTMLElement | null}
  */
 
+
 /**
  * @type {EntityService | null}
  */
@@ -113,11 +114,19 @@ function clearContainer() {
 async function listView(page = 1) {
     clearContainer();
 
+    if (!spellsContainer) return;
+
+    // Create a proper semantic list wrapper
+    const list = document.createElement("ul");
+    list.classList.add("preview-list");
+
     service?.loadList(page).then((spells) => {
-        spells.forEach((/** @type {import("./spell").Spell} */ spell) => {
-            const preview = spell.previewHTML();
-            if (spellsContainer) spellsContainer.appendChild(preview);
+        spells.forEach((spell) => {
+            const preview = spell.previewHTML(); // returns <li>
+            list.appendChild(preview); // ✅ now li is inside ul
         });
+
+        spellsContainer.appendChild(list);
     });
 }
 
@@ -142,14 +151,19 @@ async function detailView(id) {
  */
 async function searchView(q, page = 1) {
     clearContainer();
+    if (!spellsContainer) return;
+
+    const list = document.createElement("ul");
+    list.classList.add("preview-list");
+
     try {
         service?.search(q, page).then((spells) => {
-            console.log("Search results: ", spells);
-            spells.forEach((/** @type {import("./spell").Spell} */ spell) => {
-                console.log("Rendering spell: ", spell);
+            spells.forEach((spell) => {
                 const preview = spell.previewHTML();
-                if (spellsContainer) spellsContainer.appendChild(preview);
+                list.appendChild(preview);
             });
+
+            spellsContainer.appendChild(list);
         });
     } catch (error) {
         console.error("Search failed: ", error);

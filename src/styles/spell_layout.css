@@ -1,26 +1,71 @@
 .section-container {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(min(350px, 100%), 1fr));
-    gap: 1rem;
+    display: flex;
+    flex-direction: column;
+    max-width: 1400px;
+    margin: 0 auto;
+    padding: 0 .25rem;
 }
+
+.spells-container {
+    padding: 0;
+    margin: 0;
+    color: white;
+    width: 100%;
+}
+
+.preview-list {
+    list-style: none; 
+    padding: 0;
+    margin: 0;
+    display: grid;
+    gap: 1rem;
+    grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+}
+
+@media (min-width: 600px) {
+    .preview-list {
+        grid-template-columns: repeat(2, 1fr);
+    }
+    .preview-card {
+        min-width: 340px;
+    }
+}
+
+@media (min-width: 900px) {
+    .preview-list {
+        grid-template-columns: repeat(3, 1fr);
+    }
+}
+
+@media (min-width: 1300px) {
+    .preview-list {
+        grid-template-columns: repeat(4, 1fr); /* caps at 4 columns = UX win */
+    }
+}
+
 
 .preview-card {
     display: grid;
-    grid-template-columns: 160px 1fr;
+    grid-template-columns: 150px 1fr;
     grid-template-rows: auto 1fr;
     gap: 0.75rem;
     padding: 0.75rem;
     border: 1px solid #e0e0e0;
     border-radius: 8px;
-    background: #fff;
     position: relative;
-}
-
-.preview-card {
+    background: rgba(20, 20, 25, 0.35);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
     transition:
         box-shadow 0.15s ease,
         transform 0.15s ease;
 }
+
+.preview-card-item {
+    height: 100%;
+    display: flex;;
+}
+
 
 .card-overlay {
     position: absolute;
@@ -43,7 +88,7 @@
     border-radius: 8px;
 }
 
-.preview-header {
+.preview-card-header {
     grid-column: 2;
     grid-row: 1;
 
@@ -53,19 +98,10 @@
     gap: 0.5rem;
 }
 
-/* ----- ERROR HERE (break-word): This can also be done in JS, maybe thats a better solution?
-* ex: 
-document.querySelectorAll('.spell-preview-name').forEach(el => {
-  el.textContent = el.textContent.replaceAll('/', '/\u200B');
-});
------ */
-
 .preview-name {
     margin: 0;
     font-size: 1.1rem;
     overflow-wrap: anywhere;
-    word-wrap: break-word;
-    word-break: break-word;
 }
 
 .preview-detail {
@@ -73,13 +109,22 @@ document.querySelectorAll('.spell-preview-name').forEach(el => {
     grid-row: 2;
     margin: 0;
     font-size: 0.9rem;
-    color: #555;
+    color: #ffffff;
 }
 
 .preview-image-container {
     grid-column: 1;
     grid-row: 1 / span 2;
     width: 100%;
+    aspect-ratio: 4 / 3; /* KEY FIX */
+    overflow: hidden;
+}
+
+.preview-image {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: 6px;
 }
 
 .preview-image-container,
@@ -95,8 +140,6 @@ document.querySelectorAll('.spell-preview-name').forEach(el => {
     overflow: hidden;
     border: 1px solid #e0e0e0;
 }
-
-/* This overlay creats bug on potions page */
 
 .image-placeholder-overlay {
     position: absolute;
@@ -115,19 +158,14 @@ document.querySelectorAll('.spell-preview-name').forEach(el => {
     pointer-events: none;
 } 
 
-.preview-image {
-    width: 100%;
-    height: 100%;
-    aspect-ratio: 4 / 3;
-    object-fit: cover;
-    border-radius: 6px;
-}
-
 .favorite-icon {
     margin-top: -5px;
     font-size: 1.25rem;
     cursor: pointer;
-    background: rgba(255, 255, 255, 0.85);
+    color: gold;
+    background: rgba(20, 20, 25, 0.35);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
     padding: 0.15rem 0.35rem;
     border-radius: 6px;
     z-index: 3;
@@ -143,28 +181,63 @@ document.querySelectorAll('.spell-preview-name').forEach(el => {
 }
 
 .details-card {
-    max-width: 800px;
-    margin: 2rem auto;
-    padding: 1.5rem;
-    background: white;
+    max-width: 900px;
+    margin: auto;
+    padding: 1rem;
+    background: rgba(20, 20, 25, 0.35);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
     border-radius: 12px;
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
     display: flex;
     flex-direction: column;
     gap: 1.5rem;
+    justify-self: center; 
+    width: 100%;
+}
+
+/* Desktop: horizontal layout */
+@media (min-width: 900px) {
+    .details-card {
+        flex-direction: row;
+        align-items: flex-start;
+        max-width: 1000px;
+    }
+
+    .details-image-container {
+        flex: 0 0 40%;
+        max-width: 400px;
+    }
+
+    .details-grid {
+        flex: 1;
+    }
+
+    .details-header {
+        width: 100%;
+    }
+}
+
+.details-image-container {
+    width: 100%;
 }
 
 .details-image {
     width: 100%;
-    aspect-ratio: 4 / 3;
+    max-height: 450px;
     object-fit: cover;
-    display: block;
+    border-radius: 8px;
 }
 
 .details-header {
     display: flex;
     justify-content: space-between;
-    align-items: center;
+    gap: 1rem;
+}
+
+.details-name {
+    margin: 0;
+    font-size: 2rem;
 }
 
 .details-grid {
@@ -175,14 +248,8 @@ document.querySelectorAll('.spell-preview-name').forEach(el => {
 
 .details-label {
     font-weight: 600;
-    color: #444;
-}
-
-.details-value {
-    color: #222;
 }
 
 .details-empty {
-    color: #777;
     font-style: italic;
 }

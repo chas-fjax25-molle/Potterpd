@@ -11,6 +11,7 @@ import { isURLValid } from "./utils";
  */
 const CSS = Object.freeze({
     // Preview card classes
+    PREVIEW_LIST: "preview-list",
     PREVIEW_ITEM: "preview-card-item",
     PREVIEW_CARD: "preview-card",
     PREVIEW_HEADER: "preview-card-header",
@@ -52,6 +53,7 @@ const DETAILS_IMAGE_WIDTH = 300;
 
 /**
  * importing the placeholder image for spells in the api missing an image.
+ * @type {string|null}
  */
 const PLACEHOLDER_IMAGE =
     import.meta.env.BASE_URL + "image-placeholders/spells-placeholder-image-200.webp";
@@ -59,6 +61,9 @@ const PLACEHOLDER_IMAGE =
 /**
  * Utility: fixes long API words like "Apparition/Disapparition"
  * by allowing a break after slashes (WITHOUT changing visible text)
+ * @param {string|null} text - Takes in the String value of the heading for the item
+ * @returns {string|null} - Returns a formatted version of the heading
+ *
  */
 const formatWithWordBreaks = (text) => {
     if (!text) return "";
@@ -224,20 +229,23 @@ export class Spell {
         container.classList.add(CSS.DETAILS_CARD);
         container.dataset.spellId = this.id;
 
-        // Component header (NOT semantic <header>, just a UI row)
+        const topWrapper = document.createElement("div");
+        topWrapper.classList.add(CSS.DETAILS_TOP_WRAPPER);
+
         const headerRow = document.createElement("div");
         headerRow.classList.add(CSS.DETAILS_HEADER);
 
-        const title = document.createElement("h3"); // <- changed from h2 to h3
+        const title = document.createElement("h3"); 
         title.classList.add(CSS.DETAILS_NAME);
         title.textContent = this.name;
 
         headerRow.appendChild(title);
         headerRow.appendChild(favoriteIcon(this.id, this.isFavorite));
-        container.appendChild(headerRow);
+        
+        topWrapper.appendChild(headerRow);
+        topWrapper.appendChild(this.#spellsImageLarge());
 
-        // Image
-        container.appendChild(this.#spellsImageLarge());
+        container.appendChild(topWrapper);
 
         // Info grid
         const infoGrid = document.createElement("div");
