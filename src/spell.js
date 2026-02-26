@@ -25,6 +25,7 @@ const CSS = Object.freeze({
     DETAILS_CARD: "details-card",
     DETAILS_HEADER: "details-header",
     DETAILS_NAME: "details-name",
+    DETAILS_TOP_WRAPPER: "details-top-wrapper",
     DETAILS_FIGURE: "details-figure",
     DETAILS_IMAGE_CONTAINER: "details-image-container",
     DETAILS_IMAGE: "details-image",
