@@ -20,6 +20,10 @@
         <meta property="og:title" content="Pottepd" />
         <meta property="og:description" content="A PWA front end for harry potter API" />
         <meta property="og:image" content="/icons/icon-512x512.png" />
+        <!-- Preloads -->
+        <link rel="preload" href="/src/main.js" as="script" />
+        <link rel="preload" href="/public/HARRYP.TTF" as="font" type="font/ttf" crossorigin />
+
         <title>Potter Pedia</title>
         <link rel="icon" type="image/svg+xml" href="/vite.svg" />
         <script type="module" src="/src/main.js" defer></script>
@@ -46,37 +50,57 @@
                     data-theme="Default"
                     style="
                         background-image: url(&quot;/houses/house-crests1.png&quot;);
+                        background-image: image-set(
+                            url('/houses/house-crests1.webp') type('image/webp'),
+                            url('/houses/house-crests1.png') type('image/png')
+                        );
                         background-size: cover;
                         background-position: center;
                         background-repeat: no-repeat;
                     "
+                    aria-label="Ravenclaw theme"
                 ></button>
                 <button
                     data-theme="Slytherin"
                     style="
                         background-image: url(&quot;/houses/house-crests2.png&quot;);
+                        background-image: image-set(
+                            url('/houses/house-crests2.webp') type('image/webp'),
+                            url('/houses/house-crests2.png') type('image/png')
+                        );
                         background-size: cover;
                         background-position: center;
                         background-repeat: no-repeat;
                     "
+                    aria-label="Slytherin theme"
                 ></button>
                 <button
                     data-theme="Hufflepuff"
                     style="
                         background-image: url(&quot;/houses/house-crests3.png&quot;);
+                        background-image: image-set(
+                            url('/houses/house-crests3.webp') type('image/webp'),
+                            url('/houses/house-crests3.png') type('image/png')
+                        );
                         background-size: cover;
                         background-position: center;
                         background-repeat: no-repeat;
                     "
+                    aria-label="Hufflepuff theme"
                 ></button>
                 <button
                     data-theme="Gryffindor"
                     style="
                         background-image: url(&quot;/houses/house-crests4.png&quot;);
+                        background-image: image-set(
+                            url('/houses/house-crests4.webp') type('image/webp'),
+                            url('/houses/house-crests4.png') type('image/png')
+                        );
                         background-size: cover;
                         background-position: center;
                         background-repeat: no-repeat;
                     "
+                    aria-label="Gryffindor theme"
                 ></button>
             </div>
         </section>
