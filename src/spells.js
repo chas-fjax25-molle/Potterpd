@@ -12,12 +12,6 @@ import { registerSearchCallback } from "./search_form";
 let spellsContainer = null;
 
 /**
- * Inner view wrapper
- * @type {HTMLElement | null}
- */
-
-
-/**
  * @type {EntityService | null}
  */
 let service = null;
@@ -121,12 +115,12 @@ async function listView(page = 1) {
     list.classList.add("preview-list");
 
     service?.loadList(page).then((spells) => {
-        spells.forEach((spell) => {
+        spells.forEach((/** @type {import("./spell").Spell} */ spell) => {
             const preview = spell.previewHTML(); // returns <li>
             list.appendChild(preview); // ✅ now li is inside ul
         });
 
-        spellsContainer.appendChild(list);
+        spellsContainer?.appendChild(list);
     });
 }
 
@@ -158,12 +152,12 @@ async function searchView(q, page = 1) {
 
     try {
         service?.search(q, page).then((spells) => {
-            spells.forEach((spell) => {
+            spells.forEach((/** @type {import("./spell").Spell} */ spell) => {
                 const preview = spell.previewHTML();
                 list.appendChild(preview);
             });
 
-            spellsContainer.appendChild(list);
+            spellsContainer?.appendChild(list);
         });
     } catch (error) {
         console.error("Search failed: ", error);

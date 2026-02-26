@@ -106,11 +106,17 @@ function clearContainer() {
 async function listView(page = 1) {
     clearContainer();
 
+    if (!potionsContainer) return;
+
+    const list = document.createElement("ul");
+    list.classList.add("preview-list");
+
     service?.loadList(page).then((potions) => {
         potions.forEach((/** @type {import("./potion").Potion} */ potion) => {
             const preview = potion.previewHTML();
             if (potionsContainer) potionsContainer.appendChild(preview);
         });
+        potionsContainer?.appendChild(list);
     });
 }
 
@@ -135,14 +141,20 @@ async function detailView(id) {
  */
 async function searchView(q, page = 1) {
     clearContainer();
+    if (!potionsContainer) return;
+
+    const list = document.createElement("ul");
+    list.classList.add("preview-list");
+
     try {
         service?.search(q, page).then((potions) => {
             console.log("Search results: ", potions);
             potions.forEach((/** @type {import("./potion").Potion} */ potion) => {
                 console.log("Rendering potion: ", potion);
                 const preview = potion.previewHTML();
-                if (potionsContainer) potionsContainer.appendChild(preview);
+                list.appendChild(preview);
             });
+            potionsContainer?.appendChild(list);
         });
     } catch (error) {
         console.error("Search failed: ", error);
