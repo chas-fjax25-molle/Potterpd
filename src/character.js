@@ -66,7 +66,7 @@ const CSS = Object.freeze({
      * 3. character-details-fact-list
      */
     DETAILS_FACT_LIST_CLASS: "character-details-fact-list",
-    DETAILS_BACK_BUTTON_CLASS: "character-details-back-button",
+    DETAILS_BACK_BUTTON_CLASS: "back-button",
 });
 
 /**

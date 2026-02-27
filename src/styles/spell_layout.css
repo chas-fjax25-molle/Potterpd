@@ -157,22 +157,28 @@
 }
 
 .details-card {
-    max-width: 900px;
+    display: flex;
+    flex-direction: column;
+    justify-self: center;
+    width: 90%;
     margin: auto;
     padding: 1rem;
+    gap: 1.5rem;
     background: rgba(20, 20, 25, 0.35);
     -webkit-backdrop-filter: blur(16px);
     backdrop-filter: blur(16px);
     border-radius: 12px;
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
-    display: flex;
-    flex-direction: column;
-    gap: 1.5rem;
-    justify-self: center;
-    width: 100%;
+}
+
+.back-button {
+    padding: 0.5rem 1rem;
+    border-radius: 6px;
+    color: inherit;
 }
 
 .details-image-container {
+    position: relative; /* ensure placeholder overlay is contained */
     width: 100%;
 }
 
@@ -196,8 +202,9 @@
 
 .details-grid {
     display: grid;
-    grid-template-columns: 140px 1fr;
+    grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
     gap: 0.6rem 1rem;
+    overflow-wrap: break-word;
 }
 
 .details-label {

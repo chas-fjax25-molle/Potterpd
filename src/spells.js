@@ -115,8 +115,8 @@ async function listView(page = 1) {
 
     service?.loadList(page).then((spells) => {
         spells.forEach((/** @type {import("./spell").Spell} */ spell) => {
-            const preview = spell.previewHTML(); 
-            list.appendChild(preview); 
+            const preview = spell.previewHTML();
+            list.appendChild(preview);
         });
 
         listContainer?.appendChild(list);
@@ -172,7 +172,7 @@ function setupClickInterceptor() {
     listContainer.addEventListener("click", (ev) => {
         // Handle back button click
         // @ts-ignore - TS doesn't know about closest() on EventTarget
-        const backButton = ev.target.closest(".spell-details-back-button");
+        const backButton = ev.target.closest(".back-button");
         if (backButton) {
             ev.preventDefault();
             navigateToList();

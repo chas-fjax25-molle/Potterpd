@@ -170,7 +170,7 @@ function setupClickInterceptor() {
     listContainer.addEventListener("click", (ev) => {
         // Handle back button click
         // @ts-ignore - TS doesn't know about closest() on EventTarget
-        const backButton = ev.target.closest(".potion-details-back-button");
+        const backButton = ev.target.closest(".back-button");
         if (backButton) {
             ev.preventDefault();
             navigateToList();
