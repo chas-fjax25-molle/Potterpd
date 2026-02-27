@@ -33,7 +33,7 @@ const CSS = Object.freeze({
     DETAILS_LABEL: "details-label",
     DETAILS_VALUE: "details-value",
     DETAILS_EMPTY: "details-empty",
-
+    DETAILS_BACK_BUTTON_CLASS: "spell-details-back-button",
     IMAGE_PLACEHOLDER_OVERLAY: "image-placeholder-overlay",
 });
 

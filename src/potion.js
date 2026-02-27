@@ -34,8 +34,8 @@ const CSS = Object.freeze({
     DETAILS_LABEL: "details-label",
     DETAILS_VALUE: "details-value",
     DETAILS_EMPTY: "details-empty",
-
     IMAGE_PLACEHOLDER_OVERLAY: "image-placeholder-overlay",
+    DETAILS_BACK_BUTTON_CLASS: "potion-details-back-button",
 });
 
 /**
