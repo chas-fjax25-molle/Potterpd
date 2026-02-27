@@ -41,12 +41,12 @@ to layout and components for larger screens.
         width: 90%;
     }
 
-    .preview-card {
-        min-width: 300px;
-    }
-
     .details-image {
         max-height: 100%;
+    }
+
+    .details-grid {
+        grid-template-columns: repeat(2, 1fr);
     }
 }
 
@@ -92,16 +92,13 @@ to layout and components for larger screens.
         padding: 2rem;
     }
 
-    .preview-card {
-        min-width: 300px;
-    }
-
     .details-card {
         display: flex;
         flex-direction: row;
     }
 
     .details-image-container {
+        position: relative; /* needed for overlay placement */
         width: 500px;
         height: 500px;
     }

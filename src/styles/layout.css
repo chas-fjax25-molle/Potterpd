@@ -55,3 +55,7 @@ footer {
 .category-header {
     margin: 1rem;
 }
+
+#favourites {
+    gap: 1rem;
+}

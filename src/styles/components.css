@@ -22,7 +22,7 @@ it belongs here.
 }
 
 .site-nav a:hover {
-    border: 1px solid white;
+    scale: 1.05;
     box-shadow: 0 0 10px rgba(255, 255, 255, 0.2);
 }
 
