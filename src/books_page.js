@@ -27,7 +27,7 @@ async function initApp() {
  * @returns {boolean} true when container is found
  */
 function ensureContainer() {
-    container = document.getElementById("books-container");
+    container = document.getElementById("main-container");
     if (!container) {
         console.error("Characters container element not found.");
         return false;
@@ -46,7 +46,8 @@ function generateHTMLFromData(
     data,
     dataArrayKey = "data",
     titleKey = "title",
-    imageExtensions = /\.(png|jpe?g|gif|svg)$/i
+    imageExtensions = /\.(png|jpe?g|gif|svg)$/i,
+    urlPattern = /^(https?:\/\/)[^\s/$.?#].[^\s]*(?<!\.(jpg|jpeg|png|gif|bmp|svg))$/i
 ) {
     let html = "";
 
@@ -55,26 +56,27 @@ function generateHTMLFromData(
         // Loop through each item in the array
         data[dataArrayKey].forEach((item) => {
             // Start a div for each item
-            html += "<div class=\"item-container\">";
-
+            html += "<div class=\"item-container\" onclick=\"this.classList.toggle('active')\" >";
             // Add title (if available)
             if (titleKey in item.attributes) {
-                html += `<h2>${item.attributes[titleKey]}</h2>`;
+                html += `<h3 id="heading">${item.attributes[titleKey]}</h3>`;
             }
             for (const key in item.attributes) {
+                // Checks if attribute is an image
                 if (String(item.attributes[key]).match(imageExtensions)) {
                     html += `<img src="${item.attributes[key]}"
-                    alt="${item.attributes[titleKey]} images" class="image" width="200"></img>`;
+                    alt="${item.attributes[titleKey]} image" class="image" width="200"></img>`;
                 }
-            }
-
-            // Loop through each attribute of the item
-            for (let key in item.attributes) {
-                if (Object.prototype.hasOwnProperty.call(item.attributes, key)) {
-                    if (key !== titleKey && key !== "id" && key !== "type") {
-                        // Avoiding redundant info like id and type
-                        html += `<p><strong>${key}:</strong> ${item.attributes[key]}</p>`;
-                    }
+                // Checks so wanted data is made to be displayed as text
+                if (key !== titleKey && key !== "id" && key !== "type" && key !== "slug" &&
+                    !String(item.attributes[key]).match(urlPattern) &&
+                    !String(item.attributes[key]).match(imageExtensions)) {
+                    // Avoiding redundant info like id and type
+                    html += `<p aria-label='${key}: ${item.attributes[key]}' ><strong>${key}:</strong> ${item.attributes[key]}</p>`;
+                }
+                // Checks if attribute is a link
+                if (String(item.attributes[key]).match(urlPattern)) {
+                    html += `<a href="${item.attributes[key]}" aria-label='Resource Link' >Resource Link</a>`;
                 }
             }
 
@@ -88,4 +90,6 @@ function generateHTMLFromData(
     return html;
 }
 
+
 initApp();
+

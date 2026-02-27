@@ -1,0 +1,28 @@
+
+        .item-container {
+            cursor: pointer;
+            border: 1px solid #ccc;
+            margin-bottom: 20px;
+            padding: 10px;
+            transition: max-height 0.3s ease-in-out, opacity 0.3s ease-in-out;
+        }
+
+        .item-container.active {
+            max-height: none;
+            opacity: 1;
+        }
+
+        .image {
+            width: 200px;
+            height: auto;
+        }
+
+        .item-container p,
+        .item-container a {
+            display: none;
+        }
+
+        .item-container.active p,
+        .item-container.active a {
+            display: block;
+        }
