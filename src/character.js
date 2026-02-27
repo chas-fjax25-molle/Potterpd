@@ -38,7 +38,7 @@ const CSS = Object.freeze({
     DETAILS_EMPTY: "details-empty",
 
     IMAGE_PLACEHOLDER_OVERLAY: "image-placeholder-overlay",
-    
+
     DETAILS_PLACEHOLDER_CLASS: "character-details-placeholder",
     DETAILS_ALIAS_NAMES_CLASS: "character-details-alias-names",
     // Fact classes
@@ -66,7 +66,7 @@ const CSS = Object.freeze({
      * 3. character-details-fact-list
      */
     DETAILS_FACT_LIST_CLASS: "character-details-fact-list",
-    DETAILS_BACK_BUTTON: "details-back-button",
+    DETAILS_BACK_BUTTON_CLASS: "character-details-back-button",
 });
 
 /**
@@ -335,29 +335,28 @@ export class Character {
         link.setAttribute("aria-labelledby", titleId);
         article.appendChild(link);
 
-        
         const headerRow = document.createElement("div");
         headerRow.classList.add(CSS.PREVIEW_HEADER);
-        
+
         const header = document.createElement("h3");
         header.id = titleId;
         header.classList.add(CSS.PREVIEW_NAME);
-                
+
         header.textContent = formatWithWordBreaks(this.name);
-        
+
         headerRow.appendChild(header);
         headerRow.appendChild(favoriteIcon(this.id, this.isFavorite));
-        
+
         article.appendChild(headerRow);
         article.appendChild(this.#characterImageSmall());
-        
+
         const detailElem = document.createElement("p");
         detailElem.classList.add(CSS.PREIVEW_DETAIL);
         detailElem.textContent = this.alias_names;
-        
+
         article.appendChild(detailElem);
         listItem.appendChild(article);
-        
+
         return listItem;
     }
 
@@ -382,14 +381,14 @@ export class Character {
         title.textContent = this.name;
 
         const backButton = document.createElement("button");
-        backButton.classList.add(CSS.DETAILS_BACK_BUTTON);
+        backButton.classList.add(CSS.DETAILS_BACK_BUTTON_CLASS);
         backButton.setAttribute("aria-label", "Back to characters list");
         backButton.textContent = "← Back";
         headerRow.appendChild(backButton);
 
         headerRow.appendChild(title);
         headerRow.appendChild(favoriteIcon(this.id, this.isFavorite));
-        
+
         topWrapper.appendChild(headerRow);
         topWrapper.appendChild(this.#characterImageLarge());
 

@@ -9,6 +9,7 @@ import { isURLValid } from "./utils";
  * CSS styles used in the Spell entity.
  * @constant {Object} CSS - CSS styles for the Spell entity.
  */
+
 const CSS = Object.freeze({
     // Preview card classes
     PREVIEW_LIST: "preview-list",
@@ -33,8 +34,8 @@ const CSS = Object.freeze({
     DETAILS_LABEL: "details-label",
     DETAILS_VALUE: "details-value",
     DETAILS_EMPTY: "details-empty",
-    DETAILS_BACK_BUTTON_CLASS: "spell-details-back-button",
     IMAGE_PLACEHOLDER_OVERLAY: "image-placeholder-overlay",
+    DETAILS_BACK_BUTTON_CLASS: "spell-details-back-button",
 });
 
 /**
@@ -240,7 +241,7 @@ export class Spell {
         title.textContent = this.name;
 
         const backButton = document.createElement("button");
-        backButton.classList.add(CSS.DETAILS_BACK_BUTTON);
+        backButton.classList.add(CSS.DETAILS_BACK_BUTTON_CLASS);
         backButton.setAttribute("aria-label", "Back to spells list");
         backButton.textContent = "← Back";
         headerRow.appendChild(backButton);
