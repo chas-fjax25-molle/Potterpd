@@ -9,7 +9,7 @@ import { registerSearchCallback } from "./search_form";
  * Container and service instances used across small helpers.
  * @type {HTMLElement | null}
  */
-let charactersContainer = null;
+let listContainer = null;
 
 /**
  * @type {EntityService | null}
@@ -57,8 +57,8 @@ function initApp() {
  * @returns {boolean} true when container is found
  */
 function ensureContainer() {
-    charactersContainer = document.getElementById("characters-container");
-    if (!charactersContainer) {
+    listContainer = document.getElementById("list-container");
+    if (!listContainer) {
         console.error("Characters container element not found.");
         return false;
     }
@@ -83,9 +83,9 @@ function setupService() {
  * @returns {void}
  */
 function setupFavoriteHandler() {
-    if (!charactersContainer || !service) return;
+    if (!listContainer || !service) return;
 
-    registerFavoriteIconClick(charactersContainer, (id) => {
+    registerFavoriteIconClick(listContainer, (id) => {
         service?.toggleFavorite(id);
     });
 }
@@ -95,7 +95,7 @@ function setupFavoriteHandler() {
  * @returns {void}
  */
 function clearContainer() {
-    if (charactersContainer) charactersContainer.innerHTML = "";
+    if (listContainer) listContainer.innerHTML = "";
 }
 
 /**
@@ -106,11 +106,17 @@ function clearContainer() {
 async function listView(page = 1) {
     clearContainer();
 
+    if (!listContainer) return;
+
+    const list = document.createElement("ul");
+    list.classList.add("preview-list");
+
     service?.loadList(page).then((characters) => {
         characters.forEach((/** @type {import("./character").Character} */ character) => {
             const preview = character.previewHTML();
-            if (charactersContainer) charactersContainer.appendChild(preview);
+            list.appendChild(preview);
         });
+        listContainer?.appendChild(list);
     });
 }
 
@@ -123,7 +129,7 @@ async function detailView(id) {
     clearContainer();
     service?.loadById(id).then((character) => {
         const detail = character.detailsHTML();
-        if (charactersContainer) charactersContainer.appendChild(detail);
+        if (listContainer) listContainer.appendChild(detail);
     });
 }
 
@@ -135,14 +141,19 @@ async function detailView(id) {
  */
 async function searchView(q, page = 1) {
     clearContainer();
+    if (!listContainer) return;
+
+    const list = document.createElement("ul");
+    list.classList.add("preview-list");
+
     try {
         service?.search(q, page).then((characters) => {
-            console.log("Search results: ", characters);
             characters.forEach((/** @type {import("./character").Character} */ character) => {
                 console.log("Rendering character: ", character);
                 const preview = character.previewHTML();
-                if (charactersContainer) charactersContainer.appendChild(preview);
+                list.appendChild(preview);
             });
+            listContainer?.appendChild(list);
         });
     } catch (error) {
         console.error("Search failed: ", error);
@@ -154,8 +165,8 @@ async function searchView(q, page = 1) {
  * Handle clicks on character cards and their overlays to navigate to detail views.
  */
 function setupClickInterceptor() {
-    if (!charactersContainer) return;
-    charactersContainer.addEventListener("click", (ev) => {
+    if (!listContainer) return;
+    listContainer.addEventListener("click", (ev) => {
         // Handle back button click
         // @ts-ignore - TS doesn't know about closest() on EventTarget
         const backButton = ev.target.closest(".character-details-back-button");
@@ -167,7 +178,7 @@ function setupClickInterceptor() {
 
         // Try overlay anchor first
         // @ts-ignore - TS doesn't know about closest() and getAttribute() on EventTarget
-        const overlay = ev.target.closest("a.character-card-overlay");
+        const overlay = ev.target.closest("a.card-overlay");
         if (overlay && overlay.getAttribute("href")) {
             ev.preventDefault();
             const card = overlay.closest("[data-character-id]");

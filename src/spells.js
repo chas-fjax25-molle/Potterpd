@@ -115,8 +115,8 @@ async function listView(page = 1) {
 
     service?.loadList(page).then((spells) => {
         spells.forEach((/** @type {import("./spell").Spell} */ spell) => {
-            const preview = spell.previewHTML(); // returns <li>
-            list.appendChild(preview); // ✅ now li is inside ul
+            const preview = spell.previewHTML(); 
+            list.appendChild(preview); 
         });
 
         listContainer?.appendChild(list);
