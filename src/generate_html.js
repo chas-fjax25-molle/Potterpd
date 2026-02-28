@@ -61,7 +61,14 @@ function generateHTMLFromData(
         // Loop through each item in the array
         data[dataArrayKey].forEach((item) => {
             // Start a div for each item
-            html += "<div class=\"item-container\" onclick=\"this.classList.toggle('active')\" >";
+            html +=
+                // eslint-disable-next-line quotes
+                '<div class="item-container" onclick="this.classList.toggle(\'active\')" id="' +
+                item.id +
+                // eslint-disable-next-line quotes
+                '">';
+
+
             // Add title (if available)
             if (titleKey in item.attributes) {
                 html += `<h3 id="heading">${item.attributes[titleKey]}</h3>`;
