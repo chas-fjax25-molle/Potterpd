@@ -41,12 +41,8 @@ to layout and components for larger screens.
 }
 
 
-/* Tablet */
+/* Tablet 2 (mainly nav) */
 @media (min-width: 600px) {
-    .site-nav ul {
-        flex-wrap: wrap;
-        justify-content: center;
-    }
 
     .site-nav a {
         padding: 0.5rem 2rem;
@@ -62,25 +58,29 @@ to layout and components for larger screens.
         display: none;
     }
 
-    .nav-search-container {
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        margin: 1rem 4rem 0;
-    }
-
-    .search-filter {
-        margin-left: 2rem;
-        width: 90%;
-    }
-
     .details-card {
         grid-template-columns: 30% 1fr;
 
     }
 }
 
-/* Tablet 2 */
+/* Tablet 3 */
+
+@media (min-width: 900px ) {
+    header {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .nav-search-container {
+        width: 80%;
+    }
+
+    .details-grid {
+        grid-template-columns: 200px 1fr;
+    }
+}
 
 
 /* Desktop */
