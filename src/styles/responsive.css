@@ -25,15 +25,11 @@ to layout and components for larger screens.
     }
 
     .nav-search-container {
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        margin: 1rem 4rem 0;
+        margin: 1rem 3rem 0;
     }
 
-    .search-filter {
-        margin-left: 2rem;
-        width: 90%;
+    main {
+        margin: 0 3rem;
     }
 
     .details-image {
@@ -44,6 +40,20 @@ to layout and components for larger screens.
         grid-template-columns: repeat(2, 1fr);
     }
 }
+
+/* Tablet/Desktop - only nav */ 
+@media (min-width: 900px) and (max-width: 1283px) {
+    header {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .nav-search-container {
+        max-width: 800px;
+    }
+}
+
 
 /* Desktop */
 @media (min-width: 1284px) {

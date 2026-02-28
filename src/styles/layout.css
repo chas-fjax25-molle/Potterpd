@@ -31,9 +31,8 @@ h1 {
 /* Navigation list */
 .site-nav ul {
     display: flex;
-    flex-wrap: wrap;
     list-style: none;
-    gap: 0.5rem;
+    gap: 1rem;
     padding: 0;
 }
 

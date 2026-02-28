@@ -13,7 +13,7 @@ it belongs here.
 .site-nav a,
 .search-filter a {
     background-color: rgb(7, 6, 21);
-    font-size: 17px;
+    font-size: 1.5rem;
     border-radius: 5px;
     padding: 0.5rem;
 }
@@ -35,7 +35,7 @@ it belongs here.
 /* Search + filter */
 .search-filter {
     display: flex;
-    gap: 0.5rem;
+    gap: 1rem;
 }
 
 .search-container {
