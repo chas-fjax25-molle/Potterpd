@@ -1,53 +1,69 @@
-section {
-    background-color: #f0f0f0;
+.section-container {
+    display: flex;
+    flex-direction: column;
+    max-width: 1400px;
+    margin: 0 auto;
+    padding: 0 0.25rem;
 }
 
-.spells-container {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(min(350px, 100%), 1fr));
-    gap: 1rem;
+.list-container {
+    padding: 0;
+    margin: 0;
+    color: white;
+    width: 100%;
 }
 
-.spell-preview-card {
+.preview-list {
     display: grid;
-    grid-template-columns: 160px 1fr;
+    grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
+    list-style: none;
+    gap: 2rem;
+    padding: 0;
+    margin: 0;
+}
+
+.preview-card {
+    display: grid;
+    grid-template-columns: 150px 1fr;
     grid-template-rows: auto 1fr;
     gap: 0.75rem;
     padding: 0.75rem;
     border: 1px solid #e0e0e0;
     border-radius: 8px;
-    background: #fff;
     position: relative;
-}
-
-.spell-preview-card {
+    background: rgba(20, 20, 25, 0.35);
+    -webkit-backdrop-filter: blur(16px);
     transition:
         box-shadow 0.15s ease,
         transform 0.15s ease;
 }
 
-.spell-card-overlay {
+.preview-card-item {
+    height: 100%;
+}
+
+.card-overlay {
     position: absolute;
     inset: 0;
     z-index: 1;
 }
 
-.spell-preview-card > *:not(.spell-card-overlay) {
+.preview-card > *:not(.card-overlay) {
     position: relative;
     z-index: 2;
 }
 
-.spell-preview-card:hover {
+.preview-card:hover {
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
     transform: translateY(-1px);
 }
 
-.spell-card-overlay:focus-visible {
+.card-overlay:focus-visible {
     outline: 3px solid #aaa;
     border-radius: 8px;
 }
 
-.spell-preview-header {
+.preview-card-header {
     grid-column: 2;
     grid-row: 1;
 
@@ -57,32 +73,41 @@ section {
     gap: 0.5rem;
 }
 
-.spell-preview-name {
+.preview-name {
     margin: 0;
     font-size: 1.1rem;
     overflow-wrap: anywhere;
-    word-wrap: break-word;
 }
-.spell-preview-effect {
+
+.preview-detail {
     grid-column: 2;
     grid-row: 2;
     margin: 0;
     font-size: 0.9rem;
-    color: #555;
+    color: #ffffff;
 }
 
-.spell-preview-image-container {
+.preview-image-container {
     grid-column: 1;
     grid-row: 1 / span 2;
     width: 100%;
+    aspect-ratio: 4 / 3; /* KEY FIX */
+    overflow: hidden;
 }
 
-.spell-preview-image-container,
-.spell-image-container {
+.preview-image {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: 6px;
+}
+
+.preview-image-container,
+.image-container {
     position: relative;
 }
 
-.spell-image-container {
+.image-container {
     width: 100%;
     max-width: 500px;
     margin: 0 auto;
@@ -91,9 +116,6 @@ section {
     border: 1px solid #e0e0e0;
 }
 
-/* This overlay creats bug on potions page */
-
-/* 
 .image-placeholder-overlay {
     position: absolute;
     inset: 0;
@@ -109,21 +131,15 @@ section {
 
     border-radius: 6px;
     pointer-events: none;
-} */
-
-.spell-preview-image {
-    width: 100%;
-    height: 100%;
-    aspect-ratio: 4 / 3;
-    object-fit: cover;
-    border-radius: 6px;
 }
 
 .favorite-icon {
     margin-top: -5px;
     font-size: 1.25rem;
     cursor: pointer;
-    background: rgba(255, 255, 255, 0.85);
+    color: gold;
+    background: rgba(20, 20, 25, 0.35);
+    -webkit-backdrop-filter: blur(16px);
     padding: 0.15rem 0.35rem;
     border-radius: 6px;
     z-index: 3;
@@ -138,47 +154,60 @@ section {
     color: gold;
 }
 
-.spell-details-card {
-    max-width: 800px;
-    margin: 2rem auto;
-    padding: 1.5rem;
-    background: white;
-    border-radius: 12px;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+.details-card {
     display: flex;
     flex-direction: column;
+    justify-self: center;
+    width: 90%;
+    margin: auto;
+    padding: 1rem;
     gap: 1.5rem;
+    background: rgba(20, 20, 25, 0.35);
+    -webkit-backdrop-filter: blur(16px);
+    border-radius: 12px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
 }
 
-.spell-details-image {
+.back-button {
+    padding: 0.5rem 1rem;
+    border-radius: 6px;
+    color: inherit;
+}
+
+.details-image-container {
+    position: relative; /* ensure placeholder overlay is contained */
     width: 100%;
-    aspect-ratio: 4 / 3;
-    object-fit: cover;
-    display: block;
 }
 
-.spell-details-header {
+.details-image {
+    width: 100%;
+    max-height: 450px;
+    object-fit: cover;
+    border-radius: 8px;
+}
+
+.details-header {
     display: flex;
     justify-content: space-between;
-    align-items: center;
+    gap: 1rem;
 }
 
-.spell-details-grid {
+.details-name {
+    margin: 0;
+    font-size: 2rem;
+}
+
+.details-grid {
     display: grid;
-    grid-template-columns: 140px 1fr;
+    grid-template-columns: repeat(auto-fit, minmax(170px, 1fr));
     gap: 0.6rem 1rem;
+    overflow-wrap: break-word;
 }
 
-.spell-details-label {
+.details-label {
     font-weight: 600;
-    color: #444;
 }
 
-.spell-details-value {
-    color: #222;
-}
-
-.spell-details-empty {
-    color: #777;
+.details-empty {
     font-style: italic;
 }

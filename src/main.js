@@ -5,12 +5,12 @@ import "./styles/layout.css";
 // @ts-ignore
 import "./styles/components.css";
 // @ts-ignore
+import "./styles/spell_layout.css";
+// @ts-ignore
 import "./styles/responsive.css";
 // @ts-ignore
 import "./styles/themes.css";
 // @ts-ignore
 import "./styles/themes";
-// @ts-ignore
-import "./styles/spell_layout.css";
 // @ts-ignore
 import "./index";

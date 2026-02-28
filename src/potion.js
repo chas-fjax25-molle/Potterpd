@@ -12,28 +12,30 @@ import { isURLValid } from "./utils";
 
 const CSS = Object.freeze({
     // Preview card classes
-    PREVIEW_CARD_CLASS: "potion-preview-card",
-    PREVIEW_NAME_CLASS: "potion-preview-name",
-    PREVIEW_IMAGE_CONTAINER_CLASS: "potion-preview-image-container",
-    PREVIEW_IMAGE_CLASS: "potion-preview-image",
-    PREVIEW_PLACEHOLDER_CLASS: "potion-preview-placeholder",
-    PREIVEW_EFFECT_CLASS: "potion-preview-effect",
-    POTION_CARD_OVERLAY_CLASS: "potion-card-overlay",
+    PREVIEW_LIST: "preview-list",
+    PREVIEW_ITEM: "preview-card-item",
+    PREVIEW_CARD: "preview-card",
+    PREVIEW_HEADER: "preview-card-header",
+    PREVIEW_NAME: "preview-name",
+    PREVIEW_IMAGE_CONTAINER: "preview-image-container",
+    PREVIEW_IMAGE: "preview-image",
+    PREIVEW_DETAIL: "preview-detail",
+    CARD_OVERLAY: "card-overlay",
 
     // Details card classes
-    DETAILS_CARD_CLASS: "potion-details-card",
-    DETAILS_NAME_CLASS: "potion-details-name",
-    DETAILS_IMAGE_CONTAINER_CLASS: "potion-image-container",
-    DETAILS_IMAGE_CLASS: "potion-details-image",
-    DETAILS_PLACEHOLDER_CLASS: "potion-details-placeholder",
-    DETAILS_EFFECT_CLASS: "potion-details-effect",
-    DETAILS_CHARASTERISTICS_CLASS: "potion-details-characteristics",
-    DETAILS_DIFFICULTY_CLASS: "potion-details-difficulty",
-    DETAILS_INVENTORS_CLASS: "potion-details-inventors",
-    DETAILS_MANUFACTURERS_CLASS: "potion-details-manufacturers",
-    DETAILS_INGREDIENTS_CLASS: "potion-details-ingredients",
-    DETAILS_SIDE_EFFECTS_CLASS: "potion-details-side-effects",
-    DETAILS_BACK_BUTTON_CLASS: "potion-details-back-button",
+    DETAILS_CARD: "details-card",
+    DETAILS_HEADER: "details-header",
+    DETAILS_NAME: "details-name",
+    DETAILS_TOP_WRAPPER: "details-top-wrapper",
+    DETAILS_FIGURE: "details-figure",
+    DETAILS_IMAGE_CONTAINER: "details-image-container",
+    DETAILS_IMAGE: "details-image",
+    DETAILS_GRID: "details-grid",
+    DETAILS_LABEL: "details-label",
+    DETAILS_VALUE: "details-value",
+    DETAILS_EMPTY: "details-empty",
+    IMAGE_PLACEHOLDER_OVERLAY: "image-placeholder-overlay",
+    DETAILS_BACK_BUTTON_CLASS: "back-button",
 });
 
 /**
@@ -54,7 +56,20 @@ const DETAILS_IMAGE_WIDTH = 300;
 /**
  * importing the placeholder image for potions in the api missing an image.
  */
-const PLACEHOLDER_IMAGE = "/image-placeholders/potions-placeholder-image-200.webp";
+const PLACEHOLDER_IMAGE =
+    import.meta.env.BASE_URL + "image-placeholders/potions-placeholder-image-200.webp";
+
+/**
+ * Utility: fixes long API words like "Apparition/Disapparition"
+ * by allowing a break after slashes (WITHOUT changing visible text)
+ * @param {string|null} text - Takes in the String value of the heading for the item
+ * @returns {string|null} - Returns a formatted version of the heading
+ *
+ */
+const formatWithWordBreaks = (text) => {
+    if (!text) return "";
+    return text.replaceAll("/", "/\u200B");
+};
 
 /**
  * @typedef {Object} PotionAttributes
@@ -176,47 +191,61 @@ export class Potion {
     }
 
     previewHTML() {
-        const container = document.createElement("article");
-        container.classList.add(CSS.PREVIEW_CARD_CLASS);
-        container.dataset.potionId = this.id;
+        const listItem = document.createElement("li");
+        listItem.classList.add(CSS.PREVIEW_ITEM);
+
+        const article = document.createElement("article");
+        article.classList.add(CSS.PREVIEW_CARD);
+        article.dataset.potionId = this.id;
+
+        const titleId = `potion-title-${this.id}`;
+        article.setAttribute("aria-labelledby", titleId);
 
         const link = document.createElement("a");
         link.href = `/potions/${this.id}`;
-        link.classList.add(CSS.POTION_CARD_OVERLAY_CLASS);
-        link.setAttribute("aria-label", `View details for ${this.name}`);
-        container.appendChild(link);
+        link.classList.add(CSS.CARD_OVERLAY);
+        link.setAttribute("aria-labelledby", titleId);
+        article.appendChild(link);
 
         const headerRow = document.createElement("div");
-        headerRow.classList.add("potion-preview-header");
+        headerRow.classList.add(CSS.PREVIEW_HEADER);
 
         const header = document.createElement("h3");
-        header.classList.add(CSS.PREVIEW_NAME_CLASS);
-        header.textContent = this.name;
+        header.id = titleId;
+        header.classList.add(CSS.PREVIEW_NAME);
+        header.textContent = formatWithWordBreaks(this.name);
 
         headerRow.appendChild(header);
         headerRow.appendChild(favoriteIcon(this.id, this.isFavorite));
 
-        container.appendChild(headerRow);
-        container.appendChild(this.#potionImageSmall());
+        article.appendChild(headerRow);
+        article.appendChild(this.#potionImageSmall());
 
-        const effectElem = document.createElement("p");
-        effectElem.classList.add(CSS.PREIVEW_EFFECT_CLASS);
-        effectElem.textContent = this.effect;
+        const detailElem = document.createElement("p");
+        detailElem.classList.add(CSS.PREIVEW_DETAIL);
+        detailElem.textContent = this.effect;
 
-        container.appendChild(effectElem);
+        article.appendChild(detailElem);
+        listItem.appendChild(article);
 
-        return container;
+        return listItem;
     }
 
     detailsHTML() {
         const container = document.createElement("section");
-        container.classList.add(CSS.DETAILS_CARD_CLASS);
+        container.classList.add(CSS.DETAILS_CARD);
         container.dataset.potionId = this.id;
+
+        const topWrapper = document.createElement("div");
+        topWrapper.classList.add(CSS.DETAILS_TOP_WRAPPER);
 
         // Header row
         const headerRow = document.createElement("div");
-        headerRow.classList.add("potion-details-header");
+        headerRow.classList.add(CSS.DETAILS_HEADER);
 
+        const title = document.createElement("h3");
+        title.classList.add(CSS.DETAILS_NAME);
+        title.textContent = this.name;
         const backButton = document.createElement("button");
         backButton.classList.add(CSS.DETAILS_BACK_BUTTON_CLASS);
         backButton.setAttribute("aria-label", "Back to potions list");
@@ -227,16 +256,17 @@ export class Potion {
         header.classList.add(CSS.DETAILS_NAME_CLASS);
         header.textContent = this.name;
 
-        headerRow.appendChild(header);
+        headerRow.appendChild(title);
         headerRow.appendChild(favoriteIcon(this.id, this.isFavorite));
-        container.appendChild(headerRow);
 
-        // Image
-        container.appendChild(this.#potionsImageLarge());
+        topWrapper.appendChild(headerRow);
+        topWrapper.appendChild(this.#potionsImageLarge());
+
+        container.appendChild(topWrapper);
 
         // Info grid
         const infoGrid = document.createElement("div");
-        infoGrid.classList.add("potion-details-grid");
+        infoGrid.classList.add(CSS.DETAILS_GRID);
 
         let hasAnyInfo = false;
 
@@ -246,12 +276,12 @@ export class Potion {
             hasAnyInfo = true;
 
             const labelElem = document.createElement("div");
-            labelElem.classList.add("potion-details-label");
+            labelElem.classList.add(CSS.DETAILS_LABEL);
             labelElem.textContent = label;
 
             const valueElem = document.createElement("div");
-            valueElem.classList.add("potion-details-value");
-            valueElem.textContent = value;
+            valueElem.classList.add(CSS.DETAILS_VALUE);
+            valueElem.textContent = formatWithWordBreaks(value);
 
             infoGrid.appendChild(labelElem);
             infoGrid.appendChild(valueElem);
@@ -269,7 +299,7 @@ export class Potion {
             container.appendChild(infoGrid);
         } else {
             const emptyMsg = document.createElement("p");
-            emptyMsg.classList.add("potion-details-empty");
+            emptyMsg.classList.add("details-empty");
             emptyMsg.textContent = "No additional information available for this potion.";
             container.appendChild(emptyMsg);
         }
@@ -298,12 +328,12 @@ export class Potion {
      */
     #potionImageSmall() {
         const container = document.createElement("div");
-        container.classList.add(CSS.PREVIEW_IMAGE_CONTAINER_CLASS);
+        container.classList.add(CSS.PREVIEW_IMAGE_CONTAINER);
 
         const hasImage = this.image && isURLValid(this.image);
 
         const imageElem = document.createElement("img");
-        imageElem.classList.add(CSS.PREVIEW_IMAGE_CLASS);
+        imageElem.classList.add(CSS.PREVIEW_IMAGE);
         imageElem.src = hasImage ? this.image : PLACEHOLDER_IMAGE;
         imageElem.alt = `${this.name} image`;
 
@@ -328,12 +358,12 @@ export class Potion {
      */
     #potionsImageLarge() {
         const container = document.createElement("div");
-        container.classList.add(CSS.DETAILS_IMAGE_CONTAINER_CLASS);
+        container.classList.add(CSS.DETAILS_IMAGE_CONTAINER);
 
         const hasRealImage = this.image && isURLValid(this.image);
 
         const imageElem = document.createElement("img");
-        imageElem.classList.add(CSS.DETAILS_IMAGE_CLASS);
+        imageElem.classList.add(CSS.DETAILS_IMAGE);
         imageElem.src = hasRealImage ? this.image : PLACEHOLDER_IMAGE;
         imageElem.alt = `${this.name} image`;
 
