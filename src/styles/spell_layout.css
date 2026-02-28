@@ -135,7 +135,7 @@
 
 .favorite-icon {
     margin-top: -5px;
-    font-size: 1.25rem;
+    font-size: 2rem;
     cursor: pointer;
     color: gold;
     background: rgba(20, 20, 25, 0.35);
@@ -192,7 +192,7 @@
   grid-template-rows: auto auto;
   gap: 0.5rem 1rem;
   align-items: center;
-  margin-bottom: 1rem;
+
 }
 
 .back-button {

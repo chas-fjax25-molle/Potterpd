@@ -9,7 +9,45 @@ to layout and components for larger screens.
 */
 
 /* Tablet */
+@media (min-width: 500px) {
+    .details-card {
+        display: grid;
+        grid-template-columns: 40% 1fr;
+        grid-template-rows: auto 1fr;
+        gap: 1rem;
+        align-items: start;
+    }
+
+    .details-header {
+        grid-column: 1 / -1;
+    }
+
+    .details-image-container {
+        grid-column: 1;
+    }
+
+    .details-grid {
+        grid-column: 2;
+        padding-top: 0.5rem;
+    }
+
+    .details-image {
+        max-height: 100%;
+    }
+
+    .details-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+
+/* Tablet */
 @media (min-width: 600px) {
+    .site-nav ul {
+        flex-wrap: wrap;
+        justify-content: center;
+    }
+
     .site-nav a {
         padding: 0.5rem 2rem;
         height: auto;
@@ -25,65 +63,24 @@ to layout and components for larger screens.
     }
 
     .nav-search-container {
-        margin: 1rem 3rem 0;
-    }
-
-    main {
-        margin: 0 3rem;
-    }
-
-    .details-image-container {
-         max-width: 60%;
-    }
-
-    .details-image {
-        max-height: 100%;
-    }
-
-    .details-grid {
-        grid-template-columns: repeat(2, 1fr);
-    }
-}
-
-/* Tablet/Desktop  */
-@media (min-width: 900px) and (max-width: 1283px) {
-    header {
         display: flex;
         flex-direction: column;
         align-items: center;
+        margin: 1rem 4rem 0;
     }
 
-    .nav-search-container {
-        max-width: 800px;
+    .search-filter {
+        margin-left: 2rem;
+        width: 90%;
     }
 
     .details-card {
-        display: grid;
-        grid-template-columns: 300px 1fr;
-        grid-template-rows: auto 1fr;
-        gap: 1rem;
-        align-items: start;
+        grid-template-columns: 30% 1fr;
+
     }
-
-    /* Header spans full width */
-    .details-top-wrapper {
-        grid-column: 1 / -1;
-    }
-
-    /* Image left */
-    .details-image-container {
-        grid-column: 1;
-    }
-
-    /* Info right */
-    .details-grid {
-        grid-column: 2;
-        grid-row: 
-    }
-
-
-
 }
+
+/* Tablet 2 */
 
 
 /* Desktop */
