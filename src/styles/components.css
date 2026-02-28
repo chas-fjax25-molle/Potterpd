@@ -18,13 +18,17 @@ it belongs here.
     padding: 0.5rem;
 }
 
+.site-nav li {
+    width: 100%;
+}
+
 .site-nav span,
 .search-filter span {
     display: none;
 }
 
 .site-nav a:hover {
-    scale: 1.05;
+    scale: 1.1;
     box-shadow: 0 0 10px rgba(255, 255, 255, 0.3);
 }
 
@@ -40,6 +44,10 @@ it belongs here.
     width: 100%;
     border-radius: 5px;
     padding: 0.5rem;
+}
+
+input::placeholder {
+    color: white;
 }
 
 .visually-hidden {

@@ -10,11 +10,6 @@ to layout and components for larger screens.
 
 /* Tablet */
 @media (min-width: 600px) {
-    .site-nav ul {
-        flex-wrap: wrap;
-        justify-content: center;
-    }
-
     .site-nav a {
         padding: 0.5rem 2rem;
         height: auto;
