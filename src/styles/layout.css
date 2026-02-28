@@ -25,11 +25,11 @@ header {
     display: flex;
     flex-wrap: wrap;
     list-style: none;
-    gap: 2rem 1.5rem;
+    gap: 0.5rem;
     padding: 0;
 }
 
-.site-nav a {
+.site-nav a, .search-filter a {
     display: block;
     height: 32px;
 }

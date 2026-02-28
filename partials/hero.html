@@ -52,29 +52,20 @@
                     <span>Potions</span>
                 </a>
             </li>
-            <li>
-                <a href="${basepath}favourites/index.html" class="Favourites">
-                    <img src="${basepath}nav-icons/star.png" alt="Favourites" />
-                    <span>Favourites</span>
-                </a>
-            </li>
         </ul>
     </nav>
     <section class="search-filter">
         <form class="search-container">
-            <input type="text" placeholder="Search..." name="s" />
+            <label for="site-search" class="visually-hidden">Search the site</label>
+            <input id="site-search" type="text" placeholder="Search for something..." name="s" />
             <button class="btn-search" type="submit">Search</button>
         </form>
-        <form class="filter-container">
-            <select id="filter" name="filter">
-                <option selected hidden>Filter</option>
-                <option value="books">Books</option>
-                <option value="characters">Characters</option>
-                <option value="spells">Spells</option>
-                <option value="movies">Movies</option>
-                <option value="potions">Potions</option>
-            </select>
-        </form>
+        <nav aria-label="User navigation">
+            <a href="${basepath}favourites/index.html" class="favourites">
+                <img src="${basepath}nav-icons/star.png" alt="Favourites" />
+                <span>Favourites</span>
+            </a>
+        </nav>
         <p id="offline-message" class="offline" role="alert">offline</p>
     </section>
 </div>

@@ -1,21 +1,21 @@
 :root {
-    --main-color: #ecb939;
+  --main-color: #f5d76e; 
 }
 
 body[data-theme="Default"] {
-    --main-color: #29aadd;
+  --main-color: #5cc8ff; 
 }
 
 body[data-theme="Slytherin"] {
-    --main-color: #21c48d;
+  --main-color: #3ddc97;
 }
 
 body[data-theme="Hufflepuff"] {
-    --main-color: #ecb939;
+  --main-color: #ffd24d; 
 }
 
 body[data-theme="Gryffindor"] {
-    --main-color: #df3535;
+  --main-color: #ff6b6b; 
 }
 
 body {

@@ -10,20 +10,20 @@ it belongs here.
 */
 
 /* Navigation links */
-.site-nav a {
-    background-color: rgba(71, 61, 139);
+.site-nav a, .search-filter a {
+    background-color: rgb(7, 6, 21);
     font-size: 17px;
     border-radius: 5px;
-    padding: 1rem 1rem;
+    padding: 0.5rem;
 }
 
-.site-nav span {
+.site-nav span, .search-filter span {
     display: none;
 }
 
 .site-nav a:hover {
     scale: 1.05;
-    box-shadow: 0 0 10px rgba(255, 255, 255, 0.2);
+    box-shadow: 0 0 10px rgba(255, 255, 255, 0.3);
 }
 
 /* Search + filter */
@@ -34,16 +34,28 @@ it belongs here.
 
 .search-container {
     display: flex;
-    height: 30px;
+    height: 33px;
     width: 100%;
     border-radius: 5px;
     padding: 0.5rem;
 }
 
+.visually-hidden {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  white-space: nowrap;
+  border: 0;
+}
+
 .search-container,
 button,
 input {
-    background-color: rgb(71, 61, 139);
+    background-color: rgb(7, 6, 21);
     border: none;
     font-size: 14px;
     color: inherit;
@@ -63,7 +75,7 @@ input {
 /* Filter dropdown */
 .filter-container {
     display: flex;
-    background-color: rgb(71, 61, 139);
+    background-color: rgb(7, 6, 21);
     border-radius: 5px;
     padding: 0.5rem;
     gap: 0.5rem;
@@ -94,7 +106,7 @@ input {
     margin: 4rem 1rem;
     padding: 2rem;
     border-radius: 1rem;
-    background-color: rgba(71, 61, 139, 0.685);
+    background-color: rgb(7, 6, 21, 0.9);
 }
 
 .welcome-section p {
@@ -124,9 +136,9 @@ input {
     margin: 4rem 1rem;
     padding: 2rem;
     max-width: 300px;
-    background-color: rgba(71, 61, 139, 0.685);
+    background-color: rgb(7, 6, 21, 0.9);
     border-radius: 1rem;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.5);
 }
 
 .houses div:hover {
