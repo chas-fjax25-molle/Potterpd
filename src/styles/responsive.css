@@ -40,10 +40,8 @@ to layout and components for larger screens.
     }
 }
 
-
 /* Tablet 2 (mainly nav) */
 @media (min-width: 600px) {
-
     .site-nav a {
         padding: 0.5rem 2rem;
         height: auto;
@@ -60,13 +58,12 @@ to layout and components for larger screens.
 
     .details-card {
         grid-template-columns: 30% 1fr;
-
     }
 }
 
 /* Tablet 3 */
 
-@media (min-width: 900px ) {
+@media (min-width: 900px) {
     header {
         display: flex;
         flex-direction: column;
@@ -81,7 +78,6 @@ to layout and components for larger screens.
         grid-template-columns: 200px 1fr;
     }
 }
-
 
 /* Desktop */
 @media (min-width: 1284px) {
