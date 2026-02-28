@@ -26,7 +26,6 @@ const CSS = Object.freeze({
     DETAILS_CARD: "details-card",
     DETAILS_HEADER: "details-header",
     DETAILS_NAME: "details-name",
-    DETAILS_TOP_WRAPPER: "details-top-wrapper",
     DETAILS_FIGURE: "details-figure",
     DETAILS_IMAGE_CONTAINER: "details-image-container",
     DETAILS_IMAGE: "details-image",
@@ -236,9 +235,6 @@ export class Potion {
         container.classList.add(CSS.DETAILS_CARD);
         container.dataset.potionId = this.id;
 
-        const topWrapper = document.createElement("div");
-        topWrapper.classList.add(CSS.DETAILS_TOP_WRAPPER);
-
         // Header row
         const headerRow = document.createElement("div");
         headerRow.classList.add(CSS.DETAILS_HEADER);
@@ -253,16 +249,14 @@ export class Potion {
         headerRow.appendChild(backButton);
 
         const header = document.createElement("h2");
-        header.classList.add(CSS.DETAILS_NAME_CLASS);
+        header.classList.add(CSS.DETAILS_NAME);
         header.textContent = this.name;
 
         headerRow.appendChild(title);
         headerRow.appendChild(favoriteIcon(this.id, this.isFavorite));
 
-        topWrapper.appendChild(headerRow);
-        topWrapper.appendChild(this.#potionsImageLarge());
-
-        container.appendChild(topWrapper);
+        container.appendChild(headerRow);
+        container.appendChild(this.#potionsImageLarge());
 
         // Info grid
         const infoGrid = document.createElement("div");
