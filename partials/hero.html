@@ -2,13 +2,13 @@
     <nav class="site-nav">
         <ul>
             <li>
-                <a href="${basepath}index.html" class="Home">
+                <a href="${basepath}index.html" class="home" aria-current="page">
                     <img src="${basepath}nav-icons/home.png" alt="" width="32" height="32" />
                     <span>Home</span>
                 </a>
             </li>
             <li>
-                <a href="${basepath}characters/index.html" class="Characters">
+                <a href="${basepath}characters/index.html" class="characters">
                     <img
                         src="${basepath}nav-icons/people.png"
                         alt="C"
@@ -19,7 +19,7 @@
                 </a>
             </li>
             <li>
-                <a href="${basepath}spells/index.html" class="Spells">
+                <a href="${basepath}spells/index.html" class="spells">
                     <img
                         src="${basepath}nav-icons/magic-wand.png"
                         alt=""
@@ -30,10 +30,10 @@
                 </a>
             </li>
             <li>
-                <a href="${basepath}potions/index.html" class="Potions">
+                <a href="${basepath}potions/index.html" class="potions">
                     <img
                         src="${basepath}nav-icons/potion.png"
-                        alt="Potions"
+                        alt=""
                         width="32"
                         height="32"
                     />
@@ -42,18 +42,19 @@
             </li>
         </ul>
     </nav>
-    <section class="search-filter">
-        <form class="search-container">
-            <label for="site-search" class="visually-hidden">Search the site</label>
-            <input id="site-search" type="text" placeholder="Search for something..." name="s" />
+    <div class="search-filter">
+        <form class="search-container" role="search">
+            <label for="site-search" class="visually-hidden">Search Potter Pedia</label>
+            <input id="site-search" type="search" placeholder="Search for something..." name="s" />
             <button class="btn-search" type="submit">Search</button>
         </form>
         <nav aria-label="User navigation">
             <a href="${basepath}favourites/index.html" class="favourites">
-                <img src="${basepath}nav-icons/star.png" alt="Favourites" />
+                <img src="${basepath}nav-icons/star.png" alt="favourites" width="32"
+                        height="32"/>
                 <span>Favourites</span>
             </a>
         </nav>
-        <p id="offline-message" class="offline" role="alert">offline</p>
-    </section>
+        <p id="offline-message" class="offline" aria-live="polite" hidden role="alert">You are offline</p>
+    </div>
 </div>
