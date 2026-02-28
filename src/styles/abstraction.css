@@ -1,55 +1,55 @@
 .item-container {
-  cursor: pointer;
-  border: 1px solid #ddd;
-  border-radius: 10px;
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-  margin: 20px;
+    cursor: pointer;
+    border: 1px solid #ddd;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    margin: 20px;
 }
 
 .item-container .card {
-  padding: 20px;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
 }
 
 .item-container .card .image {
-  width: 150px;
-  height: 200px;
-  object-fit: cover;
-  border-radius: 10px 10px 0 0;
+    width: 150px;
+    height: 200px;
+    object-fit: cover;
+    border-radius: 10px 10px 0 0;
 }
 
 .item-container .card .heading {
-  font-size: 24px;
-  font-weight: bold;
-  margin-top: 10px;
+    font-size: 24px;
+    font-weight: bold;
+    margin-top: 10px;
 }
 
 .item-container .hidden {
-  padding: 20px;
-  display: none;
-  border-top: 1px solid #ccc;
+    padding: 20px;
+    display: none;
+    border-top: 1px solid #ccc;
 }
 
 .item-container.active .hidden {
-  display: block;
+    display: block;
 }
 
 .item-container .hidden p {
-  margin-bottom: 10px;
+    margin-bottom: 10px;
 }
 
 .item-container .hidden p strong {
-  font-weight: bold;
-  color: #666;
+    font-weight: bold;
+    color: #666;
 }
 
 .item-container .hidden a {
-  text-decoration: none;
-  color: #337ab7;
+    text-decoration: none;
+    color: #337ab7;
 }
 
 .item-container .hidden a:hover {
-  color: #23527c;
+    color: #23527c;
 }
