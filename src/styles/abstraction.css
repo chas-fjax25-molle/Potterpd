@@ -1,28 +1,55 @@
+.item-container {
+  cursor: pointer;
+  border: 1px solid #ddd;
+  border-radius: 10px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  margin: 20px;
+}
 
-        .item-container {
-            cursor: pointer;
-            border: 1px solid #ccc;
-            margin-bottom: 20px;
-            padding: 10px;
-            transition: max-height 0.3s ease-in-out, opacity 0.3s ease-in-out;
-        }
+.item-container .card {
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
 
-        .item-container.active {
-            max-height: none;
-            opacity: 1;
-        }
+.item-container .card .image {
+  width: 150px;
+  height: 200px;
+  object-fit: cover;
+  border-radius: 10px 10px 0 0;
+}
 
-        .image {
-            width: 200px;
-            height: auto;
-        }
+.item-container .card .heading {
+  font-size: 24px;
+  font-weight: bold;
+  margin-top: 10px;
+}
 
-        .item-container p,
-        .item-container a {
-            display: none;
-        }
+.item-container .hidden {
+  padding: 20px;
+  display: none;
+  border-top: 1px solid #ccc;
+}
 
-        .item-container.active p,
-        .item-container.active a {
-            display: block;
-        }
+.item-container.active .hidden {
+  display: block;
+}
+
+.item-container .hidden p {
+  margin-bottom: 10px;
+}
+
+.item-container .hidden p strong {
+  font-weight: bold;
+  color: #666;
+}
+
+.item-container .hidden a {
+  text-decoration: none;
+  color: #337ab7;
+}
+
+.item-container .hidden a:hover {
+  color: #23527c;
+}

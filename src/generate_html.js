@@ -68,20 +68,26 @@ function generateHTMLFromData(
                 // eslint-disable-next-line quotes
                 '">';
 
-
-            // Add title (if available)
-            if (titleKey in item.attributes) {
-                html += `<h3 id="heading">${item.attributes[titleKey]}</h3>`;
-            }
-            if (nameKey in item.attributes) {
-                html += `<h3 id="heading">${item.attributes[nameKey]}</h3>`;
-            }
+            html += "<div class=\"card\">";
             for (const key in item.attributes) {
                 // Checks if attribute is an image
                 if (String(item.attributes[key]).match(imageExtensions)) {
                     html += `<img src="${item.attributes[key]}"
                     alt="${item.attributes[titleKey]} image" class="image" width="200"></img>`;
                 }
+            }
+            // Add title (if available)
+            if (titleKey in item.attributes) {
+                html += `<h3 id="heading" class="heading">${item.attributes[titleKey]}</h3>`;
+            }
+            if (nameKey in item.attributes) {
+                html += `<h3 id="heading" class="heading">${item.attributes[nameKey]}</h3>`;
+            }
+
+            html += "</div>";
+
+            html += "<div class=\"hidden\">";
+            for (const key in item.attributes) {
                 // Checks so wanted data is made to be displayed as text
                 if (
                     key !== titleKey &&
@@ -101,6 +107,7 @@ function generateHTMLFromData(
                 }
             }
 
+            html += "</div>";
             // Close the div container for this item
             html += "</div>";
         });
