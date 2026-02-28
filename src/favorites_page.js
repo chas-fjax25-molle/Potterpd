@@ -3,11 +3,11 @@
  * disurbed code and have been trowing errors on webpage too.
  */
 
-/* eslint-disable indent */
-import { Favorites, EntityType } from "./favorites";
+import { Favorites } from "./favorites";
 import { registerFavoriteIconClick } from "./favorite_icon";
 
-const container = document.getElementById("favorites-container");
+// favorites page reuses the generic list container
+const container = document.getElementById("list-container");
 
 /**
  * Current state tracking
@@ -17,6 +17,11 @@ let state = {
     view: "list",
     currentItem: null,
 };
+
+/**
+ * Track whether list click handlers have been attached
+ */
+let handlersAttached = false;
 
 /**
  * Navigate to detail view for a specific item
@@ -48,7 +53,7 @@ function navigateToList() {
  */
 async function renderList() {
     if (!container) {
-        console.error("favorites-container element not found");
+        console.error("list-container element not found for favorites page");
         return;
     }
 
@@ -57,44 +62,31 @@ async function renderList() {
 
     container.innerHTML = "";
 
-    if (allFavorites.length === 0) {
+    if (!allFavorites || allFavorites.length === 0) {
         container.innerHTML = "<p>No favorites yet.</p>";
         return;
     }
 
-    // Render each favorite item using their previewHTML() method
+    const list = document.createElement("ul");
+    list.classList.add("preview-list");
+
     for (const item of allFavorites) {
-        let card;
+        // Ensure preview shows as favorited
+        item.isFavorite = true;
 
-        switch (item.type) {
-            case EntityType.CHARACTER:
-                card = item.previewHTML();
-                break;
-            case EntityType.SPELL:
-                card = item.previewHTML();
-                break;
-            case EntityType.POTION:
-                card = item.previewHTML();
-                break;
-            default:
-                console.warn(`Unknown item type: ${item.type}`);
-                continue;
-        }
+        const card = item.previewHTML();
+        // ensure card carries an id for delegated handlers
+        if (!card.dataset.itemId) card.dataset.itemId = item.id;
 
-        // Add data attributes for click handling
-        card.setAttribute("data-item-id", item.id);
-        card.setAttribute("data-item-type", item.type);
-        card.style.cursor = "pointer";
-
-        container.appendChild(card);
+        list.appendChild(card);
     }
 
-    // Wire up click and favorite handlers
-    setupListClickHandlers();
-    if (container) {
-        registerFavoriteIconClick(container, (id) => {
-            handleFavoriteToggle(id);
-        });
+    container.appendChild(list);
+
+    if (!handlersAttached) {
+        setupListClickHandlers();
+        registerFavoriteIconClick(container, (id) => handleFavoriteToggle(id));
+        handlersAttached = true;
     }
 }
 
