@@ -9,12 +9,39 @@ to layout and components for larger screens.
 */
 
 /* Tablet */
-@media (min-width: 600px) {
-    .site-nav ul {
-        flex-wrap: wrap;
-        justify-content: center;
+@media (min-width: 500px) {
+    .details-card {
+        display: grid;
+        grid-template-columns: 40% 1fr;
+        grid-template-rows: auto 1fr;
+        gap: 1rem;
+        align-items: start;
     }
 
+    .details-header {
+        grid-column: 1 / -1;
+    }
+
+    .details-image-container {
+        grid-column: 1;
+    }
+
+    .details-grid {
+        grid-column: 2;
+        padding-top: 0.5rem;
+    }
+
+    .details-image {
+        max-height: 100%;
+    }
+
+    .details-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+/* Tablet 2 (mainly nav) */
+@media (min-width: 600px) {
     .site-nav a {
         padding: 0.5rem 2rem;
         height: auto;
@@ -29,24 +56,26 @@ to layout and components for larger screens.
         display: none;
     }
 
-    .nav-search-container {
+    .details-card {
+        grid-template-columns: 30% 1fr;
+    }
+}
+
+/* Tablet 3 */
+
+@media (min-width: 900px) {
+    header {
         display: flex;
         flex-direction: column;
         align-items: center;
-        margin: 1rem 4rem 0;
     }
 
-    .search-filter {
-        margin-left: 2rem;
-        width: 90%;
-    }
-
-    .details-image {
-        max-height: 100%;
+    .nav-search-container {
+        width: 80%;
     }
 
     .details-grid {
-        grid-template-columns: repeat(2, 1fr);
+        grid-template-columns: 200px 1fr;
     }
 }
 
@@ -90,37 +119,5 @@ to layout and components for larger screens.
     .welcome-section {
         margin: 6rem;
         padding: 2rem;
-    }
-
-    .details-card {
-        display: flex;
-        flex-direction: row;
-    }
-
-    .details-image-container {
-        position: relative; /* needed for overlay placement */
-        width: 500px;
-        height: 500px;
-    }
-
-    .details-image {
-        width: 500px;
-        height: 500px;
-    }
-
-    .details-grid {
-        display: flex;
-        flex-direction: column;
-        padding: 1rem;
-    }
-
-    .details-value {
-        padding-bottom: 0.6rem;
-    }
-
-    .details-header {
-        flex-direction: row;
-        align-items: center;
-        padding: 1rem 0;
     }
 }

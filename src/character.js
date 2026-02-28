@@ -28,7 +28,6 @@ const CSS = Object.freeze({
     DETAILS_CARD: "details-card",
     DETAILS_HEADER: "details-header",
     DETAILS_NAME: "details-name",
-    DETAILS_TOP_WRAPPER: "details-top-wrapper",
     DETAILS_FIGURE: "details-figure",
     DETAILS_IMAGE_CONTAINER: "details-image-container",
     DETAILS_IMAGE: "details-image",
@@ -370,9 +369,6 @@ export class Character {
         container.classList.add(CSS.DETAILS_CARD);
         container.dataset.characterId = this.id;
 
-        const topWrapper = document.createElement("div");
-        topWrapper.classList.add(CSS.DETAILS_TOP_WRAPPER);
-
         const headerRow = document.createElement("div");
         headerRow.classList.add(CSS.DETAILS_HEADER);
 
@@ -389,10 +385,8 @@ export class Character {
         headerRow.appendChild(title);
         headerRow.appendChild(favoriteIcon(this.id, this.isFavorite));
 
-        topWrapper.appendChild(headerRow);
-        topWrapper.appendChild(this.#characterImageLarge());
-
-        container.appendChild(topWrapper);
+        container.appendChild(headerRow);
+        container.appendChild(this.#characterImageLarge());
 
         // Info grid
         const infoGrid = document.createElement("div");

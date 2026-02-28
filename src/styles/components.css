@@ -13,9 +13,13 @@ it belongs here.
 .site-nav a,
 .search-filter a {
     background-color: rgb(7, 6, 21);
-    font-size: 17px;
+    font-size: 1.5rem;
     border-radius: 5px;
     padding: 0.5rem;
+}
+
+.site-nav li {
+    width: 100%;
 }
 
 .site-nav span,
@@ -24,14 +28,14 @@ it belongs here.
 }
 
 .site-nav a:hover {
-    scale: 1.05;
+    scale: 1.1;
     box-shadow: 0 0 10px rgba(255, 255, 255, 0.3);
 }
 
 /* Search + filter */
 .search-filter {
     display: flex;
-    gap: 0.5rem;
+    gap: 1rem;
 }
 
 .search-container {
@@ -40,6 +44,10 @@ it belongs here.
     width: 100%;
     border-radius: 5px;
     padding: 0.5rem;
+}
+
+input::placeholder {
+    color: white;
 }
 
 .visually-hidden {
@@ -151,4 +159,5 @@ input {
 footer p,
 footer a {
     font-size: 0.9rem;
+    max-width: 80%;
 }

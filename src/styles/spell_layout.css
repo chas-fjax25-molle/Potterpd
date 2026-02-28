@@ -135,7 +135,7 @@
 
 .favorite-icon {
     margin-top: -5px;
-    font-size: 1.25rem;
+    font-size: 2rem;
     cursor: pointer;
     color: gold;
     background: rgba(20, 20, 25, 0.35);
@@ -187,9 +187,29 @@
 }
 
 .details-header {
-    display: flex;
-    justify-content: space-between;
-    gap: 1rem;
+    display: grid;
+    grid-template-columns: 1fr auto;
+    grid-template-rows: auto auto;
+    gap: 0.5rem 1rem;
+    align-items: center;
+}
+
+.back-button {
+    grid-column: 1 / -1;
+    justify-self: start;
+}
+
+.details-name {
+    grid-column: 1;
+    grid-row: 2;
+    margin: 0;
+}
+
+.favorite-icon {
+    grid-column: 2;
+    grid-row: 2;
+    justify-self: end;
+    align-self: start;
 }
 
 .details-name {

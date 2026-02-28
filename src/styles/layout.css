@@ -15,6 +15,14 @@ header {
     font-size: 1.6rem;
 }
 
+h1 {
+    margin-bottom: 0px;
+}
+
+.subtitle {
+    margin-top: 0.5rem;
+}
+
 /* Navigation container */
 .nav-search-container {
     margin: 0 1rem;
@@ -23,9 +31,8 @@ header {
 /* Navigation list */
 .site-nav ul {
     display: flex;
-    flex-wrap: wrap;
     list-style: none;
-    gap: 0.5rem;
+    gap: 1rem;
     padding: 0;
 }
 
@@ -46,11 +53,13 @@ header {
 
 /* Footer layout */
 footer {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
     text-align: center;
-    background-color: #292929;
+    background-color: rgb(7, 6, 21, 0.9);
     margin-top: 2rem;
-    padding: 4rem 2rem;
-    gap: 5rem;
+    padding: 1rem;
 }
 
 .category-header {
