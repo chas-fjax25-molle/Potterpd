@@ -3,8 +3,14 @@
     <head>
         <!-- include(../../partials/meta.html) -->
         <script type="module" src="/src/main.js" defer></script>
-        <script type="module" src="/src/books_page.js" defer></script>
-        <link rel="stylesheet" href="/src/styles/abstraction.css" />
+        <link rel="stylesheet" href="/src/styles/abstraction.css" defer/>
+        <script type="module" src="/src/generate_html.js"></script>
+        <script type="module">
+            import {initApp} from "/src/generate_html.js";
+            document.addEventListener("DOMContentLoaded", () => {
+                initApp("books");
+            });
+        </script>
     </head>
 
     <body>

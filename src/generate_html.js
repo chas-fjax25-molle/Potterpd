@@ -1,7 +1,7 @@
 import { getCategoryFilteredBy } from "./RequestsFromAPI";
 
 /**
- * @param {Promise<*>} books
+ * @param {Promise<*>} res
  */
 let res = null;
 
@@ -10,9 +10,13 @@ let res = null;
  */
 let container = null;
 
-async function initApp() {
+/**
+ * @param {string} category
+ */
+
+export async function initApp(category) {
     ensureContainer();
-    res = await getCategoryFilteredBy("books", "title_cont", "", 1);
+    res = await getCategoryFilteredBy(category, "title_cont", "", 1);
 
     const generatedHTML = generateHTMLFromData(res, "data", "title");
 
@@ -46,6 +50,7 @@ function generateHTMLFromData(
     data,
     dataArrayKey = "data",
     titleKey = "title",
+    nameKey = "name",
     imageExtensions = /\.(png|jpe?g|gif|svg)$/i,
     urlPattern = /^(https?:\/\/)[^\s/$.?#].[^\s]*(?<!\.(jpg|jpeg|png|gif|bmp|svg))$/i
 ) {
@@ -61,6 +66,9 @@ function generateHTMLFromData(
             if (titleKey in item.attributes) {
                 html += `<h3 id="heading">${item.attributes[titleKey]}</h3>`;
             }
+            if (nameKey in item.attributes) {
+                html += `<h3 id="heading">${item.attributes[nameKey]}</h3>`;
+            }
             for (const key in item.attributes) {
                 // Checks if attribute is an image
                 if (String(item.attributes[key]).match(imageExtensions)) {
@@ -68,9 +76,15 @@ function generateHTMLFromData(
                     alt="${item.attributes[titleKey]} image" class="image" width="200"></img>`;
                 }
                 // Checks so wanted data is made to be displayed as text
-                if (key !== titleKey && key !== "id" && key !== "type" && key !== "slug" &&
+                if (
+                    key !== titleKey &&
+                    key !== nameKey &&
+                    key !== "id" &&
+                    key !== "type" &&
+                    key !== "slug" &&
                     !String(item.attributes[key]).match(urlPattern) &&
-                    !String(item.attributes[key]).match(imageExtensions)) {
+                    !String(item.attributes[key]).match(imageExtensions)
+                ) {
                     // Avoiding redundant info like id and type
                     html += `<p aria-label='${key}: ${item.attributes[key]}' ><strong>${key}:</strong> ${item.attributes[key]}</p>`;
                 }
@@ -89,7 +103,3 @@ function generateHTMLFromData(
 
     return html;
 }
-
-
-initApp();
-
