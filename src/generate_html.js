@@ -84,6 +84,7 @@ function generateHTMLFromData(
                 html += `<h3 id="heading" class="heading">${item.attributes[nameKey]}</h3>`;
             }
 
+            
             html += "</div>";
 
             html += "<div class=\"hidden\">";
