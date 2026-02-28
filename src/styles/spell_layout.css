@@ -33,7 +33,6 @@
     position: relative;
     background: rgba(20, 20, 25, 0.35);
     -webkit-backdrop-filter: blur(16px);
-    backdrop-filter: blur(16px);
     transition:
         box-shadow 0.15s ease,
         transform 0.15s ease;
@@ -141,7 +140,6 @@
     color: gold;
     background: rgba(20, 20, 25, 0.35);
     -webkit-backdrop-filter: blur(16px);
-    backdrop-filter: blur(16px);
     padding: 0.15rem 0.35rem;
     border-radius: 6px;
     z-index: 3;
@@ -166,7 +164,6 @@
     gap: 1.5rem;
     background: rgba(20, 20, 25, 0.35);
     -webkit-backdrop-filter: blur(16px);
-    backdrop-filter: blur(16px);
     border-radius: 12px;
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
 }

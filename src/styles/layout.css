@@ -29,7 +29,8 @@ header {
     padding: 0;
 }
 
-.site-nav a, .search-filter a {
+.site-nav a,
+.search-filter a {
     display: block;
     height: 32px;
 }

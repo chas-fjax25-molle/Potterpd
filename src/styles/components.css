@@ -10,14 +10,16 @@ it belongs here.
 */
 
 /* Navigation links */
-.site-nav a, .search-filter a {
+.site-nav a,
+.search-filter a {
     background-color: rgb(7, 6, 21);
     font-size: 17px;
     border-radius: 5px;
     padding: 0.5rem;
 }
 
-.site-nav span, .search-filter span {
+.site-nav span,
+.search-filter span {
     display: none;
 }
 
@@ -41,15 +43,14 @@ it belongs here.
 }
 
 .visually-hidden {
-  position: absolute;
-  width: 1px;
-  height: 1px;
-  padding: 0;
-  margin: -1px;
-  overflow: hidden;
-  clip: rect(0 0 0 0);
-  white-space: nowrap;
-  border: 0;
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    white-space: nowrap;
+    border: 0;
 }
 
 .search-container,
