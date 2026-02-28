@@ -120,36 +120,4 @@ to layout and components for larger screens.
         margin: 6rem;
         padding: 2rem;
     }
-
-    .details-card {
-        display: flex;
-        flex-direction: row;
-    }
-
-    .details-image-container {
-        position: relative; /* needed for overlay placement */
-        width: 500px;
-        height: 500px;
-    }
-
-    .details-image {
-        width: 500px;
-        height: 500px;
-    }
-
-    .details-grid {
-        display: flex;
-        flex-direction: column;
-        padding: 1rem;
-    }
-
-    .details-value {
-        padding-bottom: 0.6rem;
-    }
-
-    .details-header {
-        flex-direction: row;
-        align-items: center;
-        padding: 1rem 0;
-    }
 }
