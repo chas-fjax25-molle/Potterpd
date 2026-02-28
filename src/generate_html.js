@@ -68,7 +68,8 @@ function generateHTMLFromData(
                 // eslint-disable-next-line quotes
                 '">';
 
-            html += "<div class=\"card\">";
+            // eslint-disable-next-line quotes
+            html += '<div class="card">';
             for (const key in item.attributes) {
                 // Checks if attribute is an image
                 if (String(item.attributes[key]).match(imageExtensions)) {
@@ -84,10 +85,10 @@ function generateHTMLFromData(
                 html += `<h3 id="heading" class="heading">${item.attributes[nameKey]}</h3>`;
             }
 
-            
             html += "</div>";
 
-            html += "<div class=\"hidden\">";
+            // eslint-disable-next-line quotes
+            html += '<div class="hidden">';
             for (const key in item.attributes) {
                 // Checks so wanted data is made to be displayed as text
                 if (
