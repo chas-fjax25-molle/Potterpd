@@ -15,6 +15,14 @@ header {
     font-size: 1.6rem;
 }
 
+h1 {
+    margin-bottom: 0px;
+}
+
+.subtitle {
+    margin-top: 0.5rem;
+}
+
 /* Navigation container */
 .nav-search-container {
     margin: 0 1rem;
