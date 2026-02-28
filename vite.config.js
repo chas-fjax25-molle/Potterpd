@@ -12,6 +12,25 @@ import fs from "fs";
 /**
  * @param {{ base?: string }} [options] - Plugin options
  */
+/**
+ * Convert Vite's injected <link rel="stylesheet"> tags into async preload+swap
+ * to remove them from the critical rendering path.
+ */
+function deferNonCriticalCss() {
+    return {
+        name: "defer-non-critical-css",
+        apply: "build",
+        transformIndexHtml(html) {
+            return html.replace(
+                /<link rel="stylesheet" crossorigin href="([^"]+\.css)">/g,
+                (_, href) =>
+                    `<link rel="preload" as="style" href="${href}" onload="this.onload=null;this.rel='stylesheet'">` +
+                    `<noscript><link rel="stylesheet" href="${href}"></noscript>`
+            );
+        },
+    };
+}
+
 function htmlPartials(options = {}) {
     return {
         name: "html-partials",
@@ -52,9 +71,11 @@ export default defineConfig(({ mode }) => {
             // Provide the resolved `base` to the HTML transformation plugin so
             // templates like ${basepath} can be replaced during build.
             htmlPartials({ base }),
+            deferNonCriticalCss(),
             eslint(),
             VitePWA({
                 registerType: "autoUpdate",
+                injectRegister: "script-defer",
                 devOptions: { enabled: true },
 
                 manifest: {
@@ -229,6 +250,16 @@ export default defineConfig(({ mode }) => {
             outDir: resolve(rootDir, "dist"),
             emptyOutDir: true,
             rollupOptions: {
+                output: {
+                    // Keep font filenames stable so we can hardcode the preload path.
+                    // All other assets keep their content-hashed names.
+                    assetFileNames: (assetInfo) => {
+                        if (/\.(ttf|woff2?|otf|eot)$/i.test(assetInfo.name ?? "")) {
+                            return "assets/fonts/[name][extname]";
+                        }
+                        return "assets/[name]-[hash][extname]";
+                    },
+                },
                 // Define all the HTML entry points
                 input: {
                     main: resolve(rootDir, "pages/index.html"),
