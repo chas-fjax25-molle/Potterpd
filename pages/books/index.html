@@ -3,6 +3,14 @@
     <head>
         <!-- include(../../partials/meta.html) -->
         <script type="module" src="/src/main.js" defer></script>
+        <link rel="stylesheet" href="/src/styles/abstraction.css" defer />
+        <script type="module" src="/src/generate_html.js"></script>
+        <script type="module">
+            import { initApp } from "/src/generate_html.js";
+            document.addEventListener("DOMContentLoaded", () => {
+                initApp("books");
+            });
+        </script>
     </head>
 
     <body>
@@ -11,9 +19,7 @@
         <main>
             <section class="section-container">
                 <h2 class="category-header">Books</h2>
-                <div id="list-container" class="list-container">
-                    <div class="list-view"></div>
-                </div>
+                <article id="main-container" class="main-container"></article>
             </section>
         </main>
         <!-- include(../../partials/footer.html) -->
