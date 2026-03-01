@@ -19,11 +19,17 @@
  * @property {(q: string) => any} renderSearch
  */
 
+/*
+ * Base path for the router, can be set via environment variable or defaults to "/"
+ */
+const BASE_PATH = import.meta.env.BASE_URL || "/";
+
 /**
  * @param {EntityRouterOptions} options
  */
 export function createEntityRouter(options) {
-    const { basePath = "/", renderList, renderDetail, renderSearch } = options;
+    const { basePath: sitePath = "/", renderList, renderDetail, renderSearch } = options;
+    const basePath = BASE_PATH + sitePath.replace(/^\//, "").replace(/\/$/, "");
     if (
         typeof renderList !== "function" ||
         typeof renderDetail !== "function" ||
