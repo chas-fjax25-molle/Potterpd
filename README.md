@@ -33,3 +33,17 @@ This project uses a public Harry Potter-themed API (via `RequestsFromAPI.js`) to
 - We have documented everything that was needed in a single document file. Please open the link to read more
 
 `https://docs.google.com/document/d/152PoBv6Bi-K0uk3A_4nNcqaZkAA7to6ug6zP7x15qDw/edit?usp=sharing`
+
+
+
+## En kort video som visar hur appen kan gå från online till offline läge på en mobil enhet samt hur appen skalar från mobil till desktop.
+
+
+https://github.com/user-attachments/assets/6c576266-a9d1-47b0-8dea-c38545da70ff
+
+
+
+
+
+
+
